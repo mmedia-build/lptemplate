@@ -1,0 +1,188 @@
+---
+/**
+ * Three reviews with name, suburb, stars and a job photo. Photo and card
+ * alternate sides on desktop; on phones the card comes first, then the photo.
+ * Holds 1 to 6 items.
+ */
+import type { TestimonialsContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ReviewBadge from '../components/ReviewBadge.astro';
+import Stars from '../components/Stars.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: TestimonialsContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+---
+
+<Section tone={tone} type="testimonials" id={id}>
+  <Container>
+    <ReviewBadge variant="stacked" class="testimonials__badge" />
+    <h2 class="h2 text-center testimonials__headline">{content.headline}</h2>
+    <ul class="testimonials__list">
+      {content.items.map((item, i) => (
+        <li class:list={['testimonial', 'reveal', i % 2 === 1 && 'testimonial--flip']}>
+          <article class="testimonial__card">
+            <Icon ui="quote" size={30} filled class="testimonial__quote-mark" />
+            <h3 class="h3 testimonial__headline">{item.headline}</h3>
+            <p class="testimonial__body">{item.body}</p>
+            <div class="testimonial__meta">
+              <p class="testimonial__name">{item.name}, {item.suburb}</p>
+              <Stars rating={item.rating} size={23} class="testimonial__stars" />
+            </div>
+          </article>
+          <div class="testimonial__photo">
+            <ImageSlot
+              image={item.image}
+              slotId={`testimonials.items[${i}].image`}
+              spec={imageSpecs.testimonialImage}
+              description="the reviewer's finished job, subject centred"
+              widths={[350, 395, 700, 790]}
+              sizes="(min-width: 1024px) 395px, calc(100vw - 40px)"
+              class="testimonial__img"
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+    <Cta label={ctaLabel} class="testimonials__cta" />
+  </Container>
+</Section>
+
+<style>
+  .testimonials__badge {
+    margin-bottom: 40px;
+  }
+
+  .testimonials__headline {
+    max-width: 730px;
+    margin-inline: auto;
+    margin-bottom: 30px;
+  }
+
+  .testimonials__list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .testimonial {
+    display: grid;
+    gap: var(--gap-cards);
+  }
+
+  .testimonial__card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--card-pad-testimonial);
+    background: var(--colour-surface-muted);
+  }
+
+  .testimonial__quote-mark {
+    color: var(--colour-accent);
+    margin-bottom: 20px;
+  }
+
+  .testimonial__headline {
+    max-width: 550px;
+    margin-bottom: 20px;
+  }
+
+  .testimonial__body {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .testimonial__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: auto;
+  }
+
+  .testimonial__name {
+    font-size: var(--fs-name);
+    line-height: 1.25;
+    font-weight: var(--weight-semibold);
+  }
+
+  .testimonial__photo {
+    height: 263px;
+    overflow: hidden;
+  }
+
+  .testimonial__photo :global(.testimonial__img),
+  .testimonial__photo :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .testimonials__cta {
+    margin-top: 48px;
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials__badge {
+      margin-bottom: 40px;
+    }
+
+    .testimonials__headline {
+      margin-bottom: 50px;
+    }
+
+    .testimonials__list {
+      gap: 20px;
+    }
+
+    .testimonial {
+      grid-template-columns: 395px 1fr;
+      gap: var(--gap-cards);
+      align-items: stretch;
+    }
+
+    .testimonial--flip {
+      grid-template-columns: 1fr 395px;
+    }
+
+    .testimonial__photo {
+      order: -1;
+      height: 422px;
+    }
+
+    .testimonial--flip .testimonial__photo {
+      order: 1;
+    }
+
+    .testimonial__card {
+      min-height: 422px;
+    }
+
+    .testimonial__body {
+      padding-bottom: 50px;
+      margin-bottom: 40px;
+    }
+
+    .testimonial__meta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .testimonials__cta {
+      margin-top: 50px;
+    }
+  }
+</style>

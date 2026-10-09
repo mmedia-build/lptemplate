@@ -1,0 +1,126 @@
+---
+/**
+ * Drag-to-compare before and after. Works by touch, mouse and keyboard
+ * (arrow keys on the handle). Horizontal drags move the split; vertical
+ * swipes still scroll the page.
+ */
+import type { ImageRef } from '../config/types.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import ImageSlot from './ImageSlot.astro';
+
+interface Props {
+  before: ImageRef;
+  after: ImageRef;
+  beforeLabel: string;
+  afterLabel: string;
+  slotPrefix: string;
+}
+const { before, after, beforeLabel, afterLabel, slotPrefix } = Astro.props;
+---
+
+<div class="compare" data-compare style="--split: 50%">
+  <div class="compare__layer compare__layer--before">
+    <ImageSlot
+      image={before}
+      slotId={`${slotPrefix}.before`}
+      spec={imageSpecs.compareImage}
+      description="before, square, from the kerb"
+      widths={[310, 530, 620, 1060]}
+      sizes="(min-width: 1024px) 530px, calc(100vw - 80px)"
+      class="compare__img"
+    />
+  </div>
+  <div class="compare__layer compare__layer--after" aria-hidden="true">
+    <ImageSlot
+      image={after}
+      slotId={`${slotPrefix}.after`}
+      spec={imageSpecs.compareImage}
+      description="after, square, same position"
+      widths={[310, 530, 620, 1060]}
+      sizes="(min-width: 1024px) 530px, calc(100vw - 80px)"
+      class="compare__img"
+    />
+  </div>
+  <div class="compare__line" aria-hidden="true"></div>
+  <div
+    class="compare__handle"
+    role="slider"
+    tabindex="0"
+    aria-label={`Compare ${beforeLabel} and ${afterLabel}`}
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="50"
+    data-compare-handle
+  >
+    <svg viewBox="0 0 67 67" width="100%" height="100%" aria-hidden="true">
+      <circle cx="33.5" cy="33.5" r="32" fill="#fff" fill-opacity="0.8" stroke="#fff" stroke-width="3" />
+      <path d="M43.7 27.5l7.1 7.1-7.1 7.1" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M22.6 27.5l-7.1 7.1 7.1 7.1" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+</div>
+
+<script>
+  import { initCompareSliders } from '../scripts/compare.ts';
+  initCompareSliders();
+</script>
+
+<style>
+  .compare {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: ew-resize;
+  }
+
+  .compare__layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .compare__layer :global(.compare__img),
+  .compare__layer :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .compare__layer--after {
+    clip-path: inset(0 0 0 var(--split));
+  }
+
+  .compare__line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--split);
+    width: 4px;
+    margin-left: -2px;
+    background: #fff;
+  }
+
+  .compare__handle {
+    position: absolute;
+    top: 50%;
+    left: var(--split);
+    width: var(--compare-handle);
+    height: var(--compare-handle);
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .compare__handle:active {
+    cursor: grabbing;
+  }
+
+  .compare__handle:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: 4px;
+    border-radius: var(--radius-pill);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+/** Row of five stars, filled to the rating. */
+import Icon from './Icon.astro';
+
+interface Props {
+  rating?: number;
+  size?: number;
+  class?: string;
+}
+const { rating = 5, size = 18, class: cls } = Astro.props;
+const stars = [1, 2, 3, 4, 5];
+---
+
+<span class:list={['stars', cls]} role="img" aria-label={`${rating} out of 5 stars`}>
+  {stars.map((n) => (
+    <Icon ui="star" size={size} filled class:list={['stars__star', n > rating && 'stars__star--empty']} />
+  ))}
+</span>
+
+<style>
+  .stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    color: var(--colour-star);
+  }
+
+  .stars__star--empty {
+    color: var(--colour-border);
+  }
+</style>

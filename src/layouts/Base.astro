@@ -1,0 +1,82 @@
+---
+/**
+ * Page shell: head, fonts, tokens, brand overrides, pixel, global scripts.
+ */
+import '../tokens/tokens.css';
+import '../styles/fonts.css';
+import '../styles/base.css';
+import { getImage } from 'astro:assets';
+import { site } from '../lib/site.ts';
+import { resolveImage } from '../lib/images.ts';
+import MetaPixel from '../components/MetaPixel.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Hero image to preload when the hero is the first section with a file. */
+  preloadImage?: string;
+}
+
+const { title, description, preloadImage } = Astro.props;
+const { brand, seo } = site;
+
+const colourVars = Object.entries(brand.colours)
+  .filter(([, value]) => value)
+  .map(([key, value]) => `--colour-${key}:${value}`);
+const fontVars = [`--font-body:'${brand.fonts.family}','Manrope Fallback',system-ui,sans-serif`];
+if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}','Manrope Fallback',system-ui,sans-serif`);
+
+const texture = resolveImage(brand.texture.src);
+let textureVars: string[] = [];
+if (texture.status === 'ok') {
+  const tex = await getImage({ src: texture.image, width: 1200, format: 'webp' });
+  textureVars = [`--texture-image:url(${tex.src})`, '--texture-size:cover'];
+}
+const rootStyle = [...colourVars, ...fontVars, ...textureVars].join(';');
+
+let preload: { href: string; srcset?: string } | null = null;
+const hero = resolveImage(preloadImage);
+if (hero.status === 'ok') {
+  const img = await getImage({ src: hero.image, widths: [480, 780, 1024, 1440, 2048], sizes: '100vw', format: 'avif' });
+  preload = { href: img.src, srcset: img.srcSet.attribute };
+}
+
+const og = resolveImage(seo.ogImage.src);
+let ogUrl: string | null = null;
+if (og.status === 'ok') {
+  const ogImg = await getImage({ src: og.image, width: 1200, format: 'jpg' });
+  ogUrl = ogImg.src;
+}
+---
+
+<!doctype html>
+<html lang="en-AU" style={rootStyle || undefined}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {seo.noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {ogUrl && <meta property="og:image" content={ogUrl} />}
+    <meta name="format-detection" content="telephone=yes" />
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes="100vw" fetchpriority="high" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <MetaPixel />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import { captureUtm } from '../lib/utm.ts';
+      import { trackPhoneClicks } from '../lib/tracking.ts';
+      import { initReveal } from '../scripts/reveal.ts';
+      captureUtm();
+      trackPhoneClicks();
+      initReveal();
+    </script>
+  </body>
+</html>

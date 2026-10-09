@@ -1,0 +1,31 @@
+{
+  "name": "trade-landing-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:content": "node --experimental-strip-types scripts/check-content.mjs",
+    "content-spec": "node --experimental-strip-types scripts/build-content-spec.mjs",
+    "shoot": "node scripts/shoot.mjs docs/build",
+    "verify": "node scripts/verify.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs / && node scripts/lighthouse.mjs /thank-you/",
+    "guide": "GUIDE_MODE=1 astro dev"
+  },
+  "dependencies": {
+    "astro": "^7.3.8",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "lighthouse": "^13.5.0",
+    "playwright": "^1.56.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

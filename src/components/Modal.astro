@@ -1,0 +1,108 @@
+---
+/**
+ * Legal text in a native <dialog>: white panel, scrolls internally, close
+ * button, Escape and backdrop click close it. Opened by any element with
+ * data-open-modal="<id>".
+ */
+import type { LegalDoc } from '../config/types.ts';
+import Icon from './Icon.astro';
+
+interface Props {
+  id: string;
+  doc: LegalDoc;
+}
+const { id, doc } = Astro.props;
+---
+
+<dialog class="modal" data-modal={id} aria-labelledby={`modal-${id}-title`}>
+  <button class="modal__close" type="button" data-close-modal aria-label="Close">
+    <Icon ui="close" size={24} strokeWidth={2} />
+  </button>
+  <div class="modal__body prose">
+    <h2 id={`modal-${id}-title`} class="modal__title">{doc.title}</h2>
+    {doc.sections.map((section) => (
+      <section>
+        {section.heading && <h3>{section.heading}</h3>}
+        {section.paragraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+        {section.bullets && (
+          <ul>
+            {section.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        )}
+      </section>
+    ))}
+  </div>
+</dialog>
+
+<style>
+  .modal {
+    width: 100%;
+    max-width: 672px;
+    max-height: calc(100dvh - 38px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-none);
+    background: var(--colour-surface);
+    color: var(--colour-heading);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .modal::backdrop {
+    background: rgb(0 0 0 / 0.1);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap-min);
+    height: var(--tap-min);
+    color: var(--colour-heading);
+  }
+
+  .modal__body {
+    padding: var(--prose-pad);
+    padding-right: calc(var(--prose-pad) + 24px);
+  }
+
+  .prose :global(h2) {
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: var(--weight-semibold);
+    margin-bottom: 32px;
+  }
+
+  .prose :global(h3) {
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: var(--weight-semibold);
+    margin: 32px 0 16px;
+  }
+
+  .prose :global(p),
+  .prose :global(li) {
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--colour-body);
+    margin-bottom: 21px;
+  }
+
+  .prose :global(ul) {
+    list-style: disc;
+    padding-left: 24px;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 10px;
+  }
+</style>

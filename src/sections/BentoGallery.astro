@@ -1,0 +1,99 @@
+---
+/**
+ * Bento gallery of finished work. Three columns on desktop with wide tiles
+ * spanning two; two columns on phones. Holds 3 to 9 images; mark the wide
+ * ones with wide: true and keep the phone grid even with hideOnMobile.
+ */
+import type { BentoContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import ReviewBadge from '../components/ReviewBadge.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: BentoContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+---
+
+<Section tone={tone} type="bentoGallery" id={id} class="bento">
+  <Container>
+    <ReviewBadge variant="stacked" class="bento__badge" />
+    <h2 class="h2 text-center bento__headline">{content.headline}</h2>
+    <ul class="bento__grid">
+      {content.images.map((image, i) => (
+        <li class:list={['bento__tile', image.wide && 'bento__tile--wide', image.hideOnMobile && 'bento__tile--desktop-only']}>
+          <ImageSlot
+            image={image}
+            slotId={`bentoGallery.images[${i}]`}
+            spec={image.wide ? imageSpecs.bentoWide : imageSpecs.bentoSquare}
+            description={image.wide ? 'finished exterior, wide, no people' : 'finished exterior or detail, square'}
+            widths={image.wide ? [350, 700, 753, 1506] : [171, 342, 367, 734]}
+            sizes={image.wide ? '(min-width: 1024px) 753px, calc(100vw - 40px)' : '(min-width: 1024px) 367px, calc(50vw - 25px)'}
+            class="bento__img"
+          />
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .bento {
+    padding-top: 0;
+  }
+
+  .bento__badge {
+    margin-bottom: 8px;
+  }
+
+  .bento__headline {
+    margin-bottom: 20px;
+  }
+
+  .bento__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 170px;
+    grid-auto-flow: dense;
+    gap: var(--gap-bento);
+  }
+
+  .bento__tile {
+    overflow: hidden;
+  }
+
+  .bento__tile--wide {
+    grid-column: span 2;
+  }
+
+  .bento__tile--desktop-only {
+    display: none;
+  }
+
+  .bento__tile :global(.bento__img),
+  .bento__tile :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .bento__headline {
+      margin-bottom: 50px;
+    }
+
+    .bento__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 366px;
+    }
+
+    .bento__tile--desktop-only {
+      display: block;
+    }
+  }
+</style>

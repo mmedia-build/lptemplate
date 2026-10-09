@@ -1,0 +1,178 @@
+/*
+  Design tokens, measured from the reference page at 390px and 1440px.
+  Mobile values are the base. Desktop values switch in at the --bp-desktop
+  breakpoint (see the media query at the bottom). Client overrides come from
+  site.config.ts (brand.colours and brand.fonts) and are written as inline
+  custom properties on <html> by src/layouts/Base.astro, so they win over
+  the defaults here without editing this file.
+
+  Reference measurements that produced these values are in
+  docs/teardown.md (type scale table) and docs/reference/*.json.
+*/
+
+:root {
+  /* ---- Colour roles ---------------------------------------------------- */
+  --colour-heading: #181819;        /* rgb(24,24,25): h1, h2, h3 */
+  --colour-body: #37373c;           /* rgb(55,55,60): paragraphs, labels, badge text */
+  --colour-body-strong: #1e180b;    /* rgb(30,24,11): header phone number */
+  --colour-primary: #224b1c;        /* rgb(34,75,28): CTA button background */
+  --colour-primary-hover: #1b3d16;  /* darkened primary, hover and active */
+  --colour-on-primary: #ffffff;     /* CTA text */
+  --colour-accent: #839478;         /* rgb(131,148,120): icons, quote marks, decorative sage (reference value) */
+  --colour-accent-text: #5b6b50;    /* darker sage for 14px eyebrow text: 5.7:1 on white, 5.0:1 on the washed hero */
+  --colour-accent-strong: #647558;  /* sage surfaces carrying white text (comparison column, step numbers, check circles): 5.0:1 */
+  --colour-surface: #ffffff;        /* light sections */
+  --colour-surface-muted: #f5f4f0;  /* rgb(245,244,240): steps section, testimonial cards */
+  --colour-surface-dark: #ecebe6;   /* base tint behind the plaster texture on dark sections */
+  --colour-border: #e6e3e1;         /* input borders (reference uses oklch(0.928 0.006 26)) */
+  --colour-border-strong: #ddd8d8;  /* rgb(221,216,216): footer rule */
+  --colour-star: #ff8b00;           /* review stars */
+  --colour-danger: #d32f2f;         /* comparison X icons, inline validation errors: 5.0:1 on white */
+  --colour-focus: #2f6fe4;          /* 1px focus ring on inputs */
+  --colour-placeholder: #737373;    /* input placeholder text: 4.7:1 on white */
+  --colour-slot-bg: #d9d9d9;        /* grey box shown when an image slot is empty */
+  --colour-slot-text: #4a4a4a;
+
+  /* ---- Typography ------------------------------------------------------ */
+  --font-sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Type scale: mobile measured values (desktop in the media query below) */
+  --fs-eyebrow: 14px;        --lh-eyebrow: 1.5;    --ls-eyebrow: 0.2em;
+  --fs-h1: 28px;             --lh-h1: 1.1;         --ls-h1: -0.015em;
+  --fs-h2: 30px;             --lh-h2: 1.2;         --ls-h2: -0.02em;
+  --fs-h3: 18px;             --lh-h3: 1.1;         --ls-h3: -0.02em;
+  --fs-h3-small: 14px;       --lh-h3-small: 1.1;   /* benefit card titles */
+  --fs-h3-step: 20px;        --lh-h3-step: 1.2;
+  --fs-h3-guarantee: 24px;   --lh-h3-guarantee: 1.33;
+  --fs-h3-comparison: 22px;  --lh-h3-comparison: 1.1;
+  --fs-body: 16px;           --lh-body: 1.4;
+  --fs-body-tight: 16px;     --lh-body-tight: 1.5; /* comparison rows, offer bullets */
+  --fs-small: 14px;          --lh-small: 1.2;      /* testimonial quotes, benefit copy */
+  --fs-caption: 12px;        --lh-caption: 1.4;    /* review badge, reinforcement line */
+  --fs-label: 16px;          --lh-label: 1.4;      /* trust strip labels */
+  --fs-name: 16px;           --lh-name: 1;         /* testimonial name */
+  --fs-suburb: 15px;         --lh-suburb: 1;       /* project suburb labels */
+  --fs-button: 15px;         --lh-button: 1.2;
+  --fs-input: 16px;          --lh-input: 1.5;      /* never below 16px: stops iOS zoom */
+  --fs-step-number: 14px;
+  --fs-header-phone: 20px;
+  --fs-header-eyebrow: 12px;
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --container-max: 1180px;   /* content width 1140 at desktop */
+  --container-pad: 20px;     /* side gutter at every width */
+  --narrow-max: 512px;       /* guarantee block */
+  --form-max: 526px;         /* offer bullets and form column on desktop */
+  --section-pad: 50px;       /* vertical padding of a content section */
+  --section-pad-textured-top: 52px;
+  --section-pad-textured-bottom: 44px;
+  --hero-pad-top: 104px;     /* header height plus breathing room */
+  --hero-pad-bottom: 34px;     /* badge to trust strip gap; the strip itself has no top padding */
+  --header-pad: 22px;          /* 22 + 44px phone target + 22 = 88, the reference header is 89 */
+  --header-logo-h: 33px;
+
+  --gap-grid: 8px;           /* full-bleed photo grid */
+  --gap-bento: 9px;
+  --gap-cards: 16px;         /* testimonial and benefit cards */
+  --gap-letter: 10px;        /* image pair in the problem letter */
+  --gap-column: 20px;        /* two-column text/image sections */
+  --gap-steps: 30px;
+  --gap-comparison-rows: 20px;
+  --gap-inline: 8px;
+
+  --card-pad: 32px;          /* benefit cards */
+  --card-pad-testimonial: 20px;
+  --comparison-pad: 30px 10px 28px;
+  --prose-pad: 32px;         /* legal modal */
+
+  /* ---- Shape ----------------------------------------------------------- */
+  --radius-none: 0px;
+  --radius-input: 10px;
+  --radius-media: 8px;       /* video tiles only */
+  --radius-pill: 999px;
+
+  /* ---- Elevation ------------------------------------------------------- */
+  --shadow-button: 0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-step-image: 0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-none: none;
+
+  /* ---- Controls -------------------------------------------------------- */
+  --button-pad: 12px 20px;   /* reference is 10/12 at 40px tall; 12px gives 44px minimum tap height */
+  --button-min-h: 44px;
+  --button-width-mobile: 100%;
+  --input-h: 64px;
+  --input-pad-x: 19px;
+  --input-pad-icon: 60px;
+  --icon-input: 20px;
+  --icon-card: 32px;
+  --icon-trust: 40px;
+  --icon-check: 28px;
+  --icon-bullet: 30px;
+  --step-circle: 36px;
+  --compare-handle: 40px;
+  --tap-min: 44px;
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --marquee-duration: 60s;
+  --marquee-gap: 12px;
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-reveal: 500ms;
+
+  /* ---- Breakpoints (for reference only, custom properties cannot be used in @media) */
+  --bp-desktop: 1024px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-eyebrow: 18px;
+    --fs-h1: 40px;             --ls-h1: -0.027em;
+    --fs-h2: 42px;
+    --fs-h3: 26px;
+    --fs-h3-small: 20px;
+    --fs-h3-step: 26px;
+    --fs-h3-comparison: 25px;
+    --fs-body: 17px;
+    --fs-small: 17px;
+    --fs-caption: 16px;
+    --fs-label: 20px;
+    --fs-suburb: 26px;
+    --fs-button: 18px;
+    --fs-step-number: 32px;
+
+    --section-pad: 100px;
+    --section-pad-textured-top: 100px;
+    --section-pad-textured-bottom: 72px;
+    --hero-pad-top: 150px;
+    --hero-pad-bottom: 80px;
+    --header-logo-h: 50px;
+    --header-pad: 28px;
+
+    --gap-grid: 15px;
+    --gap-bento: 20px;
+    --gap-cards: 20px;
+    --gap-letter: 18px;
+    --gap-column: 40px;
+    --gap-steps: 80px;
+    --gap-comparison-rows: 60px;
+
+    --card-pad-testimonial: 42px;
+    --comparison-pad: 32px 68px 65px;
+
+    --button-pad: 18px 32px 20px;
+    --button-min-h: 60px;
+    --button-width-mobile: auto;
+    --icon-card: 40px;
+    --icon-bullet: 32px;
+    --step-circle: 80px;
+    --compare-handle: 64px;
+  }
+}

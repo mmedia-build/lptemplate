@@ -1,0 +1,129 @@
+---
+/**
+ * The offer and the form: optional urgency line, offer headline, bundle
+ * image, value bullets, lead form and reinforcement line. Carries the CTA
+ * anchor id. Holds 2 to 6 bullets.
+ */
+import type { OfferFormContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { site, ctaTarget } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+interface Props {
+  content: OfferFormContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+const sectionId = id || ctaTarget.replace(/^#/, '');
+const urgency = site.urgency.line.trim();
+---
+
+<Section tone={tone} type="offerForm" id={sectionId} class="offer">
+  <Container>
+    {urgency && <p class="eyebrow text-center offer__urgency">{urgency}</p>}
+    <h2 class="h2 text-center offer__headline">{content.headline}</h2>
+    <div class="offer__bundle reveal">
+      <ImageSlot
+        image={content.bundleImage}
+        slotId="offerForm.bundleImage"
+        spec={imageSpecs.offerBundle}
+        description="device mock-up of the offer, on white"
+        widths={[350, 700, 764, 1528]}
+        sizes="(min-width: 1024px) 764px, calc(100vw - 40px)"
+        class="offer__bundle-img"
+      />
+    </div>
+  </Container>
+  <Container form>
+    <ul class="offer__bullets">
+      {content.bullets.map((bullet) => (
+        <li class="offer__bullet reveal">
+          <span class="offer__check" aria-hidden="true">
+            <Icon ui="check" size={18} strokeWidth={2.5} />
+          </span>
+          <p class="offer__bullet-text">
+            <strong>{bullet.lead}</strong>
+            {bullet.text && ` ${bullet.text}`}
+          </p>
+        </li>
+      ))}
+    </ul>
+    <LeadForm />
+    <p class="caption text-center offer__reinforcement">{content.reinforcement}</p>
+  </Container>
+</Section>
+
+<style>
+  .offer__urgency {
+    margin-bottom: 20px;
+  }
+
+  .offer__headline {
+    max-width: 780px;
+    margin-inline: auto;
+    margin-bottom: 15px;
+  }
+
+  .offer__bundle {
+    width: 100%;
+    max-width: 764px;
+    margin-inline: auto;
+    margin-bottom: 35px;
+  }
+
+  .offer__bundle :global(.offer__bundle-img) {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .offer__bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .offer__bullet {
+    display: grid;
+    grid-template-columns: var(--icon-bullet) 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .offer__check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-bullet);
+    height: var(--icon-bullet);
+    border-radius: var(--radius-pill);
+    background: var(--colour-accent-strong);
+    color: #fff;
+  }
+
+  .offer__bullet-text {
+    font-size: var(--fs-body-tight);
+    line-height: var(--lh-body-tight);
+  }
+
+  .offer__reinforcement {
+    margin-top: 6px;
+  }
+
+  @media (min-width: 1024px) {
+    .offer__headline {
+      margin-bottom: 30px;
+    }
+
+    .offer__bullet {
+      gap: 15px;
+    }
+  }
+</style>

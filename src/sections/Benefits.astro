@@ -1,0 +1,147 @@
+---
+/**
+ * Named-method benefit cards around one photo. Desktop: three columns with
+ * the photo in the centre of the second row when there are five cards.
+ * Phones: cards stacked, photo before the last card. Holds 3 to 6 cards.
+ */
+import type { BenefitsContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: BenefitsContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const items = content.items;
+// Photo position: centre of the second desktop row for five cards, otherwise before the last card.
+const imageIndex = items.length === 5 ? 4 : Math.max(1, items.length - 1);
+const cells: Array<{ kind: 'card'; item: (typeof items)[number] } | { kind: 'image' }> = [];
+items.forEach((item, i) => {
+  if (i === imageIndex) cells.push({ kind: 'image' });
+  cells.push({ kind: 'card', item });
+});
+if (imageIndex >= items.length) cells.push({ kind: 'image' });
+---
+
+<Section tone={tone} type="benefits" id={id}>
+  <Container>
+    <h2 class="h2 text-center benefits__headline">{content.headline}</h2>
+    <ul class="benefits__grid">
+      {cells.map((cell) =>
+        cell.kind === 'card' ? (
+          <li class="benefit reveal">
+            <div class="benefit__head">
+              <Icon name={cell.item.icon} size={40} class="benefit__icon" />
+              <h3 class="benefit__title">{cell.item.title}</h3>
+            </div>
+            <p class="benefit__body">{cell.item.body}</p>
+          </li>
+        ) : (
+          <li class="benefits__photo reveal">
+            <ImageSlot
+              image={content.image}
+              slotId="benefits.image"
+              spec={imageSpecs.benefitsImage}
+              description="crew member finishing a surface by hand"
+              widths={[350, 369, 700, 738]}
+              sizes="(min-width: 1024px) 369px, calc(100vw - 40px)"
+              class="benefits__img"
+            />
+          </li>
+        ),
+      )}
+    </ul>
+    <Cta label={ctaLabel} class="benefits__cta" />
+  </Container>
+</Section>
+
+<style>
+  .benefits__headline {
+    max-width: 702px;
+    margin-inline: auto;
+    margin-bottom: 25px;
+  }
+
+  .benefits__grid {
+    display: grid;
+    gap: var(--gap-cards);
+  }
+
+  .benefit {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: var(--card-pad);
+    background: var(--colour-surface);
+  }
+
+  .benefit__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .benefit__icon {
+    flex: none;
+    width: var(--icon-card);
+    height: var(--icon-card);
+    color: var(--colour-accent);
+  }
+
+  .benefit__title {
+    font-size: var(--fs-h3-small);
+    line-height: var(--lh-h3-small);
+    font-weight: var(--weight-semibold);
+  }
+
+  .benefit__body {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+  }
+
+  .benefits__photo {
+    height: 257px;
+    overflow: hidden;
+  }
+
+  .benefits__photo :global(.benefits__img),
+  .benefits__photo :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .benefits__cta {
+    margin-top: 25px;
+  }
+
+  @media (min-width: 1024px) {
+    .benefits__headline {
+      margin-bottom: 50px;
+    }
+
+    .benefits__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .benefit {
+      min-height: 300px;
+    }
+
+    .benefits__photo {
+      height: 300px;
+    }
+
+    .benefits__cta {
+      margin-top: 48px;
+    }
+  }
+</style>

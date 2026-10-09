@@ -1,0 +1,96 @@
+---
+/**
+ * Portrait video tile. Shows the poster with a play glyph; on tap it swaps in
+ * the host's player (YouTube, Vimeo, Wistia) or a native <video> for an MP4.
+ * No third-party script loads until the visitor chooses to play.
+ */
+import type { ImageRef } from '../config/types.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import ImageSlot from './ImageSlot.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  poster: ImageRef;
+  videoUrl: string;
+  slotId: string;
+  label: string;
+}
+const { poster, videoUrl, slotId, label } = Astro.props;
+---
+
+<div class="video" data-video={videoUrl || undefined}>
+  <ImageSlot
+    image={poster}
+    slotId={slotId}
+    spec={imageSpecs.videoPoster}
+    description="portrait poster frame from the clip"
+    widths={[188, 376, 640]}
+    sizes="(min-width: 1024px) 25vw, 50vw"
+    class="video__poster"
+    labelPosition="bottom"
+  />
+  {videoUrl ? (
+    <button type="button" class="video__play" data-video-play aria-label={`Play video: ${label}`}>
+      <Icon ui="play" size={44} filled />
+    </button>
+  ) : (
+    <span class="video__play video__play--static" aria-hidden="true">
+      <Icon ui="play" size={44} filled />
+    </span>
+  )}
+</div>
+
+<script>
+  import { initVideoTiles } from '../scripts/video.ts';
+  initVideoTiles();
+</script>
+
+<style>
+  .video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    border-radius: var(--radius-media);
+    background: var(--colour-slot-bg);
+  }
+
+  .video :global(.video__poster),
+  .video :global(.slot) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .video__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56%;
+    max-width: 150px;
+    aspect-ratio: 150 / 90;
+    transform: translate(-50%, -50%);
+    background: rgb(131 148 120 / 0.8);
+    color: var(--colour-primary);
+    border-radius: 6px;
+  }
+
+  .video__play--static {
+    pointer-events: none;
+  }
+
+  .video :global(iframe),
+  .video :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+</style>

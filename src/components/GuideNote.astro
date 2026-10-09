@@ -1,0 +1,28 @@
+---
+/**
+ * Guide mode overlay. Renders nothing unless the build ran with GUIDE_MODE=1,
+ * so no guide text or styling reaches a normal build. Styles are inline for
+ * the same reason.
+ */
+import { guideMode } from '../lib/site.ts';
+import { guideNotes } from '../guide/notes.ts';
+
+interface Props {
+  type: keyof typeof guideNotes;
+}
+const { type } = Astro.props;
+const note = guideMode ? guideNotes[type] : null;
+---
+
+{note && (
+  <aside
+    class="guide-note"
+    style="position:absolute;top:8px;left:8px;z-index:20;max-width:min(360px,calc(100% - 16px));padding:10px 12px;background:#1d1d1f;color:#fff;font:500 12px/1.4 system-ui,sans-serif;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.25);pointer-events:none;"
+  >
+    <strong style="display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#b9c7ad;margin-bottom:4px;">
+      {type}
+    </strong>
+    <span style="display:block;margin-bottom:6px;"><b>Job:</b> {note.job}</span>
+    <span style="display:block;"><b>Principle:</b> {note.principle}</span>
+  </aside>
+)}

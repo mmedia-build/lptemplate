@@ -1,0 +1,192 @@
+---
+/**
+ * Numbered process. Desktop: photo, number circle on a dashed rail, text,
+ * alternating sides. Phones: rail on the left, photo then text indented.
+ * Holds 2 to 6 steps.
+ */
+import type { StepsContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: StepsContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const descriptions = ['the visit: crew at the house', 'the work in progress', 'the finished detail'];
+---
+
+<Section tone={tone} type="steps" id={id}>
+  <Container>
+    <h2 class="h2 text-center steps__headline">{content.headline}</h2>
+    <ol class="steps__list">
+      {content.items.map((step, i) => (
+        <li class:list={['step', 'reveal', i % 2 === 1 && 'step--flip']}>
+          <div class="step__photo">
+            <ImageSlot
+              image={step.image}
+              slotId={`steps.items[${i}].image`}
+              spec={imageSpecs.stepImage}
+              description={descriptions[i] ?? 'landscape process photo'}
+              widths={[290, 468, 580, 936]}
+              sizes="(min-width: 1024px) 468px, calc(100vw - 100px)"
+              class="step__img"
+            />
+          </div>
+          <div class="step__rail" aria-hidden="true">
+            <span class="step__number">{String(i + 1).padStart(2, '0')}</span>
+            {i < content.items.length - 1 && <span class="step__line"></span>}
+          </div>
+          <div class="step__text">
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <Cta label={ctaLabel} class="steps__cta" />
+  </Container>
+</Section>
+
+<style>
+  .steps__headline {
+    max-width: 520px;
+    margin-inline: auto;
+    margin-bottom: 30px;
+  }
+
+  .steps__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-steps);
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-template-areas:
+      'rail photo'
+      'rail text';
+    row-gap: 15px;
+  }
+
+  .step__rail {
+    grid-area: rail;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--step-circle);
+    height: var(--step-circle);
+    border-radius: var(--radius-pill);
+    background: var(--colour-accent-strong);
+    color: #fff;
+    font-size: var(--fs-step-number);
+    font-weight: var(--weight-bold);
+    box-shadow: 0 0 0 6px rgb(131 148 120 / 0.2);
+  }
+
+  .step__line {
+    position: absolute;
+    top: calc(var(--step-circle) + 4px);
+    bottom: calc(-1 * var(--gap-steps));
+    left: calc(var(--step-circle) / 2 - 1px);
+    width: 2px;
+    background-image: linear-gradient(to bottom, var(--colour-border-strong) 50%, transparent 50%);
+    background-size: 2px 10px;
+  }
+
+  .step__photo {
+    grid-area: photo;
+    height: 158px;
+    overflow: hidden;
+    box-shadow: var(--shadow-step-image);
+  }
+
+  .step__photo :global(.step__img),
+  .step__photo :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .step__text {
+    grid-area: text;
+  }
+
+  .step__title {
+    font-size: var(--fs-h3-step);
+    line-height: var(--lh-h3-step);
+    font-weight: var(--weight-semibold);
+    letter-spacing: -0.02em;
+    margin-bottom: 5px;
+  }
+
+  .steps__cta {
+    margin-top: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    .steps__headline {
+      margin-bottom: 50px;
+    }
+
+    .steps__list {
+      max-width: 1116px;
+      margin-inline: auto;
+    }
+
+    .step {
+      grid-template-columns: 1fr var(--step-circle) 1fr;
+      grid-template-areas: 'photo rail text';
+      column-gap: 50px;
+      align-items: center;
+    }
+
+    .step--flip {
+      grid-template-areas: 'text rail photo';
+    }
+
+    .step__rail {
+      align-items: center;
+      align-self: stretch;
+    }
+
+    .step__number {
+      box-shadow: 0 0 0 10px rgb(131 148 120 / 0.2);
+    }
+
+    .step__line {
+      top: calc(var(--step-circle) + 12px);
+      bottom: calc(-1 * var(--gap-steps) - 12px);
+      left: calc(50% - 1px);
+    }
+
+    .step__photo {
+      height: 268px;
+    }
+
+    .step__body {
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .steps__cta {
+      margin-top: 48px;
+    }
+  }
+</style>

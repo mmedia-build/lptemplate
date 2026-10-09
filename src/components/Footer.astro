@@ -1,0 +1,109 @@
+---
+/**
+ * Logo, copyright, optional ABN, and the legal texts as modal buttons.
+ * No outbound links: the only exits on the page are the form and the phone.
+ */
+import { site, currentYear } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import ImageSlot from './ImageSlot.astro';
+import Modal from './Modal.astro';
+import GuideNote from './GuideNote.astro';
+
+const { business, legal, footer } = site;
+---
+
+<footer class="footer">
+  <GuideNote type="footer" />
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <ImageSlot
+          image={business.logo}
+          slotId="business.logo"
+          spec={imageSpecs.logo}
+          description="full colour logo"
+          widths={[120, 240, 440]}
+          sizes="120px"
+          class="footer__logo-img"
+        />
+      </div>
+      <p class="footer__line">
+        Copyright &copy; <span>{currentYear}</span> {business.name}. {footer.copyrightSuffix}
+        {business.abn && <span class="footer__abn">ABN {business.abn}</span>}
+      </p>
+      <p class="footer__legal">
+        <button type="button" class="footer__legal-btn" data-open-modal="terms">{legal.terms.label}</button>
+        <span aria-hidden="true">·</span>
+        <button type="button" class="footer__legal-btn" data-open-modal="privacy">{legal.privacy.label}</button>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<Modal id="terms" doc={legal.terms} />
+<Modal id="privacy" doc={legal.privacy} />
+
+<script>
+  import { initModals } from '../scripts/modal.ts';
+  initModals();
+</script>
+
+<style>
+  .footer {
+    background: var(--colour-surface);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px 0;
+    border-top: 1px solid var(--colour-border-strong);
+    text-align: center;
+  }
+
+  .footer__logo {
+    width: 120px;
+    height: 40px;
+  }
+
+  .footer__logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .footer__line {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+  }
+
+  .footer__abn {
+    display: block;
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px 10px;
+    font-size: var(--fs-body);
+  }
+
+  .footer__legal-btn {
+    min-height: var(--tap-min);
+    padding: 0 6px;
+    color: var(--colour-body);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 1024px) {
+    .footer__inner {
+      padding: 80px 0 30px;
+    }
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+/**
+ * The landing page. Renders config.sections in order; backgrounds are
+ * planned from the rendered order, so removing or reordering sections keeps
+ * the page looking deliberate.
+ */
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../lib/site.ts';
+import { planSections } from '../lib/sections.ts';
+import { registry } from '../sections/registry.ts';
+
+const plan = planSections(site.sections);
+const first = plan[0]?.section;
+const heroFirst = first?.type === 'hero';
+const heroImage = first?.type === 'hero' ? first.content.image.src : undefined;
+---
+
+<Base title={site.seo.title} description={site.seo.description} preloadImage={heroImage}>
+  <Header overlay={heroFirst} />
+  <main>
+    {plan.map(({ section, tone }) => {
+      const Component = registry[section.type];
+      return <Component content={section.content} tone={tone} id={section.id} ctaLabel={section.ctaLabel} />;
+    })}
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,202 @@
+---
+/**
+ * Us versus most other tradies: two columns, sage and white, ticks and
+ * crosses. Columns stay side by side on phones (as the reference) and stack
+ * only below 375px. Each column holds 2 to 6 rows.
+ */
+import type { ComparisonContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { site } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: ComparisonContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const logoWhite = site.business.logoWhite;
+---
+
+<Section tone={tone} type="comparison" id={id}>
+  <Container>
+    <h2 class="h2 text-center comparison__headline">{content.headline}</h2>
+    <div class="comparison">
+      <div class="comparison__col comparison__col--us">
+        <div class="comparison__title comparison__title--us">
+          {logoWhite.src ? (
+            <ImageSlot image={logoWhite} slotId="business.logoWhite" spec={imageSpecs.logoWhite} description="white logo" widths={[131, 262]} sizes="131px" class="comparison__logo" placeholder={false} />
+          ) : (
+            <span class="comparison__brand">{content.us.title}</span>
+          )}
+        </div>
+        <ul class="comparison__rows">
+          {content.us.items.map((row) => (
+            <li class="comparison__row reveal">
+              <Icon ui="check" size={28} strokeWidth={2.25} class="comparison__icon comparison__icon--check" />
+              <p class="comparison__text">
+                <strong>{row.lead}</strong> {row.text}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="comparison__col comparison__col--them">
+        <p class="comparison__title comparison__title--them">{content.them.title}</p>
+        <ul class="comparison__rows">
+          {content.them.items.map((row) => (
+            <li class="comparison__row reveal">
+              <span class="comparison__icon comparison__icon--cross" aria-hidden="true">
+                <Icon ui="cross" size={14} strokeWidth={3} />
+              </span>
+              <p class="comparison__text">
+                <strong>{row.lead}</strong> {row.text}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <Cta label={ctaLabel} class="comparison__cta" />
+  </Container>
+</Section>
+
+<style>
+  .comparison__headline {
+    margin-bottom: 25px;
+  }
+
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-inline: auto;
+  }
+
+  .comparison__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-comparison-rows);
+    padding: var(--comparison-pad);
+  }
+
+  .comparison__col--us {
+    background: var(--colour-accent-strong);
+    color: #fff;
+  }
+
+  .comparison__col--them {
+    background: var(--colour-surface);
+    color: var(--colour-body);
+  }
+
+  .comparison__title {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    margin-bottom: 10px;
+  }
+
+  .comparison__title--us {
+    justify-content: center;
+  }
+
+  .comparison__logo {
+    width: 104px;
+    height: 46px;
+    object-fit: contain;
+  }
+
+  .comparison__brand {
+    font-size: var(--fs-h3-comparison);
+    line-height: 1.1;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .comparison__title--them {
+    font-size: var(--fs-h3-comparison);
+    line-height: 1.1;
+    font-weight: var(--weight-semibold);
+    color: var(--colour-body);
+    max-width: 170px;
+  }
+
+  .comparison__rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-comparison-rows);
+  }
+
+  .comparison__row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+
+  .comparison__icon--check {
+    color: #fff;
+  }
+
+  .comparison__icon--cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-pill);
+    background: var(--colour-danger);
+    color: #fff;
+  }
+
+  .comparison__text {
+    font-size: var(--fs-body-tight);
+    line-height: var(--lh-body-tight);
+  }
+
+  .comparison__cta {
+    margin-top: 25px;
+  }
+
+  @media (max-width: 374px) {
+    .comparison {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .comparison__headline {
+      margin-bottom: 50px;
+    }
+
+    .comparison {
+      max-width: 960px;
+    }
+
+    .comparison__title {
+      min-height: 58px;
+      margin-bottom: 20px;
+    }
+
+    .comparison__logo {
+      width: 131px;
+      height: 58px;
+    }
+
+    .comparison__row {
+      gap: 12px;
+    }
+
+    .comparison__cta {
+      margin-top: 62px;
+    }
+  }
+</style>

@@ -1,0 +1,188 @@
+---
+/**
+ * The single lead form. Fields come from config. Validation, loading state,
+ * honeypot and the payload hand-off all live in src/scripts/form.ts, which
+ * calls src/lib/submit-lead.ts (the one file to change when wiring a CRM).
+ */
+import { site, submitLabel } from '../lib/site.ts';
+import Icon from './Icon.astro';
+
+const { form } = site;
+
+const inputAttrs = (type: string): Record<string, string | number> => {
+  switch (type) {
+    case 'email':
+      return { type: 'email', inputmode: 'email', autocomplete: 'email' };
+    case 'tel':
+      return { type: 'tel', inputmode: 'tel', autocomplete: 'tel' };
+    case 'postcode':
+      return { type: 'text', inputmode: 'numeric', autocomplete: 'postal-code', maxlength: 4, pattern: '[0-9]{4}' };
+    default:
+      return { type: 'text', inputmode: 'text', autocomplete: 'on' };
+  }
+};
+
+const rules = form.fields.map((f) => ({ name: f.name, type: f.type, required: f.required, minLength: f.minLength }));
+const formConfig = JSON.stringify({
+  rules,
+  messages: form.messages,
+  destination: form.destination,
+  thankYouPath: form.thankYouPath,
+  sendingLabel: form.sendingLabel,
+});
+---
+
+<form class="form" method="post" action={form.thankYouPath} novalidate data-lead-form data-form-config={formConfig}>
+  <div class="form__fields">
+    {form.fields.map((field) => {
+      const attrs: Record<string, string | number> = field.type === 'textarea' ? {} : inputAttrs(field.type);
+      const id = `field-${field.name}`;
+      return (
+        <div class="field" data-field={field.name}>
+          <label class="visually-hidden" for={id}>{field.label}</label>
+          {field.icon && field.icon !== 'none' && <Icon name={field.icon} size={20} class="field__icon" />}
+          {field.type === 'textarea' ? (
+            <textarea
+              id={id}
+              name={field.name}
+              class="field__input field__input--area"
+              placeholder={field.placeholder}
+              rows={field.rows ?? 3}
+              required={field.required}
+              aria-describedby={`${id}-error`}
+            />
+          ) : (
+            <input
+              id={id}
+              name={field.name}
+              class="field__input"
+              placeholder={field.placeholder}
+              required={field.required}
+              autocomplete={field.autocomplete ?? String(attrs.autocomplete ?? 'on')}
+              aria-describedby={`${id}-error`}
+              {...attrs}
+            />
+          )}
+          <p class="field__error" id={`${id}-error`} aria-live="polite"></p>
+        </div>
+      );
+    })}
+  </div>
+  <div class="form__trap" aria-hidden="true">
+    <label for="field-website">Leave this field empty</label>
+    <input type="text" id="field-website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+  <button type="submit" class="btn form__submit" data-submit>{submitLabel}</button>
+  <p class="form__status" role="status" aria-live="polite" data-form-status></p>
+</form>
+
+<script>
+  import { initLeadForms } from '../scripts/form.ts';
+  initLeadForms();
+</script>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .field {
+    position: relative;
+  }
+
+  .field__icon {
+    position: absolute;
+    top: 22px;
+    left: 20px;
+    color: var(--colour-accent);
+    pointer-events: none;
+  }
+
+  .field__input {
+    display: block;
+    width: 100%;
+    min-height: var(--input-h);
+    padding: 19px var(--input-pad-x) 19px var(--input-pad-icon);
+    font-size: var(--fs-input);
+    line-height: var(--lh-input);
+    color: var(--colour-body);
+    background: var(--colour-surface);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-input);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .field__input::placeholder {
+    color: var(--colour-placeholder);
+    opacity: 1;
+  }
+
+  .field__input:focus {
+    outline: none;
+    border-color: var(--colour-focus);
+    box-shadow: 0 0 0 1px var(--colour-focus);
+  }
+
+  .field__input--area {
+    min-height: 88px;
+    resize: vertical;
+  }
+
+  .field.is-invalid .field__input {
+    border-color: var(--colour-danger);
+    box-shadow: 0 0 0 1px var(--colour-danger);
+  }
+
+  .field__error {
+    display: none;
+    margin-top: 6px;
+    font-size: var(--fs-small);
+    line-height: 1.3;
+    color: var(--colour-danger);
+  }
+
+  .field.is-invalid .field__error {
+    display: block;
+  }
+
+  .form__trap {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form__submit {
+    margin-top: 6px;
+  }
+
+  .form__status {
+    display: none;
+    text-align: center;
+    color: var(--colour-danger);
+    font-size: var(--fs-small);
+  }
+
+  .form__status:not(:empty) {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .form__submit {
+      width: 100%;
+      display: block;
+    }
+  }
+</style>

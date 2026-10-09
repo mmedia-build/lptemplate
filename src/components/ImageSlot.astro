@@ -1,0 +1,144 @@
+---
+/**
+ * Every image on the page goes through this component.
+ *  - With a file: Astro's optimised responsive <img> (webp, srcset, lazy below the fold).
+ *  - Without a file: a neutral grey box at the right aspect ratio, labelled with
+ *    the slot id, export size and the shot needed, so the layout is correct
+ *    before real images go in.
+ * Alt text always comes from config.
+ */
+import { Image, Picture } from 'astro:assets';
+import type { ImageRef } from '../config/types.ts';
+import type { ImageSlotSpec } from '../tokens/tokens.ts';
+import { resolveImage } from '../lib/images.ts';
+
+interface Props {
+  image?: ImageRef;
+  /** Slot id shown on the placeholder, for example "hero.image". */
+  slotId: string;
+  spec: ImageSlotSpec;
+  /** One line describing the shot needed. */
+  description: string;
+  loading?: 'eager' | 'lazy';
+  priority?: boolean;
+  widths?: number[];
+  sizes?: string;
+  /** Use avif plus webp sources (hero only; slower to build). */
+  picture?: boolean;
+  class?: string;
+  /** Set false to render nothing when the image is empty (optional slots). */
+  placeholder?: boolean;
+  /** Where the placeholder label sits. */
+  labelPosition?: 'center' | 'bottom';
+  /** Override the box aspect ratio (defaults to the spec ratio). */
+  ratio?: number;
+}
+
+const {
+  image,
+  slotId,
+  spec,
+  description,
+  loading = 'lazy',
+  priority = false,
+  widths = [spec.width],
+  sizes = '100vw',
+  picture = false,
+  class: cls,
+  placeholder = true,
+  labelPosition = 'center',
+  ratio = spec.ratio,
+} = Astro.props;
+
+const resolved = resolveImage(image?.src);
+const alt = image?.alt ?? '';
+const label = `${slotId}, ${spec.width}x${spec.height}, ${description}`;
+const style = `aspect-ratio: ${ratio};`;
+---
+
+{resolved.status === 'ok' ? (
+  picture ? (
+    <Picture
+      src={resolved.image}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      formats={['avif', 'webp']}
+      loading={priority ? 'eager' : loading}
+      fetchpriority={priority ? 'high' : undefined}
+      decoding="async"
+      class:list={['img', cls]}
+    />
+  ) : (
+    <Image
+      src={resolved.image}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      format="webp"
+      loading={priority ? 'eager' : loading}
+      fetchpriority={priority ? 'high' : undefined}
+      decoding="async"
+      class:list={['img', cls]}
+    />
+  )
+) : resolved.status === 'missing' ? (
+  <div class:list={['slot', 'slot--missing', cls]} style={style} role="img" aria-label={`Missing image file: ${resolved.src}`}>
+    <span class="slot__label">File not found: {resolved.src}</span>
+  </div>
+) : placeholder ? (
+  <div class:list={['slot', `slot--label-${labelPosition}`, cls]} style={style} role="img" aria-label={label}>
+    <span class="slot__label">{label}</span>
+  </div>
+) : null}
+
+<style>
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .slot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: var(--colour-slot-bg);
+    color: var(--colour-slot-text);
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .slot--missing {
+    background: #f3d9d9;
+    color: #7a1f1f;
+  }
+
+  .slot__label {
+    display: block;
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 1.35;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .slot--label-bottom {
+    align-items: flex-end;
+  }
+
+  .slot--label-bottom .slot__label {
+    text-align: left;
+    align-self: flex-end;
+  }
+
+  @container (max-width: 200px) {
+    .slot__label {
+      font-size: 10px;
+      padding: 6px;
+    }
+  }
+</style>

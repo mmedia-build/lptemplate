@@ -1,0 +1,128 @@
+{
+  "mobileHeight": 15328,
+  "sections390": [
+    {
+      "type": "header",
+      "top": 0,
+      "height": 88
+    },
+    {
+      "type": "hero",
+      "top": 0,
+      "height": 622
+    },
+    {
+      "type": "trustStrip",
+      "top": 622,
+      "height": 161
+    },
+    {
+      "type": "beforeAfter",
+      "top": 783,
+      "height": 311
+    },
+    {
+      "type": "letter",
+      "top": 1094,
+      "height": 1353
+    },
+    {
+      "type": "projects",
+      "top": 2447,
+      "height": 726
+    },
+    {
+      "type": "photoGrid",
+      "top": 3173,
+      "height": 390
+    },
+    {
+      "type": "comparison",
+      "top": 3563,
+      "height": 1226
+    },
+    {
+      "type": "photoGrid",
+      "top": 4790,
+      "height": 390
+    },
+    {
+      "type": "testimonials",
+      "top": 5180,
+      "height": 2279
+    },
+    {
+      "type": "benefits",
+      "top": 7458,
+      "height": 1567
+    },
+    {
+      "type": "futurePacing",
+      "top": 9025,
+      "height": 1001
+    },
+    {
+      "type": "bentoGallery",
+      "top": 10027,
+      "height": 849
+    },
+    {
+      "type": "steps",
+      "top": 10876,
+      "height": 1371
+    },
+    {
+      "type": "guarantee",
+      "top": 12247,
+      "height": 869
+    },
+    {
+      "type": "photoGrid",
+      "top": 13115,
+      "height": 390
+    },
+    {
+      "type": "offerForm",
+      "top": 13505,
+      "height": 1553
+    },
+    {
+      "type": "footer",
+      "top": 15058,
+      "height": 270
+    }
+  ],
+  "firstScreen": {
+    "headline": {
+      "top": 166,
+      "bottom": 382,
+      "fullyVisible": true
+    },
+    "cta": {
+      "top": 544,
+      "bottom": 588,
+      "fullyVisible": true
+    },
+    "badge": null,
+    "eyebrow": {
+      "top": 104,
+      "bottom": 146,
+      "fullyVisible": true
+    },
+    "body": {
+      "top": 402,
+      "bottom": 514,
+      "fullyVisible": true
+    }
+  },
+  "overflow360": {
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "overflowing": []
+  },
+  "overflow430": {
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "overflowing": []
+  }
+}

@@ -1,0 +1,74 @@
+---
+/**
+ * Pure CSS marquee. The slot content is rendered `copies` times so the loop
+ * is seamless; extra copies are hidden from assistive tech. Under reduced
+ * motion the row stops and becomes horizontally scrollable with one copy.
+ */
+interface Props {
+  /** Seconds for one copy to travel its own width. */
+  duration?: number;
+  direction?: 'left' | 'right';
+  gap?: string;
+  copies?: number;
+  class?: string;
+  label?: string;
+}
+
+const { duration = 60, direction = 'left', gap = '12px', copies = 2, class: cls, label } = Astro.props;
+const style = `--marquee-duration:${duration}s;--marquee-gap:${gap};`;
+const dir = direction === 'right' ? 'reverse' : 'normal';
+---
+
+<div class:list={['marquee', cls]} style={style} data-direction={dir} role={label ? 'region' : undefined} aria-label={label}>
+  {Array.from({ length: copies }).map((_, i) => (
+    <div class="marquee__track" aria-hidden={i > 0 ? 'true' : undefined} data-copy={i > 0 ? '' : undefined}>
+      <slot />
+    </div>
+  ))}
+</div>
+
+<style>
+  .marquee {
+    display: flex;
+    gap: var(--marquee-gap);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee__track {
+    display: flex;
+    flex: none;
+    gap: var(--marquee-gap);
+    animation: marquee-x var(--marquee-duration) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee[data-direction='reverse'] .marquee__track {
+    animation-direction: reverse;
+  }
+
+  @keyframes marquee-x {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--marquee-gap)));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .marquee__track {
+      animation: none;
+    }
+
+    .marquee__track[data-copy] {
+      display: none;
+    }
+  }
+</style>

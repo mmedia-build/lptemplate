@@ -1,0 +1,112 @@
+---
+/**
+ * Hero: qualifying eyebrow, offer headline, supporting paragraph, CTA and
+ * review badge over a washed-out job photo. Everything above the fold at
+ * 390x664. The image is eager, preloaded and never lazy.
+ */
+import type { HeroContent } from '../config/types.ts';
+import { site } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: HeroContent;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, id, ctaLabel } = Astro.props;
+const wash = Math.min(1, Math.max(0, site.brand.heroWash));
+---
+
+<Section tone="hero" type="hero" id={id} padding="none" class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <ImageSlot
+      image={content.image}
+      slotId="hero.image"
+      spec={imageSpecs.heroBackground}
+      description="wide finished job at dusk, house visible, no people"
+      priority
+      picture
+      widths={[480, 780, 1024, 1440, 2048, 2400]}
+      sizes="100vw"
+      class="hero__img"
+      labelPosition="bottom"
+    />
+    <div class="hero__wash" style={`opacity:${wash}`}></div>
+  </div>
+  <Container class="hero__content">
+    <p class="eyebrow hero__eyebrow">{content.eyebrow}</p>
+    <h1 class="h1 hero__headline">{content.headline}</h1>
+    <p class="hero__body">{content.body}</p>
+    <Cta label={ctaLabel} class="hero__cta" />
+  </Container>
+</Section>
+
+<style>
+  .hero {
+    padding-top: var(--hero-pad-top);
+    padding-bottom: var(--hero-pad-bottom);
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg :global(.hero__img),
+  .hero__bg :global(.slot) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .hero__bg :global(.slot__label) {
+    font-size: 10px;
+    line-height: 1.2;
+    padding: 4px 8px;
+    text-align: left;
+  }
+
+  .hero__wash {
+    position: absolute;
+    inset: 0;
+    background: var(--colour-surface);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 20px;
+  }
+
+  .hero__headline {
+    max-width: 1000px;
+    margin-bottom: 20px;
+  }
+
+  .hero__body {
+    max-width: 740px;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__body {
+      font-size: 17px;
+      line-height: 1.4;
+    }
+  }
+</style>

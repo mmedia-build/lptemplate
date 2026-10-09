@@ -1,0 +1,25 @@
+---
+/**
+ * Section shell: background tone, vertical padding, optional id, guide note.
+ * Spacing is padding only. Sections never carry margins, so removing or
+ * reordering them cannot double or collapse the gaps.
+ */
+import type { Tone } from '../lib/sections.ts';
+import type { guideNotes } from '../guide/notes.ts';
+import GuideNote from './GuideNote.astro';
+
+interface Props {
+  tone: Tone;
+  type: keyof typeof guideNotes;
+  id?: string;
+  padding?: 'default' | 'none' | 'flush-bottom';
+  class?: string;
+}
+
+const { tone, type, id, padding = 'default', class: cls } = Astro.props;
+---
+
+<section id={id} class:list={['section', `tone-${tone}`, `section--${padding}`, cls]} data-section={type}>
+  <GuideNote type={type} />
+  <slot />
+</section>

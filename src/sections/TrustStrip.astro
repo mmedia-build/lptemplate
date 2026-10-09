@@ -1,0 +1,108 @@
+---
+/**
+ * Six credibility points. A slow marquee on phones (the reference autoplays
+ * a carousel), a static row on desktop. Holds 3 to 8 items.
+ */
+import type { TrustStripContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Marquee from '../components/Marquee.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  content: TrustStripContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+const items = content.items;
+const duration = Math.max(14, items.length * 4);
+---
+
+<Section tone={tone} type="trustStrip" id={id} padding="none" class="trust">
+  <div class="trust__mobile">
+    <Marquee duration={duration} gap="4px" copies={items.length < 5 ? 3 : 2} label="Why choose us">
+      {items.map((item) => (
+        <div class="trust__item">
+          <Icon name={item.icon} size={40} class="trust__icon" />
+          <p class="trust__label">{item.label}</p>
+        </div>
+      ))}
+    </Marquee>
+  </div>
+  <Container class="trust__desktop">
+    <ul class="trust__row" style={`--count:${items.length}`}>
+      {items.map((item) => (
+        <li class="trust__item">
+          <Icon name={item.icon} size={40} class="trust__icon" />
+          <p class="trust__label">{item.label}</p>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .trust {
+    padding-top: 0;
+    padding-bottom: 34px;
+  }
+
+  .trust__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 138px;
+    flex: none;
+    text-align: center;
+  }
+
+  .trust__icon {
+    color: var(--colour-accent);
+    flex: none;
+  }
+
+  .trust__label {
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    font-weight: var(--weight-medium);
+    color: var(--colour-body);
+    max-width: 130px;
+  }
+
+  .trust__desktop {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .trust {
+      padding-top: 0;
+      padding-bottom: 80px;
+    }
+
+    .trust__mobile {
+      display: none;
+    }
+
+    .trust__desktop {
+      display: block;
+    }
+
+    .trust__row {
+      display: grid;
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+      justify-content: center;
+    }
+
+    .trust__item {
+      width: auto;
+    }
+
+    .trust__label {
+      max-width: 170px;
+    }
+  }
+</style>

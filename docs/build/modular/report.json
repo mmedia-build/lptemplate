@@ -1,0 +1,107 @@
+{
+  "mobileHeight": 12262,
+  "sections390": [
+    {
+      "type": "header",
+      "top": 0,
+      "height": 88
+    },
+    {
+      "type": "hero",
+      "top": 0,
+      "height": 650
+    },
+    {
+      "type": "beforeAfter",
+      "top": 650,
+      "height": 311
+    },
+    {
+      "type": "letter",
+      "top": 961,
+      "height": 1381
+    },
+    {
+      "type": "bentoGallery",
+      "top": 2342,
+      "height": 903
+    },
+    {
+      "type": "photoGrid",
+      "top": 3245,
+      "height": 390
+    },
+    {
+      "type": "steps",
+      "top": 3635,
+      "height": 1399
+    },
+    {
+      "type": "testimonials",
+      "top": 5033,
+      "height": 2392
+    },
+    {
+      "type": "benefits",
+      "top": 7426,
+      "height": 1595
+    },
+    {
+      "type": "futurePacing",
+      "top": 9020,
+      "height": 1029
+    },
+    {
+      "type": "photoGrid",
+      "top": 10050,
+      "height": 390
+    },
+    {
+      "type": "offerForm",
+      "top": 10440,
+      "height": 1553
+    },
+    {
+      "type": "footer",
+      "top": 11993,
+      "height": 270
+    }
+  ],
+  "firstScreen": {
+    "headline": {
+      "top": 166,
+      "bottom": 382,
+      "fullyVisible": true
+    },
+    "cta": {
+      "top": 544,
+      "bottom": 588,
+      "fullyVisible": true
+    },
+    "badge": {
+      "top": 598,
+      "bottom": 616,
+      "fullyVisible": true
+    },
+    "eyebrow": {
+      "top": 104,
+      "bottom": 146,
+      "fullyVisible": true
+    },
+    "body": {
+      "top": 402,
+      "bottom": 514,
+      "fullyVisible": true
+    }
+  },
+  "overflow360": {
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "overflowing": []
+  },
+  "overflow430": {
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "overflowing": []
+  }
+}

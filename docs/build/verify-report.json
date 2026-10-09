@@ -1,0 +1,152 @@
+[
+  {
+    "name": "modular: disabled sections absent",
+    "pass": true,
+    "detail": "hero > beforeAfter > letter > bentoGallery > photoGrid > steps > testimonials > benefits > futurePacing > photoGrid > offerForm"
+  },
+  {
+    "name": "modular: steps now precede testimonials",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "modular: bento follows the letter",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "modular: no two dark sections adjacent",
+    "pass": true,
+    "detail": "hero:hero beforeAfter:light letter:light bentoGallery:light photoGrid:light steps:muted testimonials:light benefits:dark futurePacing:light photoGrid:light offerForm:light"
+  },
+  {
+    "name": "modular: benefits still dark",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no proof: zero badges in output",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no proof: CTAs still present",
+    "pass": true,
+    "detail": "9 buttons"
+  },
+  {
+    "name": "pixel: PageView queued on landing",
+    "pass": true,
+    "detail": "init:000000000000000,track:PageView"
+  },
+  {
+    "name": "inputs: 16px or larger",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "inputs: correct types and inputmodes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "tap targets: buttons and phone link at least 44px",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "pixel: Contact fires on phone click",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "form: empty submit shows an error per required field",
+    "pass": true,
+    "detail": "Please fill in this field | Please fill in this field | Please fill in this field | Please fill in this field | Please fill in this field"
+  },
+  {
+    "name": "form: stays on page after invalid submit",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "form: bad email, phone, postcode and short text are rejected",
+    "pass": true,
+    "detail": "name,email,phone,postcode,description"
+  },
+  {
+    "name": "form: redirects to the thank-you page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "form: payload logged with fields, page URL, UTM and timestamp",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "pixel: Lead fires once on thank-you after submit",
+    "pass": true,
+    "detail": "init:000000000000000,track:PageView,track:Lead"
+  },
+  {
+    "name": "pixel: Lead does not fire again on refresh",
+    "pass": true,
+    "detail": "init:000000000000000,track:PageView"
+  },
+  {
+    "name": "thank-you: phone link present",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no page errors during form flow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "honeypot: filled trap skips the send",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "modal: terms opens",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "modal: Escape closes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "compare: touch drag moves the split",
+    "pass": true,
+    "detail": "split 19.032258064516128%"
+  },
+  {
+    "name": "compare: vertical swipe still scrolls the page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "compare: keyboard moves the split",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "carousel: next button scrolls the track",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "guide mode: notes present when GUIDE_MODE=1",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "guide mode: no guide text in the normal build",
+    "pass": true,
+    "detail": ""
+  }
+]

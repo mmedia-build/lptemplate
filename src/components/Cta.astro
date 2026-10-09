@@ -1,0 +1,42 @@
+---
+/**
+ * The one CTA pattern: button plus review badge beneath. Label comes from
+ * config, overridable per section. Every CTA scrolls to the offer form.
+ */
+import { ctaLabel, ctaTarget } from '../lib/site.ts';
+import ReviewBadge from './ReviewBadge.astro';
+
+interface Props {
+  label?: string;
+  href?: string;
+  badge?: boolean;
+  align?: 'center' | 'start';
+  wide?: boolean;
+  class?: string;
+}
+
+const { label = ctaLabel, href = ctaTarget, badge = true, align = 'center', wide = true, class: cls } = Astro.props;
+---
+
+<div class:list={['cta', `cta--${align}`, cls]}>
+  <a class:list={['btn', wide && 'btn--wide']} href={href}>{label}</a>
+  {badge && <ReviewBadge variant="inline" class="cta__badge" />}
+</div>
+
+<style>
+  .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .cta--start {
+      display: inline-flex;
+      width: auto;
+      align-items: center;
+    }
+  }
+</style>

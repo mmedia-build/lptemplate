@@ -1,0 +1,118 @@
+---
+/**
+ * Problem letter: headline, salutation, paragraphs, CTA, and a pair of
+ * before/after photos of one house. Two columns on desktop; on phones the
+ * headline comes first, then the photos, then the letter.
+ */
+import type { LetterContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: LetterContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const descriptions = ['house from the footpath before the work', 'same house and angle after the work'];
+---
+
+<Section tone={tone} type="letter" id={id}>
+  <Container>
+    <div class="letter">
+      <h2 class="h2 letter__headline">{content.headline}</h2>
+      <div class="letter__images reveal reveal--left">
+        {content.images.map((image, i) => (
+          <ImageSlot
+            image={image}
+            slotId={`letter.images[${i}]`}
+            spec={imageSpecs.letterImage}
+            description={descriptions[i] ?? 'landscape job photo'}
+            widths={[350, 550, 700, 1100]}
+            sizes="(min-width: 1024px) 550px, calc(100vw - 40px)"
+            class="letter__img"
+          />
+        ))}
+      </div>
+      <div class="letter__text">
+        <p class="letter__salutation">{content.salutation}</p>
+        {content.paragraphs.map((p) => (
+          <p class="letter__p">{p}</p>
+        ))}
+      </div>
+      <Cta label={ctaLabel} align="start" wide={false} class="letter__cta" />
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .letter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .letter__headline {
+    text-align: left;
+  }
+
+  .letter__images {
+    display: grid;
+    gap: var(--gap-letter);
+  }
+
+  .letter__text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .letter__salutation {
+    font-weight: var(--weight-bold);
+  }
+
+  .letter__cta {
+    margin-top: 10px;
+  }
+
+  @media (min-width: 1024px) {
+    .letter {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'headline images'
+        'text images'
+        'cta images';
+      grid-template-rows: auto auto 1fr;
+      column-gap: var(--gap-column);
+      row-gap: 20px;
+      align-items: start;
+    }
+
+    .letter__headline {
+      grid-area: headline;
+    }
+
+    .letter__images {
+      grid-area: images;
+      align-self: center;
+    }
+
+    .letter__text {
+      grid-area: text;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .letter__cta {
+      grid-area: cta;
+      margin-top: 30px;
+      align-self: start;
+    }
+  }
+</style>

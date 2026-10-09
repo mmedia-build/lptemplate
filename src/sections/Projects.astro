@@ -1,0 +1,84 @@
+---
+/**
+ * Recent projects: portrait video tiles labelled by suburb in a carousel,
+ * two per view on phones and four on desktop. Holds 2 to 8 items.
+ */
+import type { ProjectsContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Carousel from '../components/Carousel.astro';
+import VideoTile from '../components/VideoTile.astro';
+import Cta from '../components/Cta.astro';
+
+interface Props {
+  content: ProjectsContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+---
+
+<Section tone={tone} type="projects" id={id}>
+  <Container>
+    <h2 class="h2 text-center projects__headline">{content.headline}</h2>
+  </Container>
+  <div class="projects__carousel reveal">
+    <Carousel perView={{ mobile: 2, desktop: 4 }} gap="14px" label="Recent projects by suburb">
+      {content.items.map((item, i) => (
+        <figure class="projects__item">
+          <VideoTile poster={item.poster} videoUrl={item.videoUrl} slotId={`projects.items[${i}].poster`} label={item.suburb} />
+          <figcaption class="projects__suburb">{item.suburb}</figcaption>
+        </figure>
+      ))}
+    </Carousel>
+  </div>
+  <Container>
+    <Cta label={ctaLabel} class="projects__cta" />
+  </Container>
+</Section>
+
+<style>
+  .projects__headline {
+    max-width: 860px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+  }
+
+  .projects__carousel {
+    width: 100%;
+  }
+
+  .projects__item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .projects__suburb {
+    font-size: var(--fs-suburb);
+    line-height: 1;
+    font-weight: var(--weight-bold);
+    text-align: center;
+    color: var(--colour-body);
+  }
+
+  .projects__cta {
+    margin-top: 34px;
+  }
+
+  @media (min-width: 1024px) {
+    .projects__headline {
+      margin-bottom: 60px;
+    }
+
+    .projects__item {
+      gap: 30px;
+    }
+
+    .projects__cta {
+      margin-top: 48px;
+    }
+  }
+</style>
