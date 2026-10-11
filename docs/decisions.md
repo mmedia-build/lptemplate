@@ -55,3 +55,8 @@ Every judgement call made while building the template, one line of reasoning eac
 - The screenshot harness forces reveal animations visible and disables smooth scrolling before capturing. Reason: captures are about layout, and smooth scrolling was being caught mid-move.
 - Fixture configs for the modularity, empty-proof and tracking tests live in `tests/fixtures/` and build to `dist-*` folders through `SITE_CONFIG` and `OUT_DIR`. Reason: the default config and `dist/` are never touched by tests.
 - `docs/content-spec.md` is generated from `src/config/spec.ts`. Reason: one source of truth for the checker, the shot list and the copy brief.
+
+## Launch pathway
+
+- Leads are sent as a flat JSON body with an added `phone_e164` key. Reason: GoHighLevel's Inbound Webhook trigger, Zapier and Make all map flat keys without configuration, and GHL matches contacts on E.164 numbers.
+- The per-client process is a GitHub template repository, a Claude Code session guided by `CLAUDE.md`, a Vercel preview for sign-off and a GHL snapshot workflow. Reason: each step is a copy or a click, so two clients get the same result from the same inputs.

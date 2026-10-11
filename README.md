@@ -18,7 +18,9 @@ Stack: Astro 7 (static output), scoped CSS driven by design tokens, no UI framew
 8. **Check it.** `npm run build` then `npm run verify` (modularity, empty proof, form, tracking, guide mode), `npm run shoot` (screenshots into `docs/build/`) and `npm run lighthouse`.
 9. **Deploy to Vercel.** Import the repository in Vercel. It detects Astro; no settings are needed (output is static, clean URLs, `/thank-you/` is a real route). Every push to the main branch redeploys.
 10. **Connect the domain.** In Vercel, Project, Settings, Domains, add the client's subdomain (for example `offer.clientdomain.com.au`) and create the CNAME record Vercel shows at the client's DNS host. Keep `seo.noindex` true for an ad landing page.
-11. **Wire the form destination.** Set `form.destination.url` in the config, then open `src/lib/submit-lead.ts` and replace the single TODO block with the client's CRM, webhook or email relay. Until then, submits are logged to the browser console and the visitor is still redirected to the thank-you page. The payload holds the field values (phone normalised to a local number), the page URL, first-touch UTM parameters and a timestamp.
+11. **Wire the form destination.** Set `form.destination.url` to the client's GoHighLevel workflow Inbound Webhook URL (or any webhook that accepts JSON). The page POSTs a flat JSON body: the field values, `phone_e164`, `page_url`, `submitted_at`, first-touch UTM keys and anything in `form.destination.extra`. Until a URL is set, submits are logged to the browser console and the visitor is still redirected to the thank-you page. The mapping steps are at the top of `src/lib/submit-lead.ts`.
+
+The repeatable per-client process (intake call, Claude session build, Vercel preview approval, GoHighLevel wiring, launch checks) is in `docs/launch-playbook.md`, with the call script in `docs/intake-brief.md` and the build instructions a Claude session follows in `CLAUDE.md`.
 
 ## What is in the box
 
