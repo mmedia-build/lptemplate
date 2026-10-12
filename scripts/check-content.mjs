@@ -15,8 +15,27 @@ const { textSlots } = await import(pathToFileURL(path.resolve('src/config/spec.t
 
 const US_SPELLINGS = [/\bcolor\b/i, /\bcolors\b/i, /\borganize/i, /\bcenter\b/i, /\bfavorite/i, /\bneighbor/i, /\bcatalog\b/i, /\bprogram\b/i];
 
-function sectionsOfType(type) {
-  return config.sections.filter((s) => s.type === type);
+/**
+ * `type:id` matches the section of that type with that id. Plain `type` matches every section
+ * of that type except ones whose id has its own `type:id` entries in the spec, so a reference B
+ * variant (for example comparison with id b-comparison) is measured against its own lengths.
+ */
+const specificIds = new Map();
+for (const slot of textSlots) {
+  const m = slot.path.match(/^sections\[(\w+):([\w-]+)\]/);
+  if (m) (specificIds.get(m[1]) ?? specificIds.set(m[1], new Set()).get(m[1])).add(m[2]);
+}
+function sectionsOfType(selector) {
+  const [type, id] = selector.split(':');
+  if (id) return config.sections.filter((s) => s.type === type && s.id === id);
+  const specific = specificIds.get(type);
+  return config.sections.filter((s) => s.type === type && !(s.id && specific && specific.has(s.id)));
+}
+
+/** A slot under a section selector is skipped (not failed) when no such section is in this config. */
+function sectionPresent(pathExpr) {
+  const m = pathExpr.match(/^sections\[([\w:-]+)\]/);
+  return m ? sectionsOfType(m[1]).length > 0 : true;
 }
 
 /** Resolves a spec path to one or more [label, text] pairs. */
@@ -30,7 +49,7 @@ function resolve(pathExpr) {
       return;
     }
     const [head, ...rest] = parts;
-    const m = head.match(/^(\w+)\[(\w+)\]$/);
+    const m = head.match(/^(\w+)\[([\w:-]+)\]$/);
     if (m) {
       const [, key, sel] = m;
       const arr = obj?.[key];
@@ -59,16 +78,21 @@ for (const slot of textSlots) {
   const tol = slot.tolerance ?? 0.1;
   const min = Math.floor(slot.chars * (1 - tol));
   const max = Math.ceil(slot.chars * (1 + tol));
+  if (!sectionPresent(slot.path)) {
+    rows.push(['skip', slot.path, '', `${slot.chars}`, 'section not in this config']);
+    continue;
+  }
   const found = resolve(slot.path);
   if (!found.length) {
-    rows.push(['MISSING', slot.path, '', `${slot.chars}`, '']);
-    failures++;
+    const optional = ['cta.reinforcement', 'sections[offerForm].content.lead'].includes(slot.path);
+    rows.push([optional ? 'skip' : 'MISSING', slot.path, '', `${slot.chars}`, optional ? 'optional, not set' : '']);
+    if (!optional) failures++;
     continue;
   }
   for (const [label, text] of found) {
     const len = text.length;
     const problems = [];
-    if (len === 0 && slot.path === 'urgency.line') {
+    if (len === 0 && ['urgency.line', 'cta.reinforcement'].includes(slot.path)) {
       rows.push(['ok', label, '0', `${slot.chars} (optional)`, 'empty by design']);
       continue;
     }

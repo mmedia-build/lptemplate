@@ -5,7 +5,7 @@
  * swipes still scroll the page.
  */
 import type { ImageRef } from '../config/types.ts';
-import { imageSpecs } from '../tokens/tokens.ts';
+import { imageSpecs, type ImageSlotSpec } from '../tokens/tokens.ts';
 import ImageSlot from './ImageSlot.astro';
 
 interface Props {
@@ -14,19 +14,38 @@ interface Props {
   beforeLabel: string;
   afterLabel: string;
   slotPrefix: string;
+  /** Image spec for both halves. Defaults to the square future-pacing slider. */
+  spec?: ImageSlotSpec;
+  /** Box aspect ratio (width / height). Defaults to the spec ratio. */
+  ratio?: number;
+  widths?: number[];
+  sizes?: string;
+  /** Shot descriptions for the before and after placeholders. */
+  descriptions?: [string, string];
 }
-const { before, after, beforeLabel, afterLabel, slotPrefix } = Astro.props;
+const {
+  before,
+  after,
+  beforeLabel,
+  afterLabel,
+  slotPrefix,
+  spec = imageSpecs.compareImage,
+  ratio = spec.ratio,
+  widths = [310, 530, 620, 1060],
+  sizes = '(min-width: 1024px) 530px, calc(100vw - 80px)',
+  descriptions = ['before, square, from the kerb', 'after, square, same position'],
+} = Astro.props;
 ---
 
-<div class="compare" data-compare style="--split: 50%">
+<div class="compare" data-compare style={`--split: 50%; aspect-ratio: ${ratio};`}>
   <div class="compare__layer compare__layer--before">
     <ImageSlot
       image={before}
       slotId={`${slotPrefix}.before`}
-      spec={imageSpecs.compareImage}
-      description="before, square, from the kerb"
-      widths={[310, 530, 620, 1060]}
-      sizes="(min-width: 1024px) 530px, calc(100vw - 80px)"
+      spec={spec}
+      description={descriptions[0]}
+      widths={widths}
+      sizes={sizes}
       class="compare__img"
     />
   </div>
@@ -34,10 +53,10 @@ const { before, after, beforeLabel, afterLabel, slotPrefix } = Astro.props;
     <ImageSlot
       image={after}
       slotId={`${slotPrefix}.after`}
-      spec={imageSpecs.compareImage}
-      description="after, square, same position"
-      widths={[310, 530, 620, 1060]}
-      sizes="(min-width: 1024px) 530px, calc(100vw - 80px)"
+      spec={spec}
+      description={descriptions[1]}
+      widths={widths}
+      sizes={sizes}
       class="compare__img"
     />
   </div>
@@ -69,7 +88,6 @@ const { before, after, beforeLabel, afterLabel, slotPrefix } = Astro.props;
   .compare {
     position: relative;
     width: 100%;
-    aspect-ratio: 1;
     overflow: hidden;
     touch-action: pan-y;
     user-select: none;

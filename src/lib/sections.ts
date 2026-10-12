@@ -2,12 +2,15 @@
  * Decides, from the rendered order alone, which background each section gets.
  * Rules (see docs/decisions.md):
  *  - The hero owns its photo background.
- *  - Strips (trust strip, photo grids, before/after) inherit the tone of the
- *    section above them and do not count towards alternation.
- *  - Comparison, benefits and guarantee prefer the textured "dark" tone, but a
- *    dark section never directly follows another dark section.
+ *  - Strips (trust strip, logo strip, photo grids, gallery, before/after)
+ *    inherit the tone of the section above them and do not count towards
+ *    alternation.
+ *  - Comparison, benefits and guarantee prefer the "dark" tone, but a dark
+ *    section never directly follows another dark section.
  *  - In a run of light sections, every third one becomes "muted" (off-white)
  *    so long runs still have rhythm.
+ *  - A section with `tone` set in config takes that tone and still counts in
+ *    the run, so the sections around it re-plan.
  */
 import type { SectionConfig, SectionType } from '../config/types.ts';
 
@@ -33,6 +36,13 @@ export const sectionMeta: Record<SectionType, SectionMeta> = {
   steps: { surface: 'alternate' },
   guarantee: { surface: 'alternate', prefersDark: true },
   offerForm: { surface: 'alternate' },
+  logoStrip: { surface: 'strip' },
+  gallery: { surface: 'strip' },
+  split: { surface: 'alternate' },
+  statement: { surface: 'alternate' },
+  beforeAfterGrid: { surface: 'alternate' },
+  logoGrid: { surface: 'alternate' },
+  faq: { surface: 'alternate' },
 };
 
 export interface RenderedSection {
@@ -53,11 +63,19 @@ export function planSections(sections: SectionConfig[]): RenderedSection[] {
 
   enabled.forEach((section, index) => {
     const meta = sectionMeta[section.type];
+    const pinned = section.tone && section.tone !== 'auto' ? section.tone : null;
     let tone: Tone;
     if (meta.surface === 'own') {
       tone = 'hero';
       lastCounted = 'light';
       lightRun = 0;
+    } else if (pinned) {
+      tone = pinned;
+      if (meta.surface !== 'strip') {
+        lastCounted = tone;
+        if (tone === 'dark') lightRun = 0;
+        else lightRun += 1;
+      }
     } else if (meta.surface === 'strip') {
       tone = previousTone && previousTone !== 'hero' ? previousTone : 'light';
     } else if (meta.prefersDark && lastCounted !== 'dark') {
@@ -81,7 +99,7 @@ export function planSections(sections: SectionConfig[]): RenderedSection[] {
   return out;
 }
 
-/** True when a section type carries the shared CTA button. */
+/** True when a section type carries the shared CTA button (by default; some types can turn it off per section). */
 export const sectionHasCta: Record<SectionType, boolean> = {
   hero: true,
   trustStrip: false,
@@ -97,4 +115,11 @@ export const sectionHasCta: Record<SectionType, boolean> = {
   steps: true,
   guarantee: false,
   offerForm: true,
+  logoStrip: false,
+  gallery: false,
+  split: true,
+  statement: true,
+  beforeAfterGrid: true,
+  logoGrid: false,
+  faq: true,
 };

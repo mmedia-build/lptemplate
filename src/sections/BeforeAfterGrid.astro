@@ -1,0 +1,101 @@
+---
+/**
+ * Grid of drag-to-compare tiles, one per job, each labelled with a suburb and
+ * room and a one-line caption (reference B's "homes transformed" grid).
+ * Phones: one column. Desktop: three columns. Holds 2 to 9 items.
+ */
+import type { BeforeAfterGridContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import CompareSlider from '../components/CompareSlider.astro';
+
+interface Props {
+  content: BeforeAfterGridContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const showCta = content.showCta !== false;
+---
+
+<Section tone={tone} type="beforeAfterGrid" id={id}>
+  <Container>
+    <h2 class="h2 text-center bag__headline">{content.headline}</h2>
+    <ul class="bag__grid">
+      {content.items.map((item, i) => (
+        <li class="bag__item reveal">
+          <CompareSlider
+            before={item.before}
+            after={item.after}
+            beforeLabel={content.beforeLabel}
+            afterLabel={content.afterLabel}
+            slotPrefix={`beforeAfterGrid.items[${i}]`}
+            spec={imageSpecs.compareTile}
+            ratio={imageSpecs.compareTile.ratio}
+            widths={[358, 369, 716, 738]}
+            sizes="(min-width: 1024px) 369px, calc(100vw - 32px)"
+            descriptions={['before, from the doorway', 'after, same doorway']}
+          />
+          <p class="bag__label">{item.label}</p>
+          <p class="bag__caption">{item.caption}</p>
+        </li>
+      ))}
+    </ul>
+    {showCta && <Cta label={ctaLabel} class="bag__cta" />}
+  </Container>
+</Section>
+
+<style>
+  .bag__headline {
+    max-width: 760px;
+    margin-inline: auto;
+    margin-bottom: 28px;
+  }
+
+  .bag__grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .bag__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bag__label {
+    margin-top: 10px;
+    font-size: var(--fs-small);
+    line-height: 1.6;
+    font-weight: var(--weight-medium);
+    color: var(--colour-accent-text);
+  }
+
+  .bag__caption {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+  }
+
+  .bag__cta {
+    margin-top: 32px;
+  }
+
+  @media (min-width: 1024px) {
+    .bag__headline {
+      margin-bottom: 50px;
+    }
+
+    .bag__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px 16px;
+    }
+
+    .bag__cta {
+      margin-top: 48px;
+    }
+  }
+</style>

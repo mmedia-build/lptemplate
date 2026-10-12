@@ -1,14 +1,17 @@
 ---
 /**
- * The one CTA pattern: button plus review badge beneath. Label comes from
- * config, overridable per section. Every CTA scrolls to the offer form.
+ * The one CTA pattern: button plus one line of proof beneath. The line is
+ * the review badge (reference A) or the bonus reinforcement line (reference B),
+ * chosen by cta.under in config. Label comes from config, overridable per
+ * section. Every CTA scrolls to the offer form.
  */
-import { ctaLabel, ctaTarget } from '../lib/site.ts';
+import { ctaLabel, ctaTarget, ctaUnder, reinforcementLine } from '../lib/site.ts';
 import ReviewBadge from './ReviewBadge.astro';
 
 interface Props {
   label?: string;
   href?: string;
+  /** Set false to show the button alone. */
   badge?: boolean;
   align?: 'center' | 'start';
   wide?: boolean;
@@ -16,11 +19,13 @@ interface Props {
 }
 
 const { label = ctaLabel, href = ctaTarget, badge = true, align = 'center', wide = true, class: cls } = Astro.props;
+const under = badge ? ctaUnder : 'none';
 ---
 
 <div class:list={['cta', `cta--${align}`, cls]}>
   <a class:list={['btn', wide && 'btn--wide']} href={href}>{label}</a>
-  {badge && <ReviewBadge variant="inline" class="cta__badge" />}
+  {under === 'badge' && <ReviewBadge variant="inline" class="cta__badge" />}
+  {under === 'reinforcement' && <p class="cta__line">{reinforcementLine}</p>}
 </div>
 
 <style>
@@ -32,11 +37,25 @@ const { label = ctaLabel, href = ctaTarget, badge = true, align = 'center', wide
     width: 100%;
   }
 
+  .cta__line {
+    max-width: 296px;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: var(--colour-body);
+  }
+
   @media (min-width: 1024px) {
     .cta--start {
       display: inline-flex;
       width: auto;
       align-items: center;
+    }
+
+    .cta__line {
+      max-width: 386px;
+      font-size: var(--fs-body);
     }
   }
 </style>

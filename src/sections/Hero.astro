@@ -19,9 +19,10 @@ interface Props {
 }
 const { content, id, ctaLabel } = Astro.props;
 const wash = Math.min(1, Math.max(0, site.brand.heroWash));
+const band = content.imageLayout === 'band';
 ---
 
-<Section tone="hero" type="hero" id={id} padding="none" class="hero">
+<Section tone="hero" type="hero" id={id} padding="none" class:list={['hero', band && 'hero--band']}>
   <div class="hero__bg" aria-hidden="true">
     <ImageSlot
       image={content.image}
@@ -101,6 +102,54 @@ const wash = Math.min(1, Math.max(0, site.brand.heroWash));
   .hero__body {
     max-width: 740px;
     margin-bottom: 30px;
+  }
+
+  /* Band layout (reference B on phones): flat surface behind the text, the photo as a band under the CTA. */
+  @media (max-width: 1023px) {
+    .hero--band {
+      display: flex;
+      flex-direction: column;
+      padding-top: 88px;
+      padding-bottom: 0;
+    }
+
+    /* Reference B's eyebrow is smaller and tighter than A's, which keeps a 375 character paragraph on the first screen. */
+    .hero--band .hero__eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .hero--band .hero__headline {
+      margin-bottom: 14px;
+    }
+
+    .hero--band .hero__body {
+      margin-bottom: 20px;
+    }
+
+    .hero--band .hero__bg {
+      position: relative;
+      inset: auto;
+      order: 2;
+      margin-top: var(--hero-pad-bottom);
+    }
+
+    .hero--band .hero__bg :global(.hero__img),
+    .hero--band .hero__bg :global(.slot) {
+      position: relative;
+      height: auto;
+      aspect-ratio: 6 / 5;
+      object-fit: cover;
+    }
+
+    .hero--band .hero__wash {
+      display: none;
+    }
+
+    .hero--band .hero__content {
+      order: 1;
+    }
   }
 
   @media (min-width: 1024px) {

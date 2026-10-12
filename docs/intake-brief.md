@@ -43,6 +43,15 @@ Send the client the asset list at the bottom and ask for review figures, logo fi
 21. What will you fix for free if it goes wrong, for how many years, and what is excluded? Do you have a name for it? (`guarantee`)
 22. Send your current terms and payment schedule and your privacy policy. (`legal`)
 
+## Part 5b: For the renovation preset (ask when the job is slow and high value)
+
+21b. Who owns the business, what is their trade background in order, and what licence or registration number can we print? (`split:owner`)
+21c. Which suppliers do you buy from for the five main material categories, and will they let us show their mark? (`logoStrip`, `logoGrid`)
+21d. What are the price bands you quote in, lowest to highest, as you would say them to a customer? (`form.fields[budget].options`)
+21e. If you miss the timeframe, what do you pay the customer, and what has to be true first? Which statutory warranty applies and for how many years? (`guarantee`, terms)
+21f. What are the six questions customers ask on the phone before they book, and your honest answers, including the one where the answer is "no" or "it costs more"? (`faq`)
+21g. What is the one fear that outranks the finished result, in the customer's words, and what do you do about it on site? (`split:liveable`)
+
 ## Part 6: Brand and tracking
 
 23. Logo files (colour and white), brand colours if any, phone number as you want it displayed, business name as customers know it, ABN if you want it shown. (`business`, `brand`)

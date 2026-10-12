@@ -1,7 +1,8 @@
 ---
 /**
- * Full-bleed strip of square job photos: 2x2 on phones, one row on desktop.
- * Holds 2 to 8 images (4 or 8 look best). Inherits the tone of the section above.
+ * Full-bleed strip of square job photos: two per row on phones, `columns`
+ * per row on desktop (default: the image count up to four). Holds 2 to 12
+ * images (4, 6 or 8 look best). Inherits the tone of the section above.
  */
 import type { PhotoGridContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -16,10 +17,11 @@ interface Props {
 }
 const { content, tone, id } = Astro.props;
 const count = content.images.length;
+const columns = Math.max(1, Math.min(6, content.columns ?? Math.min(count, 4)));
 ---
 
 <Section tone={tone} type="photoGrid" id={id} padding="none" class="grid-strip">
-  <ul class="grid-strip__grid reveal reveal--none" style={`--count:${count}`}>
+  <ul class="grid-strip__grid reveal reveal--none" style={`--count:${columns}`}>
     {content.images.map((image, i) => (
       <li class="grid-strip__tile">
         <ImageSlot
@@ -57,7 +59,7 @@ const count = content.images.length;
 
   @media (min-width: 1024px) {
     .grid-strip__grid {
-      grid-template-columns: repeat(min(var(--count), 4), minmax(0, 1fr));
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
     }
   }
 </style>

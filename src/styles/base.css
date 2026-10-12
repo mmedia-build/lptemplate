@@ -197,14 +197,17 @@ strong {
 }
 
 .tone-light {
+  --tone-bg: var(--colour-surface);
   background: var(--colour-surface);
 }
 
 .tone-muted {
+  --tone-bg: var(--colour-surface-muted);
   background: var(--colour-surface-muted);
 }
 
 .tone-dark {
+  --tone-bg: var(--colour-surface-dark);
   background-color: var(--colour-surface-dark);
   background-image: var(--texture-image, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.24 0 0 0 0 0.22 0 0 0 0 0.18 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23n)'/%3E%3C/svg%3E"));
   background-size: var(--texture-size, 420px 420px);
@@ -216,7 +219,53 @@ strong {
   padding-bottom: var(--section-pad-textured-bottom);
 }
 
+/*
+  Night variant of the dark tone (reference B): a near-black section with the
+  brand texture photo blurred behind white text. Cards that carry their own
+  light surface inside a night section keep dark text.
+*/
+[data-dark-tone='night'] .tone-dark {
+  --tone-bg: var(--colour-night);
+  --colour-heading: #ffffff;
+  --colour-body: #ffffff;
+  --colour-accent-text: var(--colour-accent);
+  color: #fff;
+  background-color: var(--colour-night);
+  background-image: var(--texture-image, none);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+[data-dark-tone='night'] .tone-dark::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  z-index: 0;
+  background: inherit;
+  filter: blur(18px) brightness(0.45);
+  pointer-events: none;
+}
+
+[data-dark-tone='night'] .tone-dark > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-dark-tone='night'] .tone-dark.section--default {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+[data-dark-tone='night'] .tone-dark :is(.benefit, .comparison__col--them, .comparison__card, .testimonial__card, .faq__item, .step--row, .logogrid__tile) {
+  --colour-heading: #181819;
+  --colour-body: #37373c;
+  --colour-accent-text: #5b6b50;
+  color: var(--colour-body);
+}
+
 .tone-hero {
+  --tone-bg: var(--colour-surface);
   background: var(--colour-surface);
 }
 

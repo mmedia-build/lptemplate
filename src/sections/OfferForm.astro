@@ -41,6 +41,7 @@ const urgency = site.urgency.line.trim();
     </div>
   </Container>
   <Container form>
+    {content.lead && <p class="offer__lead">{content.lead}</p>}
     <ul class="offer__bullets">
       {content.bullets.map((bullet) => (
         <li class="offer__bullet reveal">
@@ -81,6 +82,10 @@ const urgency = site.urgency.line.trim();
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  .offer__lead {
+    margin-bottom: 20px;
   }
 
   .offer__bullets {

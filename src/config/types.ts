@@ -50,6 +50,17 @@ export interface Brand {
   texture: ImageRef;
   /** 0 to 1. White wash laid over the hero photo so dark text stays readable. 0 means none. */
   heroWash: number;
+  /**
+   * How "dark" sections look. 'texture' is the light plaster of reference A (dark text);
+   * 'night' is the black section of reference B (white text over the blurred texture image).
+   */
+  darkTone: 'texture' | 'night';
+  /**
+   * Any layout token from src/tokens/tokens.css, keyed without the leading dashes, for example
+   * { 'section-pad': '50px', 'radius-input': '0px' }. For the handful of values that differ between
+   * the two reference pages; most clients leave this empty.
+   */
+  tokens: Record<string, string>;
 }
 
 export interface Proof {
@@ -66,12 +77,12 @@ export interface Tracking {
   metaPixelId: string;
 }
 
-export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea';
+export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select';
 
 export interface FormField {
   name: string;
   type: FieldType;
-  /** Visually hidden label for screen readers. */
+  /** Visually hidden label for screen readers. For a select it is also the first, unselectable option. */
   label: string;
   placeholder: string;
   required: boolean;
@@ -80,6 +91,8 @@ export interface FormField {
   icon?: IconName;
   minLength?: number;
   rows?: number;
+  /** Choices for a select field, in the client's own words (for example budget ranges). */
+  options?: string[];
 }
 
 export interface FormConfig {
@@ -128,6 +141,13 @@ export interface Cta {
   label: string;
   /** Anchor every CTA scrolls to. Must match the id of the offer form section. */
   target: string;
+  /**
+   * What sits under every CTA button. 'auto' shows the review badge when proof is set and the
+   * reinforcement line otherwise; 'badge', 'reinforcement' and 'none' force one or nothing.
+   */
+  under: 'auto' | 'badge' | 'reinforcement' | 'none';
+  /** One line restating the bonus and its value, for pages without a review profile. Empty hides it. */
+  reinforcement: string;
 }
 
 export interface Header {
@@ -142,10 +162,20 @@ export interface HeroContent {
   headline: string;
   body: string;
   image: ImageRef;
+  /**
+   * 'cover': the photo fills the hero behind the text (reference A, needs a washed photo).
+   * 'band': on phones the photo sits as a band under the CTA with the text on a flat surface
+   * (reference B); on desktop it covers as usual.
+   */
+  imageLayout?: 'cover' | 'band';
 }
 
 export interface TrustItem { icon: IconName; label: string }
-export interface TrustStripContent { items: TrustItem[] }
+export interface TrustStripContent {
+  items: TrustItem[];
+  /** 'strip': icons over labels on the page surface (A). 'panel': a charcoal panel with accent icons and white uppercase labels (B). */
+  variant?: 'strip' | 'panel';
+}
 
 export interface BeforeAfterPair { before: ImageRef; after: ImageRef }
 export interface BeforeAfterContent {
@@ -172,28 +202,48 @@ export interface ProjectItem {
 }
 export interface ProjectsContent { headline: string; items: ProjectItem[] }
 
-export interface PhotoGridContent { images: ImageRef[] }
+export interface PhotoGridContent {
+  images: ImageRef[];
+  /** Tiles per row on desktop (phones always show two). Defaults to the image count up to four. */
+  columns?: number;
+}
 
 export interface ComparisonRow { lead: string; text: string }
 export interface ComparisonContent {
   headline: string;
   us: { title: string; items: ComparisonRow[] };
   them: { title: string; items: ComparisonRow[] };
+  /** 'columns': two joined columns, accent and white (A). 'cards': two white cards with header plates and a dashed accent border on ours (B). */
+  layout?: 'columns' | 'cards';
 }
 
 export interface Testimonial {
+  /** The reviewer's own summary line (A) or the job type (B). */
   headline: string;
   body: string;
-  name: string;
-  suburb: string;
-  /** 1 to 5. */
-  rating: number;
+  /** Optional in the carousel layout; the rows layout expects all three. */
+  name?: string;
+  suburb?: string;
+  /** 1 to 5. Omit or set 0 to hide the stars. */
+  rating?: number;
   image: ImageRef;
 }
-export interface TestimonialsContent { headline: string; items: Testimonial[] }
+export interface TestimonialsContent {
+  headline: string;
+  items: Testimonial[];
+  /** 'rows': photo beside a card, alternating sides (A). 'carousel': one swipeable slide at a time with the photo above the quote (B). */
+  layout?: 'rows' | 'carousel';
+}
 
 export interface BenefitItem { icon: IconName; title: string; body: string }
-export interface BenefitsContent { headline: string; items: BenefitItem[]; image: ImageRef }
+export interface BenefitsContent {
+  headline: string;
+  items: BenefitItem[];
+  /** Used by the grid layout only. */
+  image: ImageRef;
+  /** 'grid': three-column cards around the photo (A). 'list': one column of cards, no photo (B). */
+  layout?: 'grid' | 'list';
+}
 
 export interface FuturePacingContent {
   headline: string;
@@ -213,22 +263,105 @@ export interface BentoImage extends ImageRef {
 export interface BentoContent { headline: string; images: BentoImage[] }
 
 export interface StepItem { title: string; body: string; image: ImageRef }
-export interface StepsContent { headline: string; items: StepItem[] }
+export interface StepsContent {
+  headline: string;
+  items: StepItem[];
+  /** 'rail': number circles on a dashed rail beside the photo (A). 'rows': each step a muted card with the photo on one side and a numbered square (B). */
+  layout?: 'rail' | 'rows';
+}
 
 export interface GuaranteeContent {
   badgeLine1: string;
   badgeLine2: string;
+  /** Optional third badge line, for example the word Guaranteed. */
+  badgeLine3?: string;
   headline: string;
+  /** Optional. Empty hides it. */
   subheadline: string;
   paragraphs: string[];
+  /** Optional decorative image between the paragraphs (reference B shows a floor-plan line drawing). */
+  decorativeImage?: ImageRef;
+  /** Shows a "terms apply" button that opens the terms modal, after the paragraphs. */
+  termsLink?: boolean;
 }
 
 export interface OfferBullet { lead: string; text: string }
 export interface OfferFormContent {
   headline: string;
   bundleImage: ImageRef;
+  /** Optional line introducing the bullets, for example "Here is a fraction of what you will get:". */
+  lead?: string;
   bullets: OfferBullet[];
   reinforcement: string;
+}
+
+/* ---- Section types introduced by reference B ------------------------- */
+
+/** Slow strip of supplier and brand marks. */
+export interface LogoStripContent { logos: ImageRef[] }
+
+/** Wall of finished-job photos cropped to a fixed height with a "see more" button that expands it. */
+export interface GalleryContent {
+  images: ImageRef[];
+  /** Button label, for example "Tap to see more". */
+  moreLabel: string;
+}
+
+/**
+ * Heading, paragraphs and a CTA beside one or two photos. Covers reference B's dream outcome,
+ * problem, owner story and liveable-home sections. Set tone: 'dark' on the section for the problem variant.
+ */
+export interface SplitContent {
+  headline: string;
+  paragraphs: string[];
+  /** One landscape photo (11:10) or two stacked photos (3:2). */
+  images: ImageRef[];
+  /** Which side the photos take on desktop. Phones always show heading, photos, paragraphs. */
+  imageSide: 'left' | 'right';
+  /** Set false to leave the CTA out (for example when the next section opens with one). */
+  showCta?: boolean;
+}
+
+/** Centred heading and paragraphs with no photo in the body, optionally fading into a photo at the foot. */
+export interface StatementContent {
+  headline: string;
+  paragraphs: string[];
+  footImage?: ImageRef;
+  showCta?: boolean;
+}
+
+export interface BeforeAfterGridItem {
+  before: ImageRef;
+  after: ImageRef;
+  /** Suburb and room or surface, for example "Suburb Bathroom". */
+  label: string;
+  /** One line naming the change. */
+  caption: string;
+}
+/** Grid of drag-to-compare tiles, one per job, each labelled with a suburb. */
+export interface BeforeAfterGridContent {
+  headline: string;
+  items: BeforeAfterGridItem[];
+  beforeLabel: string;
+  afterLabel: string;
+  showCta?: boolean;
+}
+
+/** Durability promise with the suppliers' marks on white tiles. */
+export interface LogoGridContent {
+  headline: string;
+  paragraphs: string[];
+  logos: ImageRef[];
+  footImage?: ImageRef;
+  showCta?: boolean;
+}
+
+export interface FaqItem { question: string; answer: string }
+/** Accordion of the questions customers ask on the phone. The first item starts open. */
+export interface FaqContent {
+  headline: string;
+  items: FaqItem[];
+  showCta?: boolean;
 }
 
 export interface SectionBase {
@@ -238,6 +371,11 @@ export interface SectionBase {
   id?: string;
   /** Per-section CTA label override. */
   ctaLabel?: string;
+  /**
+   * Background override. 'auto' (the default) lets the page plan backgrounds from the rendered order;
+   * 'light', 'muted' and 'dark' pin this section. The dark look comes from brand.darkTone.
+   */
+  tone?: 'auto' | 'light' | 'muted' | 'dark';
 }
 
 export type SectionConfig =
@@ -254,7 +392,14 @@ export type SectionConfig =
   | (SectionBase & { type: 'bentoGallery'; content: BentoContent })
   | (SectionBase & { type: 'steps'; content: StepsContent })
   | (SectionBase & { type: 'guarantee'; content: GuaranteeContent })
-  | (SectionBase & { type: 'offerForm'; content: OfferFormContent });
+  | (SectionBase & { type: 'offerForm'; content: OfferFormContent })
+  | (SectionBase & { type: 'logoStrip'; content: LogoStripContent })
+  | (SectionBase & { type: 'gallery'; content: GalleryContent })
+  | (SectionBase & { type: 'split'; content: SplitContent })
+  | (SectionBase & { type: 'statement'; content: StatementContent })
+  | (SectionBase & { type: 'beforeAfterGrid'; content: BeforeAfterGridContent })
+  | (SectionBase & { type: 'logoGrid'; content: LogoGridContent })
+  | (SectionBase & { type: 'faq'; content: FaqContent });
 
 export type SectionType = SectionConfig['type'];
 

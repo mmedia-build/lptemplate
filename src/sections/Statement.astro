@@ -1,0 +1,109 @@
+---
+/**
+ * Centred heading and left-aligned paragraphs with no photo in the body
+ * (reference B's in-house method statement), optionally fading into a
+ * full-width photo at the foot. Holds 1 to 4 paragraphs.
+ */
+import type { StatementContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: StatementContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const showCta = content.showCta !== false;
+const hasFoot = Boolean(content.footImage);
+const prefix = id ? `statement#${id}` : 'statement';
+---
+
+<Section tone={tone} type="statement" id={id} padding={hasFoot ? 'flush-bottom' : 'default'}>
+  <Container>
+    <div class="statement">
+      <h2 class="h2 text-center statement__headline">{content.headline}</h2>
+      <div class="statement__text">
+        {content.paragraphs.map((p) => (
+          <p class="statement__p">{p}</p>
+        ))}
+      </div>
+      {showCta && <Cta label={ctaLabel} class="statement__cta" />}
+    </div>
+  </Container>
+  {hasFoot && (
+    <div class="statement__foot" aria-hidden="true">
+      <ImageSlot
+        image={content.footImage}
+        slotId={`${prefix}.footImage`}
+        spec={imageSpecs.footImage}
+        description="wide interior, low contrast, fades in from the section colour"
+        widths={[780, 1440, 2048, 2732]}
+        sizes="100vw"
+        class="statement__foot-img"
+        labelPosition="bottom"
+      />
+    </div>
+  )}
+</Section>
+
+<style>
+  .statement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .statement__headline {
+    max-width: 760px;
+  }
+
+  .statement__text {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+    width: 100%;
+    max-width: 569px;
+  }
+
+  .statement__cta {
+    max-width: 569px;
+  }
+
+  .statement__foot {
+    position: relative;
+    height: 300px;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+
+  .statement__foot :global(.statement__foot-img),
+  .statement__foot :global(.slot) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: auto;
+  }
+
+  .statement__foot::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 45% 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, var(--tone-bg), transparent);
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .statement__foot {
+      height: 520px;
+      margin-top: 80px;
+    }
+  }
+</style>

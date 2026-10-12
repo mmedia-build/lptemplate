@@ -1,6 +1,6 @@
 # Exemplar: what a page at the standard looks like
 
-Read this before briefing a photographer or writing copy for a client page. It describes the standard the reference page sets for imagery, video and copy, slot by slot, so a client page can be checked against it.
+Read this before briefing a photographer or writing copy for a client page. It describes the standard the two reference pages set for imagery, video and copy, slot by slot, so a client page can be checked against it. Parts 1 to 3 come from reference A (a concreter, `docs/teardown.md`). Part 4 adds what reference B (a kitchen and bathroom renovator, `docs/teardown-b.md`) does differently and the slots it introduced. A client page follows whichever sections it uses; the checklist at the end covers both.
 
 **This file is not source text.** Client copy is written from the client's own customer research and offer, never by rewording the excerpts below. Excerpts are kept to a phrase or a sentence and exist only to show the pattern. Client images are the client's own jobs, never stock and never the reference's photos.
 
@@ -252,6 +252,132 @@ For each text slot: the pattern as a reusable formula, a short excerpt, why it w
 
 ---
 
+## Part 4: Reference B (renovation) patterns
+
+Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,000 renovation) than reference A, and its page shows what changes when it does: future pacing moves to the front, the owner appears in person, the villain is named, the guarantee carries a cash penalty, a FAQ follows the form, and there is no review badge at all. The sections below are the ones B adds or reshapes. Section types that B shares with A (header, trust strip, comparison, testimonials, benefits, steps, guarantee, offer and form, footer) follow the Part 3 patterns unless noted here.
+
+### Imagery: reference B
+
+- Total: 52 photos in 20 blocks, no video, no people except in the three step photos (a customer on the phone, a tradesman at a sink) and none posed to camera.
+- Mix: finished interiors dominate (kitchens with island benches, bathrooms with walk-in showers), shot in daylight from standing height with the room's longest line running into the frame. Six matched before and after pairs of the same room from the same doorway. Two in-progress photos (floor protection, dust sheets) for the "living through it" section. One dusk exterior is not used anywhere; B stays inside the house.
+- Two dark sections use a heavily blurred kitchen photo behind white text; the blur is strong enough that nothing is identifiable. The template reproduces the effect with a client photo and a CSS blur, never the reference's file.
+- Three sections end with a photo fading in from the section colour (statement, materials, offer). The photo is a wide interior at low contrast; the fade starts at about 40% of the photo's height.
+- Logos: 18 supplier marks on white tiles (materials section) and a slow strip of the same marks under the hero. Each mark must be the supplier's own file with permission; the template takes individual files.
+- Minimum shot list for a page built on B's sections: 1 wide finished-room shot for the hero band, 10 square or portrait finished-room photos for the collapsed gallery, 1 landscape finished room (dream outcome), 2 landscape interiors (problem), 6 before and after pairs from the same doorway (5:4), 2 landscape interiors (owner story, ideally with the owner on site), 4 portrait photos of reviewers' finished rooms, 6 square photos for the photo set, 2 landscape in-progress photos with floor and dust protection visible (liveable-home), 3 landscape process photos (consult, workshop, install), 1 device mock-up of the offer, a guarantee badge graphic (the template draws one from the badge lines), the logo in full colour and in white, 12 to 18 supplier logos. That is 40 photos, 1 mock-up and the logos.
+
+### Copy: Hero (B)
+
+- `hero.eyebrow`: pattern "FOR [city] [identity adjective] HOMEOWNERS WHO ARE DONE WITH [category] HORROR STORIES". Excerpt: "...who are done with renovation horror stories". Why: qualifies by identity and prior pain instead of by trade and city, which suits a purchase the visitor has already been burned by. 74 characters, 11 words, uppercase on a pill.
+- `hero.headline`: pattern "Get your [aspirational adjective] [category] in [timeframe] with a fixed price guaranteed, or we pay you $[penalty]". Excerpt: "...In 42 Days With A Fixed Price Guaranteed...". Why: timeframe, price certainty and a cash penalty in one sentence; the penalty is the hook because it is checkable. 99 characters, 19 words.
+- `hero.body`: pattern "[City]'s only '[Named Method]' brings [four functions] under one roof, so you get [three outcomes] without [the chaos they fear]. No [X]. No [Y]. No [Z]. Just [the promise]." Excerpt: "No outsourcing. No juggling trades. No surprises.". Why: names the mechanism in quotation marks the first time it appears, then strips the fear in three two-word sentences. 375 characters, 52 words (nearly double A; it fits because B's hero photo is a band beneath the text).
+- `cta.label` (B): pattern "CLAIM YOUR FREE [duration] [thing they get]". Excerpt: "CLAIM YOUR FREE 60-MINUTE DESIGN CONSULTATION". Why: the duration makes the free thing concrete. 45 characters, 6 words.
+- `cta.reinforcement` (B, under every CTA in place of the review badge): pattern "Includes your [deliverable 1] and [deliverable 2] (valued at $[value])". 76 characters, 12 words. Use this line when the client has no review profile worth showing; use the badge when they do; never both under one button.
+- `trustStrip.items[n].label` (B): five items, pattern "[years] years experience", "transformed in [timeframe]", "free custom [deliverable]", "free [duration] [consultation]", "fixed price quote". 16 to 31 characters. On B these are the offer restated as facts rather than A's named methods.
+
+### Copy: Dream outcome
+
+- `split.headline`: pattern "A [adjective], [adjective] [space] delivered in [timeframe] without [the fear]...". 92 characters, 13 words, ends in an ellipsis as most B headings do.
+- `split.paragraphs[0]`: pattern "Picture this: your [current space] is now [finished state with two specifics]. Or your [other space] is now [finished state]. The [job] happened on schedule, stayed on budget, and didn't [the fear]." Excerpt: "Picture this: Your outdated kitchen is now...". Why: the same future-pacing device as A's section 10, placed fourth so every later argument is read as the route there. 342 characters, 55 words.
+- `split.paragraphs[1]`: pattern "Sound too good to be true? This is what happens when [credential] handles [the whole job] with no [three failure modes]. Just [the promise]." 314 characters, 47 words.
+
+### Copy: Problem (dark split)
+
+- `split.headline`: pattern "How to lock in your [price] and [timeline] so you never face a $[number] [failure] or [duration] delay...". 95 characters, 19 words.
+- `split.paragraphs[0]`: pattern "Most [category] companies are just middlemen. They outsource [A] to one company, [B] to another, and hire whoever's available for [C]. Nobody's accountable. That's why the $[quote] becomes $[blown quote]. Why the '[promised duration]' drags into [actual]. Why you're stuck managing [n] contractors who blame each other." Excerpt: "That's why the $80,000 quote becomes $110,000.". Why: the villain is a structure (middlemen), not a person, so the reader does not feel accused for having hired one. 391 characters, 59 words.
+- `split.paragraphs[1]`: pattern "You end up [vivid daily consequence] while [the tradie disappears]. Your finished [space] has [two visible defects]. But this entire nightmare stems from one fixable problem: [the cause]. Lock in [the fix], and suddenly [three outcomes]." Excerpt: "...cooking on a camping stove while your builder goes silent.". 464 characters, 74 words (the longest paragraph pair on B; the dark background and the two photos carry it).
+
+### Copy: Before and after grid
+
+- `beforeAfterGrid.headline`: pattern "[City] homes transformed in [timeframe] (not [the usual])". 53 characters, 9 words.
+- `beforeAfterGrid.items[n].label`: pattern "[Suburb] [Room]". Excerpt: "Camberwell Bathroom". 16 to 21 characters. The suburb list is the ad targeting list.
+- `beforeAfterGrid.items[n].caption`: pattern "one line naming the change: [from state] to [to state], or [what was custom], or [what was kept on schedule]". Excerpt: "From 1980s dark space to modern retreat". 38 to 54 characters.
+
+### Copy: Method statement
+
+- `statement.headline`: pattern "Our [credential], in-house [method] eliminates [three failures] from day one, so you enjoy [the outcome] sooner...". 147 characters, 21 words, the longest heading on either page; it is the thesis of the page.
+- `statement.paragraphs[0]`: pattern "[Business] works differently. Everything happens in-house with one accountable team. Our [role], [role], [role] and [role] work together daily. They've collaborated on [count] projects. When [stage 1 happens], [the next role] [does the next thing] immediately. When [stage 2], [role] is already [doing stage 3]. When [stage 4] begins, it's our team, not [the alternative]." Excerpt: "When installation begins, it's our team, not random subcontractors.". Why: the mechanism shown as a chain of hand-offs makes "in-house" concrete. 509 characters, 70 words.
+- `statement.paragraphs[1]`: pattern "The result? No [X]. No [Y]. No [Z]. Your [job] starts and finishes exactly when promised, with [quality]. That's the [Named Method], and it's why we've grown to [scale] by word of mouth alone." 293 characters, 41 words.
+
+### Copy: Owner story
+
+- `split.headline`: pattern "Meet the owner-operator with [years] of hands-on experience (who personally oversees your [job])...". 106 characters, 14 words.
+- `split.paragraphs[0]` (first person): pattern "I'm [name], and I've spent over [years] in this industry, from [first role] to [current credential]. I started [business] [years] ago because I saw how [the typical model] fails [the customer]. I knew there had to be a better way: [three principles]." Excerpt: "...from cabinet-making apprentice to registered builder.". Why: a named person with a career arc is the strongest authority signal a small business has. 367 characters, 57 words.
+- `split.paragraphs[1]`: pattern "Today we're [licence or registration with its number] with [credential]. We've [count] [outcome]. But we're still owner-operated. I'm personally involved in every project. Your [job] isn't just another job. It's our reputation on the line." Excerpt: "(DB-L 72500)". Why: the licence number is the one detail that cannot be faked. 282 characters, 40 words.
+
+### Copy: Comparison (B, cards)
+
+- `comparison.headline`: pattern "The difference between a [timeframe] dream [category] and a [longer timeframe] nightmare...". 73 characters, 11 words.
+- `comparison.us.items[n]`: ten short rows with a Bold lead, pattern "[Bold mechanism], [plain benefit]". Excerpts: "Fixed-price quote, no surprises", "Custom cabinetry made in Melbourne". 24 to 36 characters, leads 9 to 16. Each row is checkable (a timeframe, a place, a licence number).
+- `comparison.them.title`: pattern "Typical [trade plural]". 18 characters.
+- `comparison.them.items[n]`: pattern "[Bold failure] [plain consequence]", quoting what the bad tradie says. Excerpts: "'Maybe 4 weeks, maybe 4 months'", "Rough sketches and 'trust us'". 25 to 44 characters. The quoted speech is the device: the reader has heard it.
+
+### Copy: Testimonials (B, carousel)
+
+- `testimonials.headline`: pattern "What [city] homeowners say about their [business] experience...". 70 characters, 9 words.
+- `testimonials.items[n].headline`: the job type rather than a quote line. Excerpt: "Full Bathroom Renovation". 18 to 27 characters. The template keeps A's pattern (a quote line) as the default and allows the job type.
+- `testimonials.items[n].body`: pattern "the customer's own thank-you, naming the from-state and to-state or the people, in quotation marks". Excerpt: "...from a 1980's dark cold space to a bright modern comfortable home.". 128 to 178 characters, 21 to 34 words. B gives no name, suburb or rating; the template's standard still asks for a first name and suburb, because B's unnamed quotes are the weakest proof on the page.
+
+### Copy: Benefits (B, list)
+
+- `benefits.headline`: pattern "From [first step] to [last step] in just [timeframe] (here's exactly how)...". 81 characters, 13 words.
+- `benefits.items[n].title`: pattern "[Promise] - [Named principle]" in Title Case. Excerpts: "No Budget Ambush - Fixed Pricing You Can Trust", "One Team, Zero Finger-Pointing". 29 to 47 characters.
+- `benefits.items[n].body`: pattern "what we do, why we can (because everything's in-house), what it means for the reader's family in a daily image". Excerpt: "Your kids aren't eating takeaway for four months.". Why: the daily image at the end of each card is what gets repeated to a partner. 202 to 248 characters, 29 to 46 words.
+
+### Copy: Liveable-home split
+
+- `split.headline`: pattern "The [timeframe] system that prevents your home from becoming [the fear]...". 91 characters, 13 words.
+- `split.paragraphs[0]`: pattern "What worries you more, [the result] or [living through it]? For most families, it's the latter. [Three sensory pains]. We get it, and we've designed our entire process around [the fix]: [four concrete measures]." Excerpt: "What worries you more - the finished kitchen, or living through the renovation to get there?". Why: names the objection the reader has not said out loud. 382 characters, 59 words.
+- `split.paragraphs[1]`: pattern "Most importantly, we stick to our [timeframe]. The fastest way to reduce [pain] is to finish properly and promptly. You're not [the fear] for [long duration]. Just [short duration] of transformation, then a lifetime of [the reward]." 253 characters, 42 words.
+
+### Copy: Materials and suppliers
+
+- `logoGrid.headline`: pattern "Your [surface] will still look flawless [long term] later, not [defect] after [short term]...". 76 characters, 13 words.
+- `logoGrid.paragraphs[0]`: pattern "A flawless [space] doesn't just look stunning on handover day. It looks stunning [time 1] when [occasion]. [Time 2] when [occasion]. [Time 3] when [occasion]. That kind of lasting quality starts with one decision: [the material choice], not [the cheap alternative]." 424 characters, 67 words.
+- `logoGrid.paragraphs[1]`: pattern "We partner exclusively with [city]'s most trusted suppliers for [five categories]. These aren't [generic alternatives]. They're [what they are]. When we specify a product, we know it'll perform because we've used it [count] times." 415 characters, 60 words.
+
+### Copy: Three steps (B)
+
+- `steps.headline`: pattern "From [first milestone] to [last milestone] in just [timeframe] (here's exactly how)...". 89 characters, 14 words.
+- `steps.items[n].title`: pattern "[Deliverable] & [Deliverable]" in Title Case. Excerpts: "Free Consultation & Custom 3D Design", "Swift Installation & Handover". 29 to 36 characters.
+- `steps.items[n].body`: pattern "what happens, where, how long, and what the reader holds at the end; the middle step says 'chaos gets prevented here'". Excerpt: "Before your renovation begins, everything's planned and ready.". 226 to 259 characters, 35 to 41 words.
+
+### Copy: Guarantee (B)
+
+- `guarantee.badgeLines`: three lines: "[Outcome]", "in under [timeframe] or we pay you $[penalty]", "Guaranteed". The template draws the badge from these lines.
+- `guarantee.headline`: pattern "[Outcome] in under [timeframe] or we pay you $[penalty], guaranteed". 61 characters, 12 words.
+- `guarantee.paragraphs`: six short paragraphs, 79 to 274 characters: the promise in one line; the nightmare in one line; what we do instead; the guarantee restated with the penalty; the statutory warranty with its terms in years; a closing line. Excerpt: "...covering structural defects for six years and non-structural defects for two years.". Why: a penalty the business pays plus a statutory cover the law pays is two layers of risk reversal. The terms link ("T&C's Apply*") sits last.
+
+### Copy: Offer and form (B)
+
+- `urgency.line` (B): pattern "STRICTLY LIMITED TO THE NEXT [n] ENQUIRIES IN [month]". 51 characters. B injects the month by script; the template never does, and leaves the line empty unless the client writes a real limit.
+- `offerForm.headline`: pattern "Claim your FREE [duration] [consultation] and see exactly how we can deliver your dream [space] in just [timeframe] or less!". 136 characters, 25 words.
+- `offerForm.lead`: pattern "Here's just a fraction of what you'll discover in your FREE [consultation]:". 73 characters.
+- `offerForm.bullets[n]`: pattern "[Bold deliverable] [plain detail with a timeframe, a value or a protection]". Excerpt lead: "The exact step-by-step process". 99 to 181 characters, leads 30 to 54. The last bullet restates the bonus value "(worth $1800)".
+- `form.fields`: name, email, phone, a room select ("What area would you like to renovate?" with three options), a budget select (five ranges, written as the client quotes them), a free-text comments field. Why: the two selects qualify the job before the call without adding typing. 38 and 86 character labels.
+
+### Copy: FAQ
+
+- `faq.headline`: pattern "Everything you're wondering about your [category] (answered honestly)". 89 characters, 11 words.
+- `faq.items[n].question`: the partner's question in plain words. Excerpts: "Where do we cook and shower during the renovation?", "How do you guarantee 42 days?". 29 to 50 characters.
+- `faq.items[n].answer`: two to four sentences, the first one answers, the rest give the mechanism and a number. Excerpt: "Minor tweaks? Yes. Major changes after materials are ordered? Complicated and costly.". Why: an honest "it's costly" answer buys belief for the rest. 163 to 274 characters, 25 to 43 words.
+
+### Copy: Footer and legal (B)
+
+- Terms: about 2,400 characters in ten numbered headings (eligibility, the free consultation, the completion guarantee, the compensation, pricing and variations, warranty and insurance, campaign availability, client responsibilities, liability, acceptance), each with one to four one-line clauses. B has no privacy policy; the template requires one.
+
+### Page-level voice summary (B)
+
+- Reading level: grade 7 to 8. Headings run long (53 to 147 characters) and nearly all end with an ellipsis; sentences inside paragraphs are short, often two to four words ("No delays. No budget surprises.").
+- Specificity: 42 days in 14 headings and paragraphs, $3,000, $1,800, 25 years, 15 years, 60 minutes, $80,000 to $110,000, 20 to 40%, six and two years, hundreds of projects, a licence number.
+- Unique mechanism: one named method in quotation marks, defined as "everything in-house with one accountable team", restated in the statement, the comparison, the benefits, the steps and two FAQ answers.
+- Villain: "middlemen", "five contractors who blame each other", "'Maybe 4 weeks, maybe 4 months'", "fly-by-night operators".
+- Offer stack: free consultation, custom 3D design, fixed-price quote, stated value, plus the penalty guarantee; restated in the hero, the trust panel, the reinforcement line under every CTA, the offer headline and the last bullet.
+- Social proof: no rating, no count, no names; four unnamed quotes, 18 supplier logos, one named owner with a licence. The template treats this as the fallback shape for a client with no review profile, not as the standard.
+- You to we ratio: about 1 to 1; the owner section and the statement are "we" and "I", the dream, problem, liveable and FAQ sections are "you".
+- CTA consistency: one label, uppercase, twelve times, with the same reinforcement line under eleven of them.
+
+---
+
 ## Is this client page at the standard?
 
 ### Imagery
@@ -288,3 +414,14 @@ For each text slot: the pattern as a reusable formula, a short excerpt, why it w
 24. Is the spelling Australian English with no em dashes?
 25. Does every paragraph fall within 10% of the slot's target length, or has the layout been re-checked at 390 wide?
 26. Are the terms and privacy texts the client's own and current?
+
+### Sections from reference B (only when used)
+
+27. Does the hero band photo (if the band layout is used) show a finished room with no text over it, and does the text still end inside 664 px at 390 wide?
+28. Does the owner story name a real person, a real licence or registration number and a career the client has confirmed?
+29. Does each before and after grid tile carry a suburb the ads target and a caption that describes that job, with both photos from the same doorway?
+30. Are the supplier logos the suppliers' own files, used with permission, and are they suppliers the client actually buys from?
+31. Does the FAQ answer the questions customers ask on the phone, with at least one honest limitation?
+32. If the reinforcement line is used under the CTAs instead of the review badge, does it state a deliverable and a value the client has put in writing?
+33. Does any cash penalty or timeframe guarantee match the client's terms word for word?
+34. Is the gallery's collapsed view made of the client's own finished rooms, at least eight, with no composite image?

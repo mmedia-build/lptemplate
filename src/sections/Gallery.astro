@@ -1,0 +1,153 @@
+---
+/**
+ * Wall of finished-job photos cropped to a fixed height, fading into the
+ * section surface, with a "see more" button that reveals the rest (reference
+ * B's gallery collage). Full bleed, square tiles: two per row on phones, three
+ * on desktop. Holds 6 to 15 images; 9 or 12 fill the rows.
+ */
+import type { GalleryContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  content: GalleryContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+const gridId = `gallery-${id || 'wall'}`;
+---
+
+<Section tone={tone} type="gallery" id={id} padding="none" class="gallery">
+  <div class="gallery__wrap" data-gallery>
+    <ul class="gallery__grid" id={gridId}>
+      {content.images.map((image, i) => (
+        <li class="gallery__tile">
+          <ImageSlot
+            image={image}
+            slotId={`gallery.images[${i}]`}
+            spec={imageSpecs.gridTile}
+            description="finished room, square"
+            widths={[191, 382, 475, 700]}
+            sizes="(min-width: 1024px) 33vw, 50vw"
+            class="gallery__img"
+          />
+        </li>
+      ))}
+    </ul>
+    <div class="gallery__fade">
+      <button type="button" class="gallery__more" aria-expanded="false" aria-controls={gridId} data-gallery-more>
+        <span class="gallery__more-icon" aria-hidden="true">
+          <Icon ui="arrow-up" size={22} strokeWidth={1.75} />
+        </span>
+        <span class="gallery__more-label">{content.moreLabel}</span>
+      </button>
+    </div>
+  </div>
+</Section>
+
+<script>
+  import { initGalleries } from '../scripts/gallery.ts';
+  initGalleries();
+</script>
+
+<style>
+  .gallery {
+    padding-bottom: var(--section-pad);
+  }
+
+  .gallery__wrap {
+    position: relative;
+    max-height: 338px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .gallery__wrap.is-open {
+    max-height: none;
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap-grid);
+  }
+
+  .gallery__tile {
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .gallery__tile :global(.gallery__img),
+  .gallery__tile :global(.slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .gallery__fade {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--tone-bg) 80%);
+    pointer-events: none;
+  }
+
+  .gallery__wrap.is-open .gallery__fade {
+    display: none;
+  }
+
+  .gallery__more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--tap-min);
+    padding: 8px 16px;
+    color: var(--colour-body);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .gallery__more-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border: 1.5px solid currentColor;
+    border-radius: var(--radius-pill);
+  }
+
+  .gallery__more-label {
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery__wrap {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery__wrap {
+      max-height: 828px;
+    }
+
+    .gallery__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .gallery__fade {
+      height: 360px;
+    }
+  }
+</style>

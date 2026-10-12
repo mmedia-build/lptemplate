@@ -1,0 +1,157 @@
+---
+/**
+ * Accordion of the questions customers ask on the phone (reference B's FAQ).
+ * Real buttons with aria-expanded; one open at a time, the first open on
+ * load; the panel animates with a grid-row transition. Holds 3 to 10 items.
+ */
+import type { FaqContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  content: FaqContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const showCta = content.showCta !== false;
+const base = `faq-${id || 'list'}`;
+---
+
+<Section tone={tone} type="faq" id={id}>
+  <Container>
+    <h2 class="h2 text-center faq__headline">{content.headline}</h2>
+    <div class="faq" data-faq>
+      {content.items.map((item, i) => (
+        <div class="faq__item" data-faq-item>
+          <h3 class="faq__q">
+            <button type="button" class="faq__trigger" id={`${base}-q${i}`} aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`${base}-a${i}`} data-faq-trigger>
+              <span>{item.question}</span>
+              <Icon ui="chevron-down" size={22} strokeWidth={1.75} class="faq__chevron" />
+            </button>
+          </h3>
+          <div class="faq__panel" id={`${base}-a${i}`} role="region" aria-labelledby={`${base}-q${i}`}>
+            <div class="faq__panel-inner">
+              <p class="faq__a">{item.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    {showCta && <Cta label={ctaLabel} class="faq__cta" />}
+  </Container>
+</Section>
+
+<script>
+  import { initFaqs } from '../scripts/faq.ts';
+  initFaqs();
+</script>
+
+<style>
+  .faq__headline {
+    max-width: 760px;
+    margin-inline: auto;
+    margin-bottom: 28px;
+  }
+
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .faq__item {
+    background: var(--colour-surface);
+  }
+
+  .faq__q {
+    margin: 0;
+  }
+
+  .faq__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: var(--tap-min);
+    padding: 24px 15px;
+    text-align: left;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--weight-medium);
+    color: var(--colour-heading);
+    cursor: pointer;
+  }
+
+  .faq__trigger:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: -3px;
+  }
+
+  .faq__chevron {
+    flex: none;
+    color: var(--colour-accent);
+    transition: transform 0.3s ease;
+  }
+
+  .faq__item.is-open .faq__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .faq__item.is-open .faq__panel {
+    grid-template-rows: 1fr;
+  }
+
+  .faq__panel-inner {
+    overflow: hidden;
+  }
+
+  .faq__a {
+    padding: 0 15px 27px;
+  }
+
+  .faq__cta {
+    margin-top: 32px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__panel,
+    .faq__chevron {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .faq__headline {
+      margin-bottom: 50px;
+    }
+
+    .faq__trigger {
+      padding: 24px 38px;
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: var(--weight-semibold);
+    }
+
+    .faq__a {
+      padding: 0 38px 27px;
+    }
+
+    .faq__cta {
+      margin-top: 48px;
+    }
+  }
+</style>

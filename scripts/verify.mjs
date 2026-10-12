@@ -179,6 +179,65 @@ build('./dist-guide', { GUIDE_MODE: '1' });
   ok('guide mode: no guide text in the normal build', !plain.includes('guide-note') && !plain.includes('Principle:'));
 }
 
+/* ---- 5. Renovation preset (reference B sections) ------------------------ */
+build('./dist-renovation', { SITE_CONFIG: 'examples/site.config.renovation.ts' });
+{
+  const html = await fs.readFile('dist-renovation/index.html', 'utf8');
+  const order = [...html.matchAll(/data-section="([a-zA-Z]+)"/g)].map((m) => m[1]);
+  const expected = ['hero', 'trustStrip', 'logoStrip', 'gallery', 'split', 'split', 'beforeAfterGrid', 'statement', 'split', 'comparison', 'testimonials', 'photoGrid', 'benefits', 'split', 'logoGrid', 'steps', 'guarantee', 'offerForm', 'faq'];
+  ok('preset: reference B section order renders', order.join(',') === expected.join(','), order.join(' > '));
+  ok('preset: night dark tone and Plus Jakarta Sans preload', html.includes('data-dark-tone="night"') && html.includes('plus-jakarta-sans-latin.woff2'));
+  ok('preset: pinned tones respected (comparison muted, problem split dark)', /tone-muted[^>]*data-section="comparison"/.test(html) && /tone-dark[^>]*data-section="split"/.test(html));
+  ok('preset: reinforcement line under CTAs, no badge', (html.match(/cta__line/g) || []).length >= 8 && !/class="[^"]*\bbadge\b/.test(html));
+  ok('preset: select fields render with options', (html.match(/<select/g) || []).length === 2 && html.includes('[lowest band]'));
+
+  const { server, url } = await serveDist(0, path.resolve('dist-renovation'));
+  const ctx = await mobile();
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(`${url}/`);
+  await page.waitForLoadState('networkidle');
+  const fit = await page.evaluate(() => {
+    const b = (sel) => document.querySelector(sel)?.getBoundingClientRect();
+    const line = b('.hero .cta__line');
+    return { lineBottom: line ? Math.round(line.bottom) : null, headlineTop: Math.round(b('h1').top), vh: innerHeight };
+  });
+  ok('preset: band hero fits eyebrow, headline, paragraph, CTA and line in 664', fit.lineBottom !== null && fit.lineBottom <= fit.vh && fit.headlineTop > 88, JSON.stringify(fit));
+  ok('preset: six compare sliders in the grid', (await page.$$('[data-section="beforeAfterGrid"] [data-compare]')).length === 6);
+  const galleryBefore = await page.$eval('[data-gallery]', (el) => el.getBoundingClientRect().height);
+  await page.locator('[data-gallery-more]').scrollIntoViewIfNeeded();
+  await page.tap('[data-gallery-more]');
+  await page.waitForTimeout(500);
+  const galleryAfter = await page.$eval('[data-gallery]', (el) => el.getBoundingClientRect().height);
+  ok('preset: gallery expands on tap and the button leaves', galleryAfter > galleryBefore + 200 && (await page.$eval('[data-gallery-more]', (b) => b.hidden)), `${Math.round(galleryBefore)} -> ${Math.round(galleryAfter)}`);
+  const faqState = async () => page.$$eval('[data-faq-trigger]', (els) => els.map((e) => e.getAttribute('aria-expanded')));
+  ok('preset: first FAQ item open on load', (await faqState()).join(',') === 'true,false,false,false,false,false');
+  const triggers = await page.$$('[data-faq-trigger]');
+  await triggers[2].scrollIntoViewIfNeeded();
+  await triggers[2].tap();
+  await page.waitForTimeout(400);
+  ok('preset: tapping another FAQ opens it and closes the first', (await faqState()).join(',') === 'false,false,true,false,false,false');
+  const panelH = await page.$$eval('[data-faq-item]', (els) => els.map((e) => Math.round(e.querySelector('.faq__panel').getBoundingClientRect().height)));
+  ok('preset: closed FAQ panels have no height', panelH[0] === 0 && panelH[2] > 40, panelH.join(','));
+  await page.locator('[data-submit]').scrollIntoViewIfNeeded();
+  await page.tap('[data-submit]');
+  await page.waitForTimeout(300);
+  const invalid = await page.$$eval('.field.is-invalid', (els) => els.map((e) => e.dataset.field));
+  ok('preset: empty submit flags the two required selects', invalid.includes('area') && invalid.includes('budget') && !invalid.includes('description'), invalid.join(','));
+  await page.selectOption('form [name=area]', '[Room or surface one]');
+  await page.fill('form [name=name]', 'Test Person');
+  await page.fill('form [name=email]', 'test@example.com');
+  await page.fill('form [name=phone]', '0412 345 678');
+  await page.selectOption('form [name=budget]', '[second band]');
+  await page.tap('[data-submit]');
+  await page.waitForURL('**/thank-you/', { timeout: 10000 });
+  ok('preset: valid submit with selects reaches the thank-you page', page.url().endsWith('/thank-you/'));
+  ok('preset: no page errors', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+  server.close();
+}
+
 await browser.close();
 const failed = results.filter((r) => !r.pass);
 console.log(`\n${results.length} checks, ${failed.length} failed.`);

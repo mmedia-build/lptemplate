@@ -12,8 +12,9 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 
 | Slot | Purpose | Target | Accepted range | Exemplar |
 | --- | --- | --- | --- | --- |
-| `cta.label` | The one CTA label used on every button and the submit | 34 chars, 7 words | 30 to 38 chars | [pattern](exemplar.md#copy-hero) |
+| `cta.label` | The one CTA label used on every button and the submit (34 on reference A, 45 on B) | 34 chars, 7 words | 22 to 46 chars | [pattern](exemplar.md#copy-hero) |
 | `business.phoneEyebrow` | Invitation above the number in the desktop header | 15 chars, 2 words | 9 to 21 chars | [pattern](exemplar.md#copy-header) |
+| `cta.reinforcement` | Bonus and value restated under every CTA when there is no review badge | 76 chars, 12 words | 60 to 92 chars | [pattern](exemplar.md#copy-hero-b) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -28,6 +29,9 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 | `sections[hero].content.eyebrow` | Qualifying question naming the trade and city | 43 chars, 6 words | 38 to 48 chars | [pattern](exemplar.md#copy-hero) |
 | `sections[hero].content.headline` | Outcome, timeframe, bonus and dollar value | 163 chars, 29 words | 146 to 180 chars | [pattern](exemplar.md#copy-hero) |
 | `sections[hero].content.body` | Pain question, lifestyle gain, financial gain | 209 chars, 30 words | 188 to 230 chars | [pattern](exemplar.md#copy-hero) |
+| `sections[hero:b-hero].content.eyebrow` | For [city] homeowners who are done with [category] horror stories | 74 chars, 11 words | 66 to 82 chars | [pattern](exemplar.md#copy-hero-b) |
+| `sections[hero:b-hero].content.headline` | Outcome, timeframe, fixed price and the penalty | 99 chars, 19 words | 89 to 109 chars | [pattern](exemplar.md#copy-hero-b) |
+| `sections[hero:b-hero].content.body` | The named method, what it removes, No X. No Y. No Z. | 375 chars, 52 words | 337 to 413 chars | [pattern](exemplar.md#copy-hero-b) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -40,6 +44,7 @@ Supported range: 3 to 8 items (6 on the reference). Below 5 the phone marquee re
 | Slot | Purpose | Target | Accepted range | Exemplar |
 | --- | --- | --- | --- | --- |
 | `sections[trustStrip].content.items[n].label` | Two to five word proof point | 24 chars, 3 words | 16 to 32 chars | [pattern](exemplar.md#copy-hero) |
+| `sections[trustStrip:b-trust].content.items[n].label` | The offer restated as five facts | 23 chars, 4 words | 13 to 33 chars | [pattern](exemplar.md#copy-hero-b) |
 
 ## 3. Before and after marquee
 
@@ -107,6 +112,10 @@ Supported range: 2 to 6 rows per column, independently (4 and 4 on the reference
 | `sections[comparison].content.them.items[1]` | Generic mix | 60 chars, 12 words | 54 to 66 chars | [pattern](exemplar.md#copy-comparison) |
 | `sections[comparison].content.them.items[2]` | No design thought | 87 chars, 13 words | 78 to 96 chars | [pattern](exemplar.md#copy-comparison) |
 | `sections[comparison].content.them.items[3]` | No follow-up | 49 chars, 8 words | 44 to 54 chars | [pattern](exemplar.md#copy-comparison) |
+| `sections[comparison:b-comparison].content.headline` | Dream timeframe versus nightmare timeframe | 73 chars, 11 words | 65 to 81 chars | [pattern](exemplar.md#copy-comparison-b-cards) |
+| `sections[comparison:b-comparison].content.us.items[n]` | Bold mechanism, plain benefit | 30 chars, 5 words | 21 to 39 chars | [pattern](exemplar.md#copy-comparison-b-cards) |
+| `sections[comparison:b-comparison].content.them.title` | Typical [trade plural] | 18 chars, 2 words | 14 to 22 chars | [pattern](exemplar.md#copy-comparison-b-cards) |
+| `sections[comparison:b-comparison].content.them.items[n]` | Bold failure, what the bad tradie says | 34 chars, 6 words | 22 to 46 chars | [pattern](exemplar.md#copy-comparison-b-cards) |
 
 ## 9. Testimonials
 
@@ -123,6 +132,9 @@ Supported range: 1 to 6 items (3 on the reference).
 | `sections[testimonials].content.items[2].body` | Review body | 177 chars, 29 words | 159 to 195 chars | [pattern](exemplar.md#copy-testimonials) |
 | `sections[testimonials].content.items[n].name` | First name or names | 10 chars, 2 words | 6 to 14 chars | [pattern](exemplar.md#copy-testimonials) |
 | `sections[testimonials].content.items[n].suburb` | Suburb and state | 13 chars, 2 words | 9 to 17 chars | [pattern](exemplar.md#copy-testimonials) |
+| `sections[testimonials:b-testimonials].content.headline` | What [city] homeowners say | 70 chars, 9 words | 63 to 77 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
+| `sections[testimonials:b-testimonials].content.items[n].headline` | Job type | 22 chars, 3 words | 15 to 29 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
+| `sections[testimonials:b-testimonials].content.items[n].body` | The customer's own thank-you | 155 chars, 28 words | 124 to 186 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -141,6 +153,9 @@ Supported range: 3 to 6 cards (5 on the reference). With 5 the photo sits in the
 | `sections[benefits].content.items[2].body` | Included follow-up | 136 chars, 23 words | 122 to 150 chars | [pattern](exemplar.md#copy-benefits) |
 | `sections[benefits].content.items[3].body` | One team, clear updates | 134 chars, 20 words | 120 to 148 chars | [pattern](exemplar.md#copy-benefits) |
 | `sections[benefits].content.items[4].body` | Materials and standards | 151 chars, 19 words | 135 to 167 chars | [pattern](exemplar.md#copy-benefits) |
+| `sections[benefits:b-benefits].content.headline` | From first step to last in the timeframe | 81 chars, 13 words | 72 to 90 chars | [pattern](exemplar.md#copy-benefits-b-list) |
+| `sections[benefits:b-benefits].content.items[n].title` | [Promise] - [Named principle] | 38 chars, 7 words | 26 to 50 chars | [pattern](exemplar.md#copy-benefits-b-list) |
+| `sections[benefits:b-benefits].content.items[n].body` | What we do, why we can, the daily image | 225 chars, 37 words | 191 to 259 chars | [pattern](exemplar.md#copy-benefits-b-list) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -188,6 +203,9 @@ Supported range: 2 to 6 steps (3 on the reference).
 | `sections[steps].content.items[1].body` | The plan | 197 chars, 34 words | 177 to 217 chars | [pattern](exemplar.md#copy-three-steps) |
 | `sections[steps].content.items[2].title` | Step three title | 42 chars, 7 words | 37 to 47 chars | [pattern](exemplar.md#copy-three-steps) |
 | `sections[steps].content.items[2].body` | The work and the follow-up | 229 chars, 38 words | 206 to 252 chars | [pattern](exemplar.md#copy-three-steps) |
+| `sections[steps:b-steps].content.headline` | From site start to handover in the timeframe | 89 chars, 14 words | 80 to 98 chars | [pattern](exemplar.md#copy-three-steps-b) |
+| `sections[steps:b-steps].content.items[n].title` | [Deliverable] & [Deliverable] | 32 chars, 4 words | 25 to 39 chars | [pattern](exemplar.md#copy-three-steps-b) |
+| `sections[steps:b-steps].content.items[n].body` | What happens, where, how long, what they hold | 244 chars, 37 words | 219 to 269 chars | [pattern](exemplar.md#copy-three-steps-b) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -203,10 +221,23 @@ Supported range: 2 to 6 steps (3 on the reference).
 | `sections[guarantee].content.subheadline` | Names the guarantee, ends with a colon | 81 chars, 13 words | 72 to 90 chars | [pattern](exemplar.md#copy-guarantee) |
 | `sections[guarantee].content.paragraphs[0]` | Defects, term in years, the fix | 193 chars, 31 words | 173 to 213 chars | [pattern](exemplar.md#copy-guarantee) |
 | `sections[guarantee].content.paragraphs[1]` | What they are really paying for | 228 chars, 40 words | 205 to 251 chars | [pattern](exemplar.md#copy-guarantee) |
+| `sections[guarantee:b-guarantee].content.badgeLine1` | Outcome on the badge | 14 chars, 2 words | 9 to 19 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.badgeLine2` | Timeframe or penalty on the badge | 30 chars, 7 words | 21 to 39 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.headline` | Outcome in the timeframe or we pay you | 61 chars, 12 words | 54 to 68 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[0]` | The promise in one line | 79 chars, 15 words | 67 to 91 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[1]` | The nightmare in one line | 134 chars, 22 words | 113 to 155 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[2]` | What we do instead | 159 chars, 23 words | 135 to 183 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[3]` | The guarantee restated with the penalty | 146 chars, 29 words | 124 to 168 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[4]` | The statutory warranty with its terms | 274 chars, 39 words | 232 to 316 chars | [pattern](exemplar.md#copy-guarantee-b) |
+| `sections[guarantee:b-guarantee].content.paragraphs[5]` | Closing line | 85 chars, 15 words | 72 to 98 chars | [pattern](exemplar.md#copy-guarantee-b) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[guarantee].content.decorativeImage` | 948x700 px | 1.35:1 | Optional line drawing on transparent, for example a floor plan. | Line drawing or diagram on transparent, for example a floor plan. Rendered 308x225 (mobile) and 474x347 (desktop). | [standard](exemplar.md#imagery-reference-b) |
 
 ## 16. Offer and form
 
-Supported range: 2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on the reference).
+Supported range: 2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on reference A, 6 on B including two selects).
 
 | Slot | Purpose | Target | Accepted range | Exemplar |
 | --- | --- | --- | --- | --- |
@@ -216,8 +247,15 @@ Supported range: 2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on t
 | `sections[offerForm].content.bullets[1]` | Budget blowout bullet | 194 chars, 35 words | 174 to 214 chars | [pattern](exemplar.md#copy-offer-and-form) |
 | `sections[offerForm].content.bullets[2]` | Upgrades bullet | 181 chars, 30 words | 162 to 200 chars | [pattern](exemplar.md#copy-offer-and-form) |
 | `sections[offerForm].content.bullets[3]` | And the free visit | 29 chars, 6 words | 26 to 32 chars | [pattern](exemplar.md#copy-offer-and-form) |
-| `form.fields[description].placeholder` | The job question | 81 chars, 15 words | 72 to 90 chars | [pattern](exemplar.md#copy-offer-and-form) |
+| `form.fields[description].placeholder` | The job question (81 on reference A; B uses a 39 character comments prompt) | 81 chars, 15 words | 36 to 126 chars | [pattern](exemplar.md#copy-offer-and-form) |
 | `sections[offerForm].content.reinforcement` | Bonus restated under the button | 110 chars, 20 words | 99 to 122 chars | [pattern](exemplar.md#copy-offer-and-form) |
+| `sections[offerForm:offer-form].content.headline` | Claim the free consultation and see how | 136 chars, 25 words | 122 to 150 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.lead` | Line introducing the bullets | 73 chars, 12 words | 51 to 95 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.bullets[0]` | The process bullet | 115 chars, 18 words | 97 to 133 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.bullets[1]` | The trends bullet | 103 chars, 17 words | 87 to 119 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.bullets[2]` | The protection bullet | 181 chars, 26 words | 153 to 209 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.bullets[3]` | The bonus bullet with its value | 99 chars, 14 words | 84 to 114 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:offer-form].content.reinforcement` | Bonus restated under the button | 76 chars, 12 words | 60 to 92 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -236,13 +274,110 @@ Supported range: 2 to 5 next steps (3 in the template).
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
-| `brand.texture` | 700x700 px | 1.00:1 | Optional seamless plaster or paper texture for the dark sections. | Square. Rendered 191x191 (mobile) and 349x349 (desktop), object-fit cover. | [standard](exemplar.md#imagery-hero) |
+| `brand.texture` | 700x700 px | 1.00:1 | Optional seamless plaster or paper texture for the dark sections, or the photo blurred behind night sections. | Square. Rendered 191x191 (mobile) and 349x349 (desktop), object-fit cover. | [standard](exemplar.md#imagery-hero) |
 
 ## SEO
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
 | `seo.ogImage` | 1506x732 px | 2.06:1 | Optional link preview image, 1200x630 works best. | Landscape 2:1. Rendered 350x170 (mobile) and 753x366 (desktop). | [standard](exemplar.md#imagery-hero) |
+
+## B. Logo strip (reference B)
+
+Supported range: 4 to 24 logos (18 on reference B). Fewer logos get more copies in the loop.
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[logoStrip].content.logos[n]` | 400x120 px | 3.33:1 | Supplier or brand mark, the supplier's own file, on transparent. | Supplier or brand mark, transparent PNG or SVG, contained in a 120x36 (strip) or 160x50 (grid tile) box. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. Gallery wall (reference B)
+
+Supported range: 6 to 15 square photos (9 or 12 fill the rows). Collapsed to 338 px on phones and 828 px on desktop until tapped.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[gallery].content.moreLabel` | Button that expands the wall | 15 chars, 4 words | 9 to 21 chars | [pattern](exemplar.md#imagery-reference-b) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[gallery].content.images[n]` | 700x700 px | 1.00:1 | Finished room, square, daylight, no people; eight or more. | Square. Rendered 191x191 (mobile) and 349x349 (desktop), object-fit cover. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. Split sections: dream, problem, owner, liveable (reference B)
+
+Supported range: 1 to 4 paragraphs and 1 or 2 photos per section. Reference B uses four split sections with ids dream, problem, owner and liveable; the lengths below are per id.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[split:dream].content.headline` | The finished state in one line | 92 chars, 13 words | 82 to 102 chars | [pattern](exemplar.md#copy-dream-outcome) |
+| `sections[split:dream].content.paragraphs[0]` | Picture this: the finished rooms | 342 chars, 55 words | 307 to 377 chars | [pattern](exemplar.md#copy-dream-outcome) |
+| `sections[split:dream].content.paragraphs[1]` | Why it is believable | 314 chars, 47 words | 282 to 346 chars | [pattern](exemplar.md#copy-dream-outcome) |
+| `sections[split:problem].content.headline` | How to avoid the blowout and the delay | 95 chars, 19 words | 85 to 105 chars | [pattern](exemplar.md#copy-problem-dark-split) |
+| `sections[split:problem].content.paragraphs[0]` | The middleman model and its numbers | 391 chars, 59 words | 351 to 431 chars | [pattern](exemplar.md#copy-problem-dark-split) |
+| `sections[split:problem].content.paragraphs[1]` | The daily consequence and the one fixable cause | 464 chars, 74 words | 417 to 511 chars | [pattern](exemplar.md#copy-problem-dark-split) |
+| `sections[split:owner].content.headline` | Meet the owner | 106 chars, 14 words | 95 to 117 chars | [pattern](exemplar.md#copy-owner-story) |
+| `sections[split:owner].content.paragraphs[0]` | First person career arc and why the business exists | 367 chars, 57 words | 330 to 404 chars | [pattern](exemplar.md#copy-owner-story) |
+| `sections[split:owner].content.paragraphs[1]` | Licence number, scale, personal involvement | 282 chars, 40 words | 253 to 311 chars | [pattern](exemplar.md#copy-owner-story) |
+| `sections[split:liveable].content.headline` | The system that keeps the home liveable | 91 chars, 13 words | 81 to 101 chars | [pattern](exemplar.md#copy-liveable-home-split) |
+| `sections[split:liveable].content.paragraphs[0]` | Name the real fear, then the measures | 382 chars, 59 words | 343 to 421 chars | [pattern](exemplar.md#copy-liveable-home-split) |
+| `sections[split:liveable].content.paragraphs[1]` | Short disruption, then the reward | 253 chars, 42 words | 227 to 279 chars | [pattern](exemplar.md#copy-liveable-home-split) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[split].content.images[n]` | 1100x740 px | 1.49:1 | Finished room landscape (one photo: 11:10; two photos: 3:2 each). The owner story can show the owner on site. | Landscape 3:2. Rendered 358x241 (mobile) and 545x367 (desktop). Two stacked photos beside the text. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. Method statement (reference B)
+
+Supported range: 1 to 4 paragraphs (2 on reference B). The foot photo is optional.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[statement].content.headline` | The thesis: in-house method removes three failures | 147 chars, 21 words | 132 to 162 chars | [pattern](exemplar.md#copy-method-statement) |
+| `sections[statement].content.paragraphs[0]` | The chain of hand-offs under one roof | 509 chars, 70 words | 458 to 560 chars | [pattern](exemplar.md#copy-method-statement) |
+| `sections[statement].content.paragraphs[1]` | The result and the named method | 293 chars, 41 words | 263 to 323 chars | [pattern](exemplar.md#copy-method-statement) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[statement].content.footImage` | 2732x1100 px | 2.48:1 | Optional wide interior at low contrast that fades in under the text. | Wide, low contrast. Rendered full width, 300 tall (mobile) and 520 (desktop), cover, fading in from the section colour. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. Before and after grid (reference B)
+
+Supported range: 2 to 9 items (6 on reference B), three per row on desktop.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[beforeAfterGrid].content.headline` | Homes transformed in the timeframe | 53 chars, 9 words | 47 to 59 chars | [pattern](exemplar.md#copy-before-and-after-grid) |
+| `sections[beforeAfterGrid].content.items[n].label` | Suburb and room | 18 chars, 2 words | 10 to 26 chars | [pattern](exemplar.md#copy-before-and-after-grid) |
+| `sections[beforeAfterGrid].content.items[n].caption` | One line naming the change | 46 chars, 6 words | 32 to 60 chars | [pattern](exemplar.md#copy-before-and-after-grid) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[beforeAfterGrid].content.items[n].before` | 1100x880 px | 1.25:1 | Before, from the doorway, 5:4, same position as the after. | Landscape 5:4. Rendered 358x286 (mobile) and 369x295 (desktop). Before and after from the same doorway. | [standard](exemplar.md#imagery-reference-b) |
+| `sections[beforeAfterGrid].content.items[n].after` | 1100x880 px | 1.25:1 | After, same doorway, 5:4. | Landscape 5:4. Rendered 358x286 (mobile) and 369x295 (desktop). Before and after from the same doorway. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. Materials and supplier logos (reference B)
+
+Supported range: 4 to 24 logos (18 on reference B), six per row on desktop. The foot photo is optional.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[logoGrid].content.headline` | Durability promise with timeframes | 76 chars, 13 words | 68 to 84 chars | [pattern](exemplar.md#copy-materials-and-suppliers) |
+| `sections[logoGrid].content.paragraphs[0]` | Still stunning years later; the one decision | 424 chars, 67 words | 381 to 467 chars | [pattern](exemplar.md#copy-materials-and-suppliers) |
+| `sections[logoGrid].content.paragraphs[1]` | The suppliers and why | 415 chars, 60 words | 373 to 457 chars | [pattern](exemplar.md#copy-materials-and-suppliers) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[logoGrid].content.logos[n]` | 400x120 px | 3.33:1 | Supplier mark on transparent, 12 to 18 of them. | Supplier or brand mark, transparent PNG or SVG, contained in a 120x36 (strip) or 160x50 (grid tile) box. | [standard](exemplar.md#imagery-reference-b) |
+| `sections[logoGrid].content.footImage` | 2732x1100 px | 2.48:1 | Optional wide interior at low contrast under the logo tiles. | Wide, low contrast. Rendered full width, 300 tall (mobile) and 520 (desktop), cover, fading in from the section colour. | [standard](exemplar.md#imagery-reference-b) |
+
+## B. FAQ (reference B)
+
+Supported range: 3 to 10 questions (6 on reference B). The first starts open.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[faq].content.headline` | Everything you are wondering, answered honestly | 89 chars, 11 words | 80 to 98 chars | [pattern](exemplar.md#copy-faq) |
+| `sections[faq].content.items[n].question` | The question in the customer's words | 37 chars, 6 words | 22 to 52 chars | [pattern](exemplar.md#copy-faq) |
+| `sections[faq].content.items[n].answer` | Two to four honest sentences with a number | 207 chars, 32 words | 134 to 280 chars | [pattern](exemplar.md#copy-faq) |
 
 ## Video slots
 

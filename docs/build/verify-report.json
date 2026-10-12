@@ -148,5 +148,75 @@
     "name": "guide mode: no guide text in the normal build",
     "pass": true,
     "detail": ""
+  },
+  {
+    "name": "preset: reference B section order renders",
+    "pass": true,
+    "detail": "hero > trustStrip > logoStrip > gallery > split > split > beforeAfterGrid > statement > split > comparison > testimonials > photoGrid > benefits > split > logoGrid > steps > guarantee > offerForm > faq"
+  },
+  {
+    "name": "preset: night dark tone and Plus Jakarta Sans preload",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: pinned tones respected (comparison muted, problem split dark)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: reinforcement line under CTAs, no badge",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: select fields render with options",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: band hero fits eyebrow, headline, paragraph, CTA and line in 664",
+    "pass": true,
+    "detail": "{\"lineBottom\":640,\"headlineTop\":138,\"vh\":664}"
+  },
+  {
+    "name": "preset: six compare sliders in the grid",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: gallery expands on tap and the button leaves",
+    "pass": true,
+    "detail": "338 -> 987"
+  },
+  {
+    "name": "preset: first FAQ item open on load",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: tapping another FAQ opens it and closes the first",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: closed FAQ panels have no height",
+    "pass": true,
+    "detail": "0,0,161,0,0,0"
+  },
+  {
+    "name": "preset: empty submit flags the two required selects",
+    "pass": true,
+    "detail": "name,email,phone,area,budget"
+  },
+  {
+    "name": "preset: valid submit with selects reaches the thank-you page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "preset: no page errors",
+    "pass": true,
+    "detail": ""
   }
 ]

@@ -23,8 +23,14 @@ const { brand, seo } = site;
 const colourVars = Object.entries(brand.colours)
   .filter(([, value]) => value)
   .map(([key, value]) => `--colour-${key}:${value}`);
-const fontVars = [`--font-body:'${brand.fonts.family}','Manrope Fallback',system-ui,sans-serif`];
-if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}','Manrope Fallback',system-ui,sans-serif`);
+const tokenVars = Object.entries(brand.tokens || {})
+  .filter(([key, value]) => value && /^[a-z0-9-]+$/i.test(key))
+  .map(([key, value]) => `--${key}:${value}`);
+const fontFiles: Record<string, string> = { Manrope: 'manrope-latin.woff2', 'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2' };
+const fallbackFor = (family: string) => (fontFiles[family] ? `'${family} Fallback'` : "'Manrope Fallback'");
+const fontVars = [`--font-body:'${brand.fonts.family}',${fallbackFor(brand.fonts.family)},system-ui,sans-serif`];
+if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}',${fallbackFor(brand.fonts.headingFamily)},system-ui,sans-serif`);
+const fontPreload = fontFiles[brand.fonts.family] ?? 'manrope-latin.woff2';
 
 const texture = resolveImage(brand.texture.src);
 let textureVars: string[] = [];
@@ -32,7 +38,8 @@ if (texture.status === 'ok') {
   const tex = await getImage({ src: texture.image, width: 1200, format: 'webp' });
   textureVars = [`--texture-image:url(${tex.src})`, '--texture-size:cover'];
 }
-const rootStyle = [...colourVars, ...fontVars, ...textureVars].join(';');
+const rootStyle = [...colourVars, ...tokenVars, ...fontVars, ...textureVars].join(';');
+const darkTone = brand.darkTone === 'night' ? 'night' : 'texture';
 
 let preload: { href: string; srcset?: string } | null = null;
 const hero = resolveImage(preloadImage);
@@ -50,7 +57,7 @@ if (og.status === 'ok') {
 ---
 
 <!doctype html>
-<html lang="en-AU" style={rootStyle || undefined}>
+<html lang="en-AU" style={rootStyle || undefined} data-dark-tone={darkTone}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -63,7 +70,7 @@ if (og.status === 'ok') {
     <meta property="og:type" content="website" />
     {ogUrl && <meta property="og:image" content={ogUrl} />}
     <meta name="format-detection" content="telephone=yes" />
-    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={`/fonts/${fontPreload}`} as="font" type="font/woff2" crossorigin />
     {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes="100vw" fetchpriority="high" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <MetaPixel />

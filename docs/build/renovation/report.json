@@ -1,0 +1,251 @@
+{
+  "mobileHeight": 23650,
+  "sections390": [
+    {
+      "type": "header",
+      "top": 0,
+      "height": 88
+    },
+    {
+      "type": "hero",
+      "top": 0,
+      "height": 901
+    },
+    {
+      "type": "trustStrip",
+      "top": 901,
+      "height": 375
+    },
+    {
+      "type": "logoStrip",
+      "top": 1276,
+      "height": 60
+    },
+    {
+      "type": "gallery",
+      "top": 1336,
+      "height": 388
+    },
+    {
+      "type": "split",
+      "top": 1724,
+      "height": 981
+    },
+    {
+      "type": "split",
+      "top": 2705,
+      "height": 1463
+    },
+    {
+      "type": "beforeAfterGrid",
+      "top": 4168,
+      "height": 2691
+    },
+    {
+      "type": "statement",
+      "top": 6859,
+      "height": 1248
+    },
+    {
+      "type": "split",
+      "top": 8108,
+      "height": 1329
+    },
+    {
+      "type": "comparison",
+      "top": 9436,
+      "height": 1842
+    },
+    {
+      "type": "testimonials",
+      "top": 11278,
+      "height": 1083
+    },
+    {
+      "type": "photoGrid",
+      "top": 12361,
+      "height": 589
+    },
+    {
+      "type": "benefits",
+      "top": 12950,
+      "height": 1503
+    },
+    {
+      "type": "split",
+      "top": 14454,
+      "height": 1351
+    },
+    {
+      "type": "logoGrid",
+      "top": 15805,
+      "height": 1624
+    },
+    {
+      "type": "steps",
+      "top": 17429,
+      "height": 1830
+    },
+    {
+      "type": "guarantee",
+      "top": 19259,
+      "height": 1252
+    },
+    {
+      "type": "offerForm",
+      "top": 20511,
+      "height": 1691
+    },
+    {
+      "type": "faq",
+      "top": 22202,
+      "height": 1178
+    },
+    {
+      "type": "footer",
+      "top": 23380,
+      "height": 270
+    }
+  ],
+  "firstScreen": {
+    "headline": {
+      "top": 138,
+      "bottom": 292,
+      "fullyVisible": true
+    },
+    "cta": {
+      "top": 528,
+      "bottom": 588,
+      "fullyVisible": true
+    },
+    "badge": null,
+    "eyebrow": {
+      "top": 88,
+      "bottom": 124,
+      "fullyVisible": true
+    },
+    "body": {
+      "top": 306,
+      "bottom": 508,
+      "fullyVisible": true
+    }
+  },
+  "overflow360": {
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "overflowing": []
+  },
+  "overflow430": {
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "overflowing": []
+  },
+  "desktopHeight": 20081,
+  "sections1440": [
+    {
+      "type": "header",
+      "top": 0,
+      "height": 106
+    },
+    {
+      "type": "hero",
+      "top": 0,
+      "height": 655
+    },
+    {
+      "type": "trustStrip",
+      "top": 655,
+      "height": 262
+    },
+    {
+      "type": "logoStrip",
+      "top": 917,
+      "height": 90
+    },
+    {
+      "type": "gallery",
+      "top": 1007,
+      "height": 928
+    },
+    {
+      "type": "split",
+      "top": 1935,
+      "height": 696
+    },
+    {
+      "type": "split",
+      "top": 2632,
+      "height": 966
+    },
+    {
+      "type": "beforeAfterGrid",
+      "top": 3597,
+      "height": 1328
+    },
+    {
+      "type": "statement",
+      "top": 4925,
+      "height": 1291
+    },
+    {
+      "type": "split",
+      "top": 6217,
+      "height": 955
+    },
+    {
+      "type": "comparison",
+      "top": 7171,
+      "height": 1224
+    },
+    {
+      "type": "testimonials",
+      "top": 8395,
+      "height": 926
+    },
+    {
+      "type": "photoGrid",
+      "top": 9321,
+      "height": 955
+    },
+    {
+      "type": "benefits",
+      "top": 10276,
+      "height": 1317
+    },
+    {
+      "type": "split",
+      "top": 11593,
+      "height": 955
+    },
+    {
+      "type": "logoGrid",
+      "top": 12548,
+      "height": 1290
+    },
+    {
+      "type": "steps",
+      "top": 13838,
+      "height": 1605
+    },
+    {
+      "type": "guarantee",
+      "top": 15442,
+      "height": 1323
+    },
+    {
+      "type": "offerForm",
+      "top": 16765,
+      "height": 1833
+    },
+    {
+      "type": "faq",
+      "top": 18598,
+      "height": 1224
+    },
+    {
+      "type": "footer",
+      "top": 19822,
+      "height": 259
+    }
+  ]
+}

@@ -2,7 +2,8 @@
  * Section type to component. The page renders config.sections in order
  * through this map, so adding a section type is: write the component, add
  * the type to src/config/types.ts, register it here, describe it in
- * src/lib/sections.ts and src/guide/notes.ts.
+ * src/lib/sections.ts and src/guide/notes.ts, and list its slots in
+ * src/config/spec.ts. The catalogue of every type is docs/sections.md.
  */
 import type { SectionType } from '../config/types.ts';
 import Hero from './Hero.astro';
@@ -19,6 +20,13 @@ import BentoGallery from './BentoGallery.astro';
 import Steps from './Steps.astro';
 import Guarantee from './Guarantee.astro';
 import OfferForm from './OfferForm.astro';
+import LogoStrip from './LogoStrip.astro';
+import Gallery from './Gallery.astro';
+import Split from './Split.astro';
+import Statement from './Statement.astro';
+import BeforeAfterGrid from './BeforeAfterGrid.astro';
+import LogoGrid from './LogoGrid.astro';
+import Faq from './Faq.astro';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const registry: Record<SectionType, (props: any) => any> = {
@@ -36,4 +44,11 @@ export const registry: Record<SectionType, (props: any) => any> = {
   steps: Steps,
   guarantee: Guarantee,
   offerForm: OfferForm,
+  logoStrip: LogoStrip,
+  gallery: Gallery,
+  split: Split,
+  statement: Statement,
+  beforeAfterGrid: BeforeAfterGrid,
+  logoGrid: LogoGrid,
+  faq: Faq,
 };

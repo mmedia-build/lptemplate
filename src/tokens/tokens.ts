@@ -48,6 +48,15 @@ export const imageSpecs = {
   offerBundle: spec(1528, 764, 'Landscape 2:1, transparent or white background. Rendered 350x175 (mobile) and 764x382 (desktop).'),
   videoPoster: spec(640, 1138, 'Portrait 9:16 poster frame for each project video.'),
   avatars: spec(164, 48, 'Row of four round customer faces, overlapping. Rendered 68x20 (mobile) and 82x24 (desktop).'),
+  /* Slots introduced by reference B */
+  supplierLogo: spec(400, 120, 'Supplier or brand mark, transparent PNG or SVG, contained in a 120x36 (strip) or 160x50 (grid tile) box.'),
+  splitImageSingle: spec(1100, 1000, 'Landscape 11:10. Rendered 358x325 (mobile) and 545x496 (desktop). One photo beside the text.'),
+  splitImagePair: spec(1100, 740, 'Landscape 3:2. Rendered 358x241 (mobile) and 545x367 (desktop). Two stacked photos beside the text.'),
+  compareTile: spec(1100, 880, 'Landscape 5:4. Rendered 358x286 (mobile) and 369x295 (desktop). Before and after from the same doorway.'),
+  footImage: spec(2732, 1100, 'Wide, low contrast. Rendered full width, 300 tall (mobile) and 520 (desktop), cover, fading in from the section colour.'),
+  testimonialPortrait: spec(680, 960, 'Portrait 17:24. Rendered 358x386 (mobile, cropped) and 255x332 (desktop) in the carousel layout.'),
+  stepRowImage: spec(1140, 656, 'Landscape 7:4. Rendered 358x206 (mobile) and 569x328 (desktop), cover, in the rows layout.'),
+  decorative: spec(948, 700, 'Line drawing or diagram on transparent, for example a floor plan. Rendered 308x225 (mobile) and 474x347 (desktop).'),
 } as const;
 
 export type ImageSlotKey = keyof typeof imageSpecs;

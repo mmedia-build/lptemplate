@@ -1,8 +1,11 @@
 ---
 /**
- * Three reviews with name, suburb, stars and a job photo. Photo and card
- * alternate sides on desktop; on phones the card comes first, then the photo.
- * Holds 1 to 6 items.
+ * Reviews with a job photo. Two layouts:
+ *  - rows (reference A): photo beside a card with name, suburb and stars,
+ *    alternating sides on desktop; on phones the card then the photo.
+ *  - carousel (reference B): one swipeable slide at a time, the photo above
+ *    the quote on phones and beside it on desktop, dots and arrows below.
+ * Name, suburb and rating are optional in either layout. Holds 1 to 6 items.
  */
 import type { TestimonialsContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -14,6 +17,7 @@ import ReviewBadge from '../components/ReviewBadge.astro';
 import Stars from '../components/Stars.astro';
 import Icon from '../components/Icon.astro';
 import ImageSlot from '../components/ImageSlot.astro';
+import Carousel from '../components/Carousel.astro';
 
 interface Props {
   content: TestimonialsContent;
@@ -22,38 +26,71 @@ interface Props {
   ctaLabel?: string;
 }
 const { content, tone, id, ctaLabel } = Astro.props;
+const carousel = content.layout === 'carousel';
+const who = (item: (typeof content.items)[number]) => [item.name, item.suburb].filter(Boolean).join(', ');
 ---
 
 <Section tone={tone} type="testimonials" id={id}>
   <Container>
     <ReviewBadge variant="stacked" class="testimonials__badge" />
     <h2 class="h2 text-center testimonials__headline">{content.headline}</h2>
-    <ul class="testimonials__list">
-      {content.items.map((item, i) => (
-        <li class:list={['testimonial', 'reveal', i % 2 === 1 && 'testimonial--flip']}>
-          <article class="testimonial__card">
-            <Icon ui="quote" size={30} filled class="testimonial__quote-mark" />
-            <h3 class="h3 testimonial__headline">{item.headline}</h3>
-            <p class="testimonial__body">{item.body}</p>
-            <div class="testimonial__meta">
-              <p class="testimonial__name">{item.name}, {item.suburb}</p>
-              <Stars rating={item.rating} size={23} class="testimonial__stars" />
+    {carousel ? (
+      <Carousel perView={{ mobile: 1, desktop: 1 }} gap="30px" label="Customer reviews" class="testimonials__carousel">
+        {content.items.map((item, i) => (
+          <article class="slide">
+            <div class="slide__photo">
+              <ImageSlot
+                image={item.image}
+                slotId={`testimonials.items[${i}].image`}
+                spec={imageSpecs.testimonialPortrait}
+                description="the reviewer's finished room, portrait"
+                widths={[358, 510, 716, 1020]}
+                sizes="(min-width: 1024px) 255px, calc(100vw - 32px)"
+                class="slide__img"
+              />
+            </div>
+            <div class="slide__text">
+              <Icon ui="quote" size={37} filled class="slide__quote-mark" />
+              <h3 class="slide__title">{item.headline}</h3>
+              <p class="slide__body">{item.body}</p>
+              {(who(item) || (item.rating ?? 0) > 0) && (
+                <div class="slide__meta">
+                  {who(item) && <p class="testimonial__name">{who(item)}</p>}
+                  {(item.rating ?? 0) > 0 && <Stars rating={item.rating ?? 0} size={23} class="testimonial__stars" />}
+                </div>
+              )}
             </div>
           </article>
-          <div class="testimonial__photo">
-            <ImageSlot
-              image={item.image}
-              slotId={`testimonials.items[${i}].image`}
-              spec={imageSpecs.testimonialImage}
-              description="the reviewer's finished job, subject centred"
-              widths={[350, 395, 700, 790]}
-              sizes="(min-width: 1024px) 395px, calc(100vw - 40px)"
-              class="testimonial__img"
-            />
-          </div>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </Carousel>
+    ) : (
+      <ul class="testimonials__list">
+        {content.items.map((item, i) => (
+          <li class:list={['testimonial', 'reveal', i % 2 === 1 && 'testimonial--flip']}>
+            <article class="testimonial__card">
+              <Icon ui="quote" size={30} filled class="testimonial__quote-mark" />
+              <h3 class="h3 testimonial__headline">{item.headline}</h3>
+              <p class="testimonial__body">{item.body}</p>
+              <div class="testimonial__meta">
+                {who(item) && <p class="testimonial__name">{who(item)}</p>}
+                {(item.rating ?? 0) > 0 && <Stars rating={item.rating ?? 0} size={23} class="testimonial__stars" />}
+              </div>
+            </article>
+            <div class="testimonial__photo">
+              <ImageSlot
+                image={item.image}
+                slotId={`testimonials.items[${i}].image`}
+                spec={imageSpecs.testimonialImage}
+                description="the reviewer's finished job, subject centred"
+                widths={[350, 395, 700, 790]}
+                sizes="(min-width: 1024px) 395px, calc(100vw - 40px)"
+                class="testimonial__img"
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
     <Cta label={ctaLabel} class="testimonials__cta" />
   </Container>
 </Section>
@@ -134,6 +171,53 @@ const { content, tone, id, ctaLabel } = Astro.props;
     margin-top: 48px;
   }
 
+  /* ---- Carousel layout ------------------------------------------------ */
+  .slide {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .slide__photo {
+    height: 386px;
+    overflow: hidden;
+  }
+
+  .slide__photo :global(.slide__img),
+  .slide__photo :global(.slot) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: auto;
+  }
+
+  .slide__text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .slide__quote-mark {
+    color: var(--colour-accent);
+  }
+
+  .slide__title {
+    font-size: var(--fs-h3-step);
+    line-height: 1.2;
+    font-weight: var(--weight-medium);
+  }
+
+  .slide__body {
+    font-size: var(--fs-body);
+    line-height: 1.5;
+  }
+
+  .slide__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
   @media (min-width: 1024px) {
     .testimonials__badge {
       margin-bottom: 40px;
@@ -183,6 +267,31 @@ const { content, tone, id, ctaLabel } = Astro.props;
 
     .testimonials__cta {
       margin-top: 50px;
+    }
+
+    .testimonials__carousel {
+      max-width: 736px;
+      margin-inline: auto;
+    }
+
+    .slide {
+      display: grid;
+      grid-template-columns: 255px 1fr;
+      gap: 0;
+      min-height: 332px;
+    }
+
+    .slide__photo {
+      height: 332px;
+    }
+
+    .slide__text {
+      padding: 20px 20px 20px 30px;
+    }
+
+    .slide__body {
+      font-size: 18px;
+      line-height: 1.6;
     }
   }
 </style>

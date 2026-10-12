@@ -13,7 +13,7 @@ const { textSlots, imageSlots } = await import(pathToFileURL(path.resolve('src/c
 const { imageSpecs } = await import(pathToFileURL(path.resolve('src/tokens/tokens.ts')).href);
 
 const sectionOf = (p) => {
-  const m = p.match(/sections\[(\w+)\]/);
+  const m = p.match(/sections\[(\w+)(?::[\w-]+)?\]/);
   if (m) return m[1];
   if (p.startsWith('thankYou')) return 'thankYou';
   if (p.startsWith('form') || p.startsWith('urgency')) return 'offerForm';
@@ -41,6 +41,13 @@ const names = {
   thankYou: 'Thank-you page',
   brand: 'Brand',
   seo: 'SEO',
+  logoStrip: 'B. Logo strip (reference B)',
+  gallery: 'B. Gallery wall (reference B)',
+  split: 'B. Split sections: dream, problem, owner, liveable (reference B)',
+  statement: 'B. Method statement (reference B)',
+  beforeAfterGrid: 'B. Before and after grid (reference B)',
+  logoGrid: 'B. Materials and supplier logos (reference B)',
+  faq: 'B. FAQ (reference B)',
 };
 const order = Object.keys(names);
 
@@ -56,8 +63,15 @@ const ranges = {
   futurePacing: '1 to 4 paragraphs (3 on the reference).',
   bentoGallery: '3 to 9 images (7 on the reference). Mark wide tiles with wide: true; use hideOnMobile to keep the two-column phone grid even.',
   steps: '2 to 6 steps (3 on the reference).',
-  offerForm: '2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on the reference).',
+  offerForm: '2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on reference A, 6 on B including two selects).',
   thankYou: '2 to 5 next steps (3 in the template).',
+  logoStrip: '4 to 24 logos (18 on reference B). Fewer logos get more copies in the loop.',
+  gallery: '6 to 15 square photos (9 or 12 fill the rows). Collapsed to 338 px on phones and 828 px on desktop until tapped.',
+  split: '1 to 4 paragraphs and 1 or 2 photos per section. Reference B uses four split sections with ids dream, problem, owner and liveable; the lengths below are per id.',
+  statement: '1 to 4 paragraphs (2 on reference B). The foot photo is optional.',
+  beforeAfterGrid: '2 to 9 items (6 on reference B), three per row on desktop.',
+  logoGrid: '4 to 24 logos (18 on reference B), six per row on desktop. The foot photo is optional.',
+  faq: '3 to 10 questions (6 on reference B). The first starts open.',
 };
 
 const grouped = {};

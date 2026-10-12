@@ -32,6 +32,8 @@
   --colour-placeholder: #737373;    /* input placeholder text: 4.7:1 on white */
   --colour-slot-bg: #d9d9d9;        /* grey box shown when an image slot is empty */
   --colour-slot-text: #4a4a4a;
+  --colour-night: #121212;          /* base of the "night" dark tone (reference B sections on black) */
+  --colour-panel: #333333;          /* charcoal trust panel (reference B) */
 
   /* ---- Typography ------------------------------------------------------ */
   --font-sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;

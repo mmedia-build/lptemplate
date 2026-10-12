@@ -1,0 +1,125 @@
+---
+/**
+ * Heading, paragraphs and a CTA beside one or two photos (reference B's
+ * dream outcome, problem, owner story and liveable-home sections are all this
+ * shape). Desktop: two equal columns, photos on the configured side. Phones:
+ * heading, then the photos, then the paragraphs and CTA. Holds 1 to 4
+ * paragraphs and 1 or 2 photos.
+ */
+import type { SplitContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: SplitContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const images = content.images.slice(0, 2);
+const pair = images.length === 2;
+const spec = pair ? imageSpecs.splitImagePair : imageSpecs.splitImageSingle;
+const showCta = content.showCta !== false;
+const prefix = id ? `split#${id}` : 'split';
+---
+
+<Section tone={tone} type="split" id={id}>
+  <Container>
+    <div class:list={['split', `split--${content.imageSide}`]}>
+      <h2 class="h2 split__headline">{content.headline}</h2>
+      <div class:list={['split__media', pair && 'split__media--pair']}>
+        {images.map((image, i) => (
+          <div class="split__photo reveal">
+            <ImageSlot
+              image={image}
+              slotId={`${prefix}.images[${i}]`}
+              spec={spec}
+              description={pair ? 'finished room, landscape, matched to its pair' : 'finished room, landscape, subject centred'}
+              widths={[358, 545, 716, 1090]}
+              sizes="(min-width: 1024px) 545px, calc(100vw - 32px)"
+              class="split__img"
+            />
+          </div>
+        ))}
+      </div>
+      <div class="split__text">
+        {content.paragraphs.map((p) => (
+          <p class="split__p">{p}</p>
+        ))}
+        {showCta && <Cta label={ctaLabel} class="split__cta" />}
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .split {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .split__headline {
+    text-align: left;
+  }
+
+  .split__media {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-cards);
+  }
+
+  .split__photo :global(.split__img),
+  .split__photo :global(.slot) {
+    width: 100%;
+    height: auto;
+  }
+
+  .split__text {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+  }
+
+  .split__cta {
+    margin-top: 4px;
+  }
+
+  @media (min-width: 1024px) {
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas:
+        'headline media'
+        'text media';
+      grid-template-rows: auto 1fr;
+      column-gap: 48px;
+      row-gap: 28px;
+      align-items: start;
+    }
+
+    .split--left {
+      grid-template-areas:
+        'media headline'
+        'media text';
+    }
+
+    .split__headline {
+      grid-area: headline;
+    }
+
+    .split__media {
+      grid-area: media;
+      align-self: center;
+    }
+
+    .split__text {
+      grid-area: text;
+    }
+  }
+</style>

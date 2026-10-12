@@ -1,0 +1,147 @@
+---
+/**
+ * Durability promise with the suppliers' marks on white tiles (reference B's
+ * materials section), optionally fading into a photo at the foot. Tiles:
+ * two per row on phones, six on desktop. Holds 4 to 24 logos.
+ */
+import type { LogoGridContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Container from '../components/Container.astro';
+import Cta from '../components/Cta.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: LogoGridContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+const showCta = content.showCta === true;
+const hasFoot = Boolean(content.footImage);
+---
+
+<Section tone={tone} type="logoGrid" id={id} padding={hasFoot ? 'flush-bottom' : 'default'}>
+  <Container>
+    <div class="logogrid">
+      <h2 class="h2 text-center logogrid__headline">{content.headline}</h2>
+      <div class="logogrid__text">
+        {content.paragraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+      </div>
+      <ul class="logogrid__tiles">
+        {content.logos.map((logo, i) => (
+          <li class="logogrid__tile">
+            <ImageSlot
+              image={logo}
+              slotId={`logoGrid.logos[${i}]`}
+              spec={imageSpecs.supplierLogo}
+              description="supplier mark"
+              widths={[200, 400]}
+              sizes="(min-width: 1024px) 160px, 40vw"
+              class="logogrid__img"
+            />
+          </li>
+        ))}
+      </ul>
+      {showCta && <Cta label={ctaLabel} class="logogrid__cta" />}
+    </div>
+  </Container>
+  {hasFoot && (
+    <div class="logogrid__foot" aria-hidden="true">
+      <ImageSlot
+        image={content.footImage}
+        slotId="logoGrid.footImage"
+        spec={imageSpecs.footImage}
+        description="wide interior, low contrast"
+        widths={[780, 1440, 2048, 2732]}
+        sizes="100vw"
+        class="logogrid__foot-img"
+        labelPosition="bottom"
+      />
+    </div>
+  )}
+</Section>
+
+<style>
+  .logogrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .logogrid__headline {
+    max-width: 760px;
+  }
+
+  .logogrid__text {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+    width: 100%;
+    max-width: 569px;
+  }
+
+  .logogrid__tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .logogrid__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 2;
+    padding: 14px;
+    background: var(--colour-surface);
+  }
+
+  .logogrid__tile :global(.logogrid__img),
+  .logogrid__tile :global(.slot) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: auto;
+  }
+
+  .logogrid__tile :global(.slot__label) {
+    font-size: 9px;
+    line-height: 1.1;
+    padding: 2px 4px;
+  }
+
+  .logogrid__foot {
+    position: relative;
+    height: 330px;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+
+  .logogrid__foot :global(.logogrid__foot-img),
+  .logogrid__foot :global(.slot) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .logogrid__tiles {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .logogrid__foot {
+      height: 520px;
+      margin-top: 60px;
+    }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+/**
+ * Slow marquee of supplier and brand marks under the hero (reference B's
+ * logo strip). Holds 4 to 24 logos; fewer logos get more copies so the loop
+ * stays seamless. Inherits the tone of the section above.
+ */
+import type { LogoStripContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import Marquee from '../components/Marquee.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+
+interface Props {
+  content: LogoStripContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+const logos = content.logos;
+const copies = logos.length >= 8 ? 2 : logos.length >= 4 ? 3 : 5;
+const duration = Math.max(20, Math.round(logos.length * 3.5));
+---
+
+<Section tone={tone} type="logoStrip" id={id} padding="none" class="logos">
+  <Marquee duration={duration} gap="40px" copies={copies} label="Suppliers and brands">
+    {logos.map((logo, i) => (
+      <div class="logos__item">
+        <ImageSlot
+          image={logo}
+          slotId={`logoStrip.logos[${i}]`}
+          spec={imageSpecs.supplierLogo}
+          description="supplier or brand mark"
+          widths={[200, 400]}
+          sizes="160px"
+          class="logos__img"
+        />
+      </div>
+    ))}
+  </Marquee>
+</Section>
+
+<style>
+  .logos {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .logos__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 120px;
+    height: 36px;
+  }
+
+  .logos__item :global(.logos__img),
+  .logos__item :global(.slot) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: auto;
+  }
+
+  .logos__item :global(.slot__label) {
+    font-size: 8px;
+    line-height: 1.1;
+    padding: 2px 4px;
+  }
+
+  @media (min-width: 1024px) {
+    .logos {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .logos__item {
+      width: 160px;
+      height: 50px;
+    }
+  }
+</style>

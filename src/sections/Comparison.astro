@@ -1,8 +1,11 @@
 ---
 /**
- * Us versus most other tradies: two columns, sage and white, ticks and
- * crosses. Columns stay side by side on phones (as the reference) and stack
- * only below 375px. Each column holds 2 to 6 rows.
+ * Us versus most other tradies. Two layouts:
+ *  - columns (reference A): two joined columns, accent and white, ticks and
+ *    crosses. Columns stay side by side on phones and stack only below 375px.
+ *  - cards (reference B): two white cards with a header plate each, a dashed
+ *    accent border on ours, small accent and grey markers, banded rows.
+ * Each side holds 2 to 10 rows.
  */
 import type { ComparisonContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -22,13 +25,14 @@ interface Props {
 }
 const { content, tone, id, ctaLabel } = Astro.props;
 const logoWhite = site.business.logoWhite;
+const cards = content.layout === 'cards';
 ---
 
 <Section tone={tone} type="comparison" id={id}>
   <Container>
-    <h2 class="h2 text-center comparison__headline">{content.headline}</h2>
-    <div class="comparison">
-      <div class="comparison__col comparison__col--us">
+    <h2 class:list={['h2', 'text-center', 'comparison__headline', cards && 'comparison__headline--cards']}>{content.headline}</h2>
+    <div class:list={['comparison', cards && 'comparison--cards']}>
+      <div class="comparison__col comparison__col--us comparison__card">
         <div class="comparison__title comparison__title--us">
           {logoWhite.src ? (
             <ImageSlot image={logoWhite} slotId="business.logoWhite" spec={imageSpecs.logoWhite} description="white logo" widths={[131, 262]} sizes="131px" class="comparison__logo" placeholder={false} />
@@ -39,7 +43,11 @@ const logoWhite = site.business.logoWhite;
         <ul class="comparison__rows">
           {content.us.items.map((row) => (
             <li class="comparison__row reveal">
-              <Icon ui="check" size={28} strokeWidth={2.25} class="comparison__icon comparison__icon--check" />
+              {cards ? (
+                <span class="comparison__dot comparison__dot--us" aria-hidden="true"></span>
+              ) : (
+                <Icon ui="check" size={28} strokeWidth={2.25} class="comparison__icon comparison__icon--check" />
+              )}
               <p class="comparison__text">
                 <strong>{row.lead}</strong> {row.text}
               </p>
@@ -47,14 +55,18 @@ const logoWhite = site.business.logoWhite;
           ))}
         </ul>
       </div>
-      <div class="comparison__col comparison__col--them">
+      <div class="comparison__col comparison__col--them comparison__card">
         <p class="comparison__title comparison__title--them">{content.them.title}</p>
         <ul class="comparison__rows">
           {content.them.items.map((row) => (
             <li class="comparison__row reveal">
-              <span class="comparison__icon comparison__icon--cross" aria-hidden="true">
-                <Icon ui="cross" size={14} strokeWidth={3} />
-              </span>
+              {cards ? (
+                <span class="comparison__dot comparison__dot--them" aria-hidden="true"></span>
+              ) : (
+                <span class="comparison__icon comparison__icon--cross" aria-hidden="true">
+                  <Icon ui="cross" size={14} strokeWidth={3} />
+                </span>
+              )}
               <p class="comparison__text">
                 <strong>{row.lead}</strong> {row.text}
               </p>
@@ -166,6 +178,99 @@ const logoWhite = site.business.logoWhite;
     margin-top: 25px;
   }
 
+  /* ---- Cards layout --------------------------------------------------- */
+  .comparison__headline--cards {
+    margin-bottom: 60px;
+  }
+
+  .comparison--cards {
+    grid-template-columns: 1fr;
+    gap: var(--gap-cards);
+  }
+
+  .comparison--cards .comparison__col {
+    gap: 0;
+    padding: 70px 20px 24px;
+    background: var(--colour-surface);
+    color: var(--colour-body);
+    position: relative;
+  }
+
+  .comparison--cards .comparison__col--us {
+    border: 2px dashed var(--colour-accent);
+  }
+
+  .comparison--cards .comparison__title {
+    position: absolute;
+    top: -22px;
+    left: 24px;
+    right: 24px;
+    justify-content: center;
+    min-height: 68px;
+    margin: 0;
+    padding: 12px 16px;
+    box-shadow: 0 10px 20px -8px rgb(0 0 0 / 0.25);
+  }
+
+  .comparison--cards .comparison__title--us {
+    background: var(--colour-accent-strong);
+    color: #fff;
+  }
+
+  .comparison--cards .comparison__title--them {
+    max-width: none;
+    background: var(--colour-surface-muted);
+    color: var(--colour-heading);
+    font-size: var(--fs-h3-step);
+    text-align: center;
+  }
+
+  .comparison--cards .comparison__rows {
+    gap: 0;
+  }
+
+  .comparison--cards .comparison__row {
+    grid-template-columns: 16px 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 8px;
+  }
+
+  .comparison--cards .comparison__row:nth-child(even) {
+    background: var(--colour-surface-muted);
+  }
+
+  .comparison__dot {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-pill);
+  }
+
+  .comparison__dot::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    transform: rotate(45deg);
+  }
+
+  .comparison__dot--us {
+    background: var(--colour-accent-strong);
+  }
+
+  .comparison__dot--them {
+    background: var(--colour-border-strong);
+  }
+
+  .comparison--cards .comparison__text {
+    font-size: var(--fs-body);
+    line-height: 1.2;
+  }
+
   @media (max-width: 374px) {
     .comparison {
       grid-template-columns: 1fr;
@@ -175,6 +280,10 @@ const logoWhite = site.business.logoWhite;
   @media (min-width: 1024px) {
     .comparison__headline {
       margin-bottom: 50px;
+    }
+
+    .comparison__headline--cards {
+      margin-bottom: 106px;
     }
 
     .comparison {
@@ -197,6 +306,26 @@ const logoWhite = site.business.logoWhite;
 
     .comparison__cta {
       margin-top: 62px;
+    }
+
+    .comparison--cards {
+      grid-template-columns: 1fr 1fr;
+      max-width: 948px;
+    }
+
+    .comparison--cards .comparison__col {
+      padding: 80px 36px 30px;
+    }
+
+    .comparison--cards .comparison__title {
+      top: -40px;
+      left: 36px;
+      right: 36px;
+      min-height: 114px;
+    }
+
+    .comparison--cards .comparison__row {
+      padding: 15px 10px;
     }
   }
 </style>

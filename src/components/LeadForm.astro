@@ -35,13 +35,26 @@ const formConfig = JSON.stringify({
 <form class="form" method="post" action={form.thankYouPath} novalidate data-lead-form data-form-config={formConfig}>
   <div class="form__fields">
     {form.fields.map((field) => {
-      const attrs: Record<string, string | number> = field.type === 'textarea' ? {} : inputAttrs(field.type);
+      const attrs: Record<string, string | number> = field.type === 'textarea' || field.type === 'select' ? {} : inputAttrs(field.type);
       const id = `field-${field.name}`;
       return (
         <div class="field" data-field={field.name}>
           <label class="visually-hidden" for={id}>{field.label}</label>
           {field.icon && field.icon !== 'none' && <Icon name={field.icon} size={20} class="field__icon" />}
-          {field.type === 'textarea' ? (
+          {field.type === 'select' ? (
+            <select
+              id={id}
+              name={field.name}
+              class="field__input field__input--select"
+              required={field.required}
+              aria-describedby={`${id}-error`}
+            >
+              <option value="" selected disabled={field.required}>{field.placeholder}</option>
+              {(field.options ?? []).map((option) => (
+                <option value={option}>{option}</option>
+              ))}
+            </select>
+          ) : field.type === 'textarea' ? (
             <textarea
               id={id}
               name={field.name}
@@ -136,6 +149,18 @@ const formConfig = JSON.stringify({
   .field__input--area {
     min-height: 88px;
     resize: vertical;
+  }
+
+  .field__input--select {
+    padding-right: 48px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    cursor: pointer;
+  }
+
+  .field__input--select:has(option[value='']:checked) {
+    color: var(--colour-placeholder);
   }
 
   .field.is-invalid .field__input {

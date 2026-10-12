@@ -1,7 +1,11 @@
 ---
 /**
- * Numbered process. Desktop: photo, number circle on a dashed rail, text,
- * alternating sides. Phones: rail on the left, photo then text indented.
+ * Numbered process. Two layouts:
+ *  - rail (reference A): photo, number circle on a dashed rail, text,
+ *    alternating sides on desktop; rail on the left on phones.
+ *  - rows (reference B): each step a muted card, photo on one side and the
+ *    text with a numbered square on the other, alternating; photo above the
+ *    text on phones.
  * Holds 2 to 6 steps.
  */
 import type { StepsContent } from '../config/types.ts';
@@ -19,37 +23,65 @@ interface Props {
   ctaLabel?: string;
 }
 const { content, tone, id, ctaLabel } = Astro.props;
+const rows = content.layout === 'rows';
 const descriptions = ['the visit: crew at the house', 'the work in progress', 'the finished detail'];
 ---
 
 <Section tone={tone} type="steps" id={id}>
   <Container>
     <h2 class="h2 text-center steps__headline">{content.headline}</h2>
-    <ol class="steps__list">
-      {content.items.map((step, i) => (
-        <li class:list={['step', 'reveal', i % 2 === 1 && 'step--flip']}>
-          <div class="step__photo">
-            <ImageSlot
-              image={step.image}
-              slotId={`steps.items[${i}].image`}
-              spec={imageSpecs.stepImage}
-              description={descriptions[i] ?? 'landscape process photo'}
-              widths={[290, 468, 580, 936]}
-              sizes="(min-width: 1024px) 468px, calc(100vw - 100px)"
-              class="step__img"
-            />
-          </div>
-          <div class="step__rail" aria-hidden="true">
-            <span class="step__number">{String(i + 1).padStart(2, '0')}</span>
-            {i < content.items.length - 1 && <span class="step__line"></span>}
-          </div>
-          <div class="step__text">
-            <h3 class="step__title">{step.title}</h3>
-            <p class="step__body">{step.body}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+    {rows ? (
+      <ol class="rows">
+        {content.items.map((step, i) => (
+          <li class:list={['step--row', 'reveal', i % 2 === 1 && 'step--row-flip']}>
+            <div class="row__photo">
+              <ImageSlot
+                image={step.image}
+                slotId={`steps.items[${i}].image`}
+                spec={imageSpecs.stepRowImage}
+                description={descriptions[i] ?? 'landscape process photo'}
+                widths={[358, 569, 716, 1140]}
+                sizes="(min-width: 1024px) 569px, calc(100vw - 32px)"
+                class="row__img"
+              />
+            </div>
+            <div class="row__text">
+              <div class="row__head">
+                <span class="row__number" aria-hidden="true">{i + 1}.</span>
+                <h3 class="row__title">{step.title}</h3>
+              </div>
+              <p class="row__body">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <ol class="steps__list">
+        {content.items.map((step, i) => (
+          <li class:list={['step', 'reveal', i % 2 === 1 && 'step--flip']}>
+            <div class="step__photo">
+              <ImageSlot
+                image={step.image}
+                slotId={`steps.items[${i}].image`}
+                spec={imageSpecs.stepImage}
+                description={descriptions[i] ?? 'landscape process photo'}
+                widths={[290, 468, 580, 936]}
+                sizes="(min-width: 1024px) 468px, calc(100vw - 100px)"
+                class="step__img"
+              />
+            </div>
+            <div class="step__rail" aria-hidden="true">
+              <span class="step__number">{String(i + 1).padStart(2, '0')}</span>
+              {i < content.items.length - 1 && <span class="step__line"></span>}
+            </div>
+            <div class="step__text">
+              <h3 class="step__title">{step.title}</h3>
+              <p class="step__body">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    )}
     <Cta label={ctaLabel} class="steps__cta" />
   </Container>
 </Section>
@@ -140,8 +172,65 @@ const descriptions = ['the visit: crew at the house', 'the work in progress', 't
     margin-top: 30px;
   }
 
+  /* ---- Rows layout ---------------------------------------------------- */
+  .rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step--row {
+    display: flex;
+    flex-direction: column;
+    background: var(--colour-surface-muted);
+  }
+
+  .row__photo {
+    overflow: hidden;
+  }
+
+  .row__photo :global(.row__img),
+  .row__photo :global(.slot) {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .row__text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 20px 28px;
+  }
+
+  .row__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .row__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    background: var(--colour-accent-strong);
+    color: #fff;
+    font-size: var(--fs-small);
+    font-weight: var(--weight-semibold);
+  }
+
+  .row__title {
+    font-size: var(--fs-h3);
+    line-height: 1.3;
+    font-weight: var(--weight-medium);
+    padding-top: 3px;
+  }
+
   @media (min-width: 1024px) {
     .steps__headline {
+      max-width: 650px;
       margin-bottom: 50px;
     }
 
@@ -187,6 +276,36 @@ const descriptions = ['the visit: crew at the house', 'the work in progress', 't
 
     .steps__cta {
       margin-top: 48px;
+    }
+
+    .step--row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 328px;
+    }
+
+    .step--row-flip .row__photo {
+      order: -1;
+    }
+
+    .row__photo {
+      height: 328px;
+    }
+
+    .row__photo :global(.row__img),
+    .row__photo :global(.slot) {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .row__text {
+      justify-content: center;
+      padding: 44px 50px;
+    }
+
+    .row__title {
+      font-size: 20px;
+      line-height: 1.2;
     }
   }
 </style>

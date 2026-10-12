@@ -72,6 +72,34 @@ export const guideNotes: Record<SectionType | 'header' | 'footer', GuideNoteText
     job: 'Convert: restate the offer at full value, list what the visit delivers, and take the lead with the fewest fields that still qualify the job.',
     principle: 'Offer stacking, reason-why bullets, optional urgency, and a reinforcement line at the moment of commitment.',
   },
+  logoStrip: {
+    job: 'Borrow authority from suppliers and brands the visitor recognises, in the two seconds after the hero.',
+    principle: 'Association: marks the trade knows say "the trade knows us".',
+  },
+  gallery: {
+    job: 'A wall of finished work immediately after the hero, cropped so it looks endless, with a tap that rewards curiosity.',
+    principle: 'Demonstration and the curiosity gap; the tap is a micro-commitment before any argument.',
+  },
+  split: {
+    job: 'One argument beside one or two photos: paint the finished state early, name the cause of failure, put the owner in person, or answer the "living through it" fear.',
+    principle: 'Future pacing, problem agitation, authority or objection handling, depending on the copy; the photos keep the proof density up.',
+  },
+  statement: {
+    job: 'State the method in full: who does what, in what order, under one roof, and the result that follows.',
+    principle: 'Mechanism naming: the central claim every later section repeats in another shape.',
+  },
+  beforeAfterGrid: {
+    job: 'Prove transformation in the visitor\'s suburbs with one draggable pair per job, each labelled with the suburb and a caption.',
+    principle: 'Demonstration with local specificity and an action the thumb can take.',
+  },
+  logoGrid: {
+    job: 'Promise durability and prove it with the suppliers\' own marks, where doubt about materials would otherwise surface.',
+    principle: 'Authority by association.',
+  },
+  faq: {
+    job: 'Answer the six questions a partner asks at the kitchen table, each in two to four honest sentences, for the visitor who scrolled past the form.',
+    principle: 'Objection handling after the offer; one honest limitation buys belief for the rest.',
+  },
   footer: {
     job: 'Close the page without offering an exit: logo, copyright and legal text in modals.',
     principle: 'Completeness and compliance without leaking attention.',

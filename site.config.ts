@@ -59,6 +59,10 @@ export default defineConfig({
     texture: { src: '', alt: '' },
     // White wash over the hero photo, 0 to 1. Most client photos need 0.5 to 0.7 so the headline stays readable.
     heroWash: 0.6,
+    // How "dark" sections look: 'texture' (light plaster, dark text) or 'night' (near black, white text over the blurred texture photo).
+    darkTone: 'texture',
+    // Layout token overrides, keyed without the leading dashes. Leave empty unless the page needs the renovation preset's spacing.
+    tokens: {},
   },
 
   /* ---------------------------------------------------------------------- */
@@ -89,6 +93,10 @@ export default defineConfig({
     label: 'REQUEST A FREE [THING THEY GET] NOW',
     // Anchor every CTA scrolls to. Matches the offer form section id.
     target: '#offer-section',
+    // What sits under every button: 'auto' shows the review badge when proof is set, otherwise the reinforcement line.
+    under: 'auto',
+    // One line restating the bonus and its value, for a client with no review profile. About 76 characters. Empty hides it.
+    reinforcement: '',
   },
 
   header: {

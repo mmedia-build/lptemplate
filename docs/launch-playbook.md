@@ -21,28 +21,29 @@ The repeatable pathway from "new client" to "ads live", using this template with
 
 ### Day 2: build
 
-6. Start a Claude Code session in the client repository. Give it the transcript, the review figures, the webhook URL, the pixel ID, the legal documents and the asset folder. The project's `CLAUDE.md` tells it the rest: write copy to the content spec and exemplar, place images, run the checks, open a pull request.
-7. Review the pull request: read every slot against the "Is this client page at the standard?" checklist at the end of `docs/exemplar.md`. Anything invented (a number, a suburb, a quote) gets removed, not improved.
-8. Import the repository into Vercel (first push). Vercel builds the PR branch and posts a preview URL on the pull request.
+6. Decide the preset from the intake: reference A (`site.config.ts`) for a fast trade job with a review profile, reference B (`examples/site.config.renovation.ts`) for a slow, high-value job with an owner to name and no reviews. `docs/sections.md` has the table that maps what the client has to the sections to use; the two can be mixed.
+7. Start a Claude Code session in the client repository. Give it the transcript, the preset choice, the review figures, the webhook URL, the pixel ID, the legal documents and the asset folder. The project's `CLAUDE.md` tells it the rest: write copy to the content spec and exemplar, place images, run the checks, open a pull request.
+8. Review the pull request: read every slot against the "Is this client page at the standard?" checklist at the end of `docs/exemplar.md`. Anything invented (a number, a suburb, a quote) gets removed, not improved.
+9. Import the repository into Vercel (first push). Vercel builds the PR branch and posts a preview URL on the pull request.
 
 ### Day 3: client approval
 
-9. Send the client the Vercel preview URL and ask them to open it on their phone. Ask three questions: is every number true, are these your photos and your words, and would you be happy for a customer to see it. Collect changes in one message, not a trickle.
-10. Apply changes in the same Claude session or by editing `site.config.ts`, push, and the preview updates. Repeat until the client writes "approved".
-11. Merge the pull request to `main`. Vercel deploys production.
+10. Send the client the Vercel preview URL and ask them to open it on their phone. Ask three questions: is every number true, are these your photos and your words, and would you be happy for a customer to see it. Collect changes in one message, not a trickle.
+11. Apply changes in the same Claude session or by editing `site.config.ts`, push, and the preview updates. Repeat until the client writes "approved".
+12. Merge the pull request to `main`. Vercel deploys production.
 
 ### Day 4: wire and test
 
-12. Add the custom domain in Vercel (Project, Settings, Domains), usually `offer.<clientdomain>.com.au`, and have the client's DNS host add the CNAME Vercel shows. Wait for the certificate.
-13. Submit the live form once with your own details. Confirm in GoHighLevel: contact created, phone in E.164, tag applied, notification received. Map any field that did not land using the sample payload GHL captured.
-14. Open the Meta Events Manager test tool, load the page, confirm PageView; tap the phone number, confirm Contact; submit the form, confirm one Lead on the thank-you page. Refresh the thank-you page and confirm no second Lead.
-15. Run `npm run lighthouse` against the production URL if you want a recorded score with real images (the script can take a URL once you set `BASE_URL`; otherwise run it against the local build).
+13. Add the custom domain in Vercel (Project, Settings, Domains), usually `offer.<clientdomain>.com.au`, and have the client's DNS host add the CNAME Vercel shows. Wait for the certificate.
+14. Submit the live form once with your own details. Confirm in GoHighLevel: contact created, phone in E.164, tag applied, notification received. Map any field that did not land using the sample payload GHL captured.
+15. Open the Meta Events Manager test tool, load the page, confirm PageView; tap the phone number, confirm Contact; submit the form, confirm one Lead on the thank-you page. Refresh the thank-you page and confirm no second Lead.
+16. Run `npm run lighthouse` against the production URL if you want a recorded score with real images (the script can take a URL once you set `BASE_URL`; otherwise run it against the local build).
 
 ### Day 5: launch
 
-16. Hand the client the thank-you page's "what happens next" promise as their own checklist: who calls, how fast, what the visit covers. The page has made that promise; the business has to keep it.
-17. Start the ads with the landing URL plus UTM parameters (`?utm_source=meta&utm_campaign=<name>`); the page stores them and sends them with each lead.
-18. Archive the intake transcript and the final `site.config.ts` in the client repo. That pair is the full record of the page.
+17. Hand the client the thank-you page's "what happens next" promise as their own checklist: who calls, how fast, what the visit covers. The page has made that promise; the business has to keep it.
+18. Start the ads with the landing URL plus UTM parameters (`?utm_source=meta&utm_campaign=<name>`); the page stores them and sends them with each lead.
+19. Archive the intake transcript and the final `site.config.ts` in the client repo. That pair is the full record of the page.
 
 ## Definition of done
 

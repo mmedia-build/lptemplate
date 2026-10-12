@@ -1,8 +1,11 @@
 /*
-  Self-hosted Manrope (SIL Open Font License, see public/fonts/OFL.txt).
-  Variable weight 200 to 800, two unicode subsets from the Google Fonts build.
-  "Manrope Fallback" is Arial scaled to Manrope's metrics so text does not
-  shift when the web font swaps in.
+  Two self-hosted families, both under the SIL Open Font License (see
+  public/fonts/OFL.txt): Manrope (reference A) and Plus Jakarta Sans
+  (reference B). Each is one variable woff2 per unicode subset from the
+  Google Fonts build. The matching "Fallback" face is Arial scaled to the
+  font's own metrics so text does not shift when the web font swaps in.
+  brand.fonts.family in site.config.ts picks the family; only that family's
+  preload is emitted by src/layouts/Base.astro.
 */
 @font-face {
   font-family: 'Manrope';
@@ -26,5 +29,31 @@
   size-adjust: 128.1%;
   ascent-override: 83.2%;
   descent-override: 23.4%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  /* Metrics read from the Plus Jakarta Sans variable TTF: 1000 upm, ascender 1038, descender 222, xAvgCharWidth 601. */
+  font-family: 'Plus Jakarta Sans Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 136.2%;
+  ascent-override: 76.2%;
+  descent-override: 16.3%;
   line-gap-override: 0%;
 }

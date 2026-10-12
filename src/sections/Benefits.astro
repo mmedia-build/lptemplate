@@ -1,8 +1,11 @@
 ---
 /**
- * Named-method benefit cards around one photo. Desktop: three columns with
- * the photo in the centre of the second row when there are five cards.
- * Phones: cards stacked, photo before the last card. Holds 3 to 6 cards.
+ * Named-method benefit cards. Two layouts:
+ *  - grid (reference A): three columns around one photo on desktop; the photo
+ *    sits in the centre of the second row when there are five cards. Phones:
+ *    cards stacked, photo before the last card. Holds 3 to 6 cards.
+ *  - list (reference B): one column of cards, icon top left, no photo.
+ *    Holds 3 to 6 cards.
  */
 import type { BenefitsContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -21,20 +24,21 @@ interface Props {
 }
 const { content, tone, id, ctaLabel } = Astro.props;
 const items = content.items;
+const list = content.layout === 'list';
 // Photo position: centre of the second desktop row for five cards, otherwise before the last card.
 const imageIndex = items.length === 5 ? 4 : Math.max(1, items.length - 1);
 const cells: Array<{ kind: 'card'; item: (typeof items)[number] } | { kind: 'image' }> = [];
 items.forEach((item, i) => {
-  if (i === imageIndex) cells.push({ kind: 'image' });
+  if (!list && i === imageIndex) cells.push({ kind: 'image' });
   cells.push({ kind: 'card', item });
 });
-if (imageIndex >= items.length) cells.push({ kind: 'image' });
+if (!list && imageIndex >= items.length) cells.push({ kind: 'image' });
 ---
 
 <Section tone={tone} type="benefits" id={id}>
   <Container>
     <h2 class="h2 text-center benefits__headline">{content.headline}</h2>
-    <ul class="benefits__grid">
+    <ul class:list={['benefits__grid', list && 'benefits__grid--list']}>
       {cells.map((cell) =>
         cell.kind === 'card' ? (
           <li class="benefit reveal">
@@ -123,6 +127,38 @@ if (imageIndex >= items.length) cells.push({ kind: 'image' });
     margin-top: 25px;
   }
 
+  /* ---- List layout ---------------------------------------------------- */
+  .benefits__grid--list {
+    gap: 10px;
+  }
+
+  .benefits__grid--list .benefit {
+    gap: 8px;
+    padding: 24px 20px 24px 24px;
+  }
+
+  .benefits__grid--list .benefit__head {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .benefits__grid--list .benefit__icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 2px;
+  }
+
+  .benefits__grid--list .benefit__title {
+    font-size: var(--fs-h3);
+    line-height: 1.5;
+  }
+
+  .benefits__grid--list .benefit__body {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    padding-left: 42px;
+  }
+
   @media (min-width: 1024px) {
     .benefits__headline {
       margin-bottom: 50px;
@@ -142,6 +178,22 @@ if (imageIndex >= items.length) cells.push({ kind: 'image' });
 
     .benefits__cta {
       margin-top: 48px;
+    }
+
+    .benefits__grid--list {
+      grid-template-columns: 1fr;
+      max-width: 688px;
+      margin-inline: auto;
+    }
+
+    .benefits__grid--list .benefit {
+      min-height: 0;
+      padding: 28px 32px;
+    }
+
+    .benefits__grid--list .benefit__title {
+      font-size: 20px;
+      line-height: 1.6;
     }
   }
 </style>

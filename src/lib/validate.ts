@@ -66,6 +66,8 @@ export function validateField(rule: FieldRule, value: string, messages: Validati
       return isAustralianPhone(v) ? null : messages.phone;
     case 'postcode':
       return isAustralianPostcode(v) ? null : messages.postcode;
+    case 'select':
+      return null;
     default:
       if (rule.minLength && v.length < rule.minLength) return messages.minLength;
       return null;

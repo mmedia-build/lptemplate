@@ -85,18 +85,31 @@ const style = `--per-mobile:${perView.mobile};--per-desktop:${perView.desktop};-
 
   .carousel__dots {
     display: flex;
-    gap: 8px;
+    gap: 2px;
   }
 
+  /* Each dot is an 8px mark inside a 24px target so the row passes the tap-target audit. */
   .carousel__dots :global(button) {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+  }
+
+  .carousel__dots :global(button::before) {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
     width: 8px;
     height: 8px;
-    padding: 0;
     border-radius: var(--radius-pill);
     background: rgb(0 0 0 / 0.2);
   }
 
-  .carousel__dots :global(button[aria-selected='true']) {
+  .carousel__dots :global(button[aria-selected='true']::before) {
     background: var(--colour-accent);
   }
 
