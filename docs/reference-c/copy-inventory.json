@@ -1,0 +1,58 @@
+{
+  "title": "Mirata Digital",
+  "robots": "noindex, nofollow",
+  "captured": "2026-11-10",
+  "note": "Visible text only, read from the live DOM at 390x844 (Instagram in-app user agent). Lengths are characters including spaces. Hidden GoHighLevel blocks (a second guarantee headline with video, a 'want this' CTA block, two copies of an 11-question FAQ and an unrelated article) are display:none at both widths and are listed under hidden.",
+  "sections": [
+    { "i": 0, "name": "header", "items": [
+      { "t": "img", "role": "logo", "text": "Mirata Digital", "len": 14, "words": 2 },
+      { "t": "a", "role": "nav CTA (desktop only, display:none at 390)", "text": "Book Holiday Pipeline call", "len": 26, "words": 4 }
+    ]},
+    { "i": 1, "name": "hero", "items": [
+      { "t": "div", "role": "eyebrow pill", "text": "FOR BATHROOM AND KITCHEN RENOVATORS ONLY", "len": 40, "words": 6 },
+      { "t": "h1", "role": "headline (white part)", "text": "Come back from Christmas to", "len": 27, "words": 5 },
+      { "t": "em", "role": "headline (accent part)", "text": "$200K worth of work to quote.", "len": 29, "words": 6 },
+      { "t": "p", "role": "guarantee line", "text": "Guaranteed. Or we refund every cent.", "len": 36, "words": 6 },
+      { "t": "button", "role": "video unmute label", "text": "Click to unmute", "len": 15, "words": 3 },
+      { "t": "span", "role": "video caption", "text": "How our Holiday Pipeline works", "len": 30, "words": 5 },
+      { "t": "a", "role": "CTA", "text": "Book Holiday Pipeline call", "len": 26, "words": 4 },
+      { "t": "strong", "role": "scarcity line (hard-coded)", "text": "2 of 3 spots available", "len": 22, "words": 5 },
+      { "t": "p", "role": "deadline line (hard-coded date)", "text": "Applications close 4 December, or when filled.", "len": 46, "words": 7 }
+    ]},
+    { "i": 2, "name": "booking form", "items": [
+      { "t": "h1", "role": "form headline", "text": "Book your Holiday Pipeline call", "len": 31, "words": 5 },
+      { "t": "strong", "role": "intro lead", "text": "This isn’t a sales call.", "len": 24, "words": 5 },
+      { "t": "p", "role": "intro paragraph including lead", "text": "This isn’t a sales call. It’s a free, 15-minute chat purely to see whether the Holiday Pipeline suits your business. You won’t be asked to sign up or commit to anything.", "len": 169, "words": 31 },
+      { "t": "label", "role": "field label", "text": "Full Name", "len": 9, "words": 2 },
+      { "t": "label", "role": "field label", "text": "Phone *", "len": 7, "words": 2 },
+      { "t": "label", "role": "field label", "text": "Email *", "len": 7, "words": 2 },
+      { "t": "label", "role": "field label", "text": "Company Name *", "len": 14, "words": 3 },
+      { "t": "span", "role": "qualifying checkbox label", "text": "I confirm my business operates in bathrooms and kitchens and already generates $500,000+ per year in revenue.", "len": 109, "words": 17 },
+      { "t": "p", "role": "checkbox hint", "text": "Required to book your Holiday Pipeline call.", "len": 44, "words": 7 },
+      { "t": "button", "role": "submit", "text": "Book Holiday Pipeline call", "len": 26, "words": 4 }
+    ]},
+    { "i": 3, "name": "video testimonials", "items": [
+      { "t": "h2", "role": "headline", "text": "Hear it from our clients.", "len": 25, "words": 5 },
+      { "t": "strong", "role": "card 1 name, business", "text": "Cooper, Beyond Bathrooms", "len": 24, "words": 3 },
+      { "t": "p", "role": "card 1 result", "text": "300+ jobs booked directly from ads.", "len": 35, "words": 6 },
+      { "t": "strong", "role": "card 2 name, business", "text": "Dave, Oakwood Projects", "len": 22, "words": 3 },
+      { "t": "p", "role": "card 2 result", "text": "From an empty quote book to a stronger pipeline.", "len": 48, "words": 9 },
+      { "t": "strong", "role": "card 3 name, business", "text": "Rhys, Harvest Pools", "len": 19, "words": 3 },
+      { "t": "p", "role": "card 3 result", "text": "Consistent enquiries helped the business expand nationally.", "len": 59, "words": 7 },
+      { "t": "strong", "role": "card 4 name, business", "text": "Jay, Outright Roofing", "len": 21, "words": 3 },
+      { "t": "p", "role": "card 4 result", "text": "40 to 45 jobs won over 12 months.", "len": 33, "words": 8 },
+      { "t": "a", "role": "card CTA (x4)", "text": "Book Holiday Pipeline call ↗", "len": 28, "words": 5 },
+      { "t": "button", "role": "carousel arrows", "text": "← →", "len": 1, "words": 1 }
+    ]},
+    { "i": 4, "name": "footer", "items": [
+      { "t": "span", "role": "copyright", "text": "Mirata | All Rights Reserved © 2026", "len": 35, "words": 7 },
+      { "t": "span", "role": "platform disclaimer", "text": "This site is not a part of the Facebook™ website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook™ in any way. FACEBOOK™ is a trademark of FACEBOOK, Inc.", "len": 173, "words": 31 }
+    ]}
+  ],
+  "hidden": [
+    { "role": "guarantee headline with a second video", "text": "We Will Add An Extra $30k In Booked Jobs Within 6 Weeks Or Your Money Back.", "len": 75 },
+    { "role": "repeat CTA heading", "text": "Want This For Your Renovation Business? Click The Button Below", "len": 61 },
+    { "role": "FAQ heading and 11 questions (twice)", "text": "WE GET ASKED...", "len": 15 },
+    { "role": "unrelated article heading", "text": "Is the Agency Business Model Still the Best in 2024?", "len": 52 }
+  ]
+}

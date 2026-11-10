@@ -376,6 +376,62 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 - You to we ratio: about 1 to 1; the owner section and the statement are "we" and "I", the dream, problem, liveable and FAQ sections are "you".
 - CTA consistency: one label, uppercase, twelve times, with the same reinforcement line under eleven of them.
 
+## Part 5: Reference C (agency booking page) patterns
+
+Reference C is a different buyer and a smaller ask: a business owner (here a bathroom and kitchen renovator) booking a short call with an agency. The page is five blocks: a video hero, the booking form, a carousel of video testimonials, a header and a footer. The video carries the argument that A and B make in fifteen sections, so the copy is short and the form comes second. Section types C shares with A and B (header, CTA, form, footer) follow the earlier patterns unless noted here.
+
+### Imagery: reference C
+
+- Total: one 16:9 explainer video in the hero (the agency owner talking to camera in a picture-in-picture over a screen recording, about three and a half minutes), four 16:9 testimonial videos, the wordmark in white, and no photographs at all.
+- Testimonial poster frames: the client (and in two of four, their family) standing in front of their own work or premises, looking at camera, with the result printed large across the top of the frame ("$8M FROM ADS" style). The poster is the proof before anyone presses play, so the figure on it must be the client's own and match the result line beneath.
+- Hero video poster: the presenter's face must be in the first frame and in the left or centre third, because the unmute overlay covers the centre of the frame.
+- Colour: black, cream and one acid accent (lime). The accent appears on the eyebrow, the CTA surface, the second half of the headline and the status dot, nowhere else.
+- Minimum asset list for a page built on C: one 16:9 explainer clip of two to four minutes with a poster frame showing the presenter; three to six 16:9 testimonial clips of 30 to 120 seconds, each with a poster frame naming the result; the logo in white (for the dark header) and in full colour; nothing else.
+
+### Video: reference C
+
+| Embed | Host | Format | Length | Orientation | Playback | Poster | Captions |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Hero explainer | GHL media CDN (MP4) | 1920x1080 | about 215 s | landscape 16:9 | autoplay, muted, inline, native controls, an "unmute" overlay | a GHL-transcoded frame | none |
+| Four testimonials | GHL media CDN (MP4) | unknown until played | unknown (`preload="none"`) | landscape 16:9 | tap to play, native controls | a designed frame with the result in large type | none |
+
+Standard for a client's clips: landscape 16:9, burned-in captions (most in-app viewers watch muted), the result or the promise said in the first five seconds, a poster frame that works as a still. The template never autoplays; it shows the poster with a play button and the caption, and loads the player on tap.
+
+### Copy: Hero (C)
+
+- `hero.eyebrow`: pattern "FOR [TRADE] [ROLE PLURAL] ONLY". Excerpt: "...RENOVATORS ONLY". Why: "only" turns a description into a filter, which an owner reads as "this is built for me". 40 characters, 6 words, uppercase on a pill. In the template's video hero it must fit one line at 390 wide: keep it under 44 characters.
+- `hero.headline` plus `hero.headlineAccent`: pattern "[Moment they care about] to" then "[dollar figure] [unit of work they count]." Excerpt: "Come back from Christmas to" and "$200K worth of work to quote." Why: the first half names a time the owner already dreads (a quiet period), the second half is the outcome in their own unit (work to quote, booked jobs), and the accent colour makes the number the thing the eye lands on. 27 and 29 characters. The season or date in the first half must be the client's campaign, written by hand, never generated.
+- `hero.body` (the guarantee line in C's layout): pattern "Guaranteed. Or we [the reversal]." Excerpt: "Guaranteed. Or we refund every cent." Why: one word of certainty, then the cost of being wrong moved onto the agency. 36 characters, 6 words. Use only with a guarantee the client has in writing; otherwise write the outcome's condition instead ("For [trade] businesses doing $[revenue] a month").
+- `hero.video.label` and `hero.video.caption`: "Watch: [what the video shows]" and "[how it works in five words]". 15 and 30 characters.
+- `cta.label` (C): pattern "Book [your] [named offer] call". Excerpt: "Book Holiday Pipeline call". Why: the named offer repeated on every button is how the visitor remembers what they are booking. 26 characters, 4 words.
+- `urgency.line` (C, under the hero CTA when `showUrgency` is on): the reference hard-codes "2 of 3 spots available" and a closing date. The template never writes either. If the client has a real, written intake limit, write it by hand and remove it the day it stops being true.
+
+### Copy: Booking form (C)
+
+- `offerForm.headline`: pattern "Book your [named offer] call". 31 characters, 5 words, serif.
+- `offerForm.lead` and `offerForm.intro`: pattern "This isn't a [thing they fear]." then "It's a free, [duration] [chat] to see whether [the offer] suits your business. You won't be asked to [the commitment they fear]." Why: the lead removes the sales-call fear in five words before the form asks for anything. 24 and 145 characters.
+- The qualifying checkbox (`form.fields[qualified].label`): pattern "I confirm my business [does the trade] and already [meets the threshold]." with the trade and the threshold in bold (`**...**`). Excerpt: "...already generates $500,000+ per year in revenue." Why: a confirmation is faster than a question and filters out businesses the offer does not suit without a dropdown. 109 characters. The threshold must be the client's real qualifying line.
+- `form.fields[qualified].hint`: "Required to book your [named offer] call." 44 characters.
+
+### Copy: Video testimonials (C)
+
+- `testimonials.headline`: pattern "Hear it from our clients." 25 characters, serif.
+- `items[n].name` and `items[n].suburb` (here the business): "[First name]" and "[Business name]", shown as "Cooper, Beyond Bathrooms". 18 to 24 characters together. Use only with the client's permission.
+- `items[n].headline` (the result line): pattern "[number] [result] [from what]." or "From [before state] to [after state]." Excerpts: "300+ jobs booked directly from ads.", "40 to 45 jobs won over 12 months." Why: a number the viewer can compare with their own business. 33 to 59 characters. Every figure must be the client's own, from their records.
+
+### Copy: Footer (C)
+
+- `footer.disclaimer`: the platform disclaimer many Meta advertisers add ("This site is not a part of the Facebook website..."). 173 characters on the reference. Optional; the client's legal adviser decides.
+
+### Page-level voice summary (C)
+
+- Reading level: short declaratives, most sentences under ten words; the longest copy on the page is the form intro.
+- Specificity: three numbers above the fold (a dollar figure, a season, a guarantee), a revenue threshold on the form, a number on every testimonial.
+- Named mechanism: the offer has a product name and it is in every button, the video caption and the form headline.
+- The customer's problem in their words: "work to quote", "an empty quote book", "jobs booked".
+- You to we ratio: about 2 to 1, "you" in the hero and form, "we" only in the guarantee.
+- CTA consistency: one label on every button, the card CTAs included.
+
 ---
 
 ## Is this client page at the standard?
@@ -425,3 +481,12 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 32. If the reinforcement line is used under the CTAs instead of the review badge, does it state a deliverable and a value the client has put in writing?
 33. Does any cash penalty or timeframe guarantee match the client's terms word for word?
 34. Is the gallery's collapsed view made of the client's own finished rooms, at least eight, with no composite image?
+
+### Sections from reference C (only when used)
+
+35. Does the video hero still end (eyebrow, headline, guarantee line, video, CTA and the line beneath) inside 664 px at 390 wide, with the eyebrow on one line?
+36. Is the hero video the client's own, landscape, captioned, with the presenter's face visible in the poster frame outside the centre where the play button sits?
+37. Is the guarantee line backed by written terms, word for word, or replaced with a qualifying condition?
+38. Is every testimonial video a real client who agreed to appear, named with their first name and business, with a result line taken from their own figures?
+39. Does the qualifying checkbox state the client's real threshold, and does the thank-you page link to the client's own booking calendar?
+40. Is the urgency line under the hero CTA empty, or a hand-written limit that is true today, with no date or remaining count generated?
