@@ -1,0 +1,229 @@
+---
+/**
+ * VSL and qualify (reference C): step one is a 16:9 video sales letter that
+ * loads only when tapped (YouTube, Vimeo, Wistia or MP4), step two is the
+ * lead form, which reads as a quiz when form fields carry steps. The step two
+ * heading carries the id `<section id>-form`, which is where cta.target
+ * should point; the hero's scroll link points at the section itself.
+ */
+import type { VslFormContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import { plainText } from '../lib/emphasis.ts';
+import Section from '../components/Section.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Icon from '../components/Icon.astro';
+import LeadForm from '../components/LeadForm.astro';
+import ReviewBadge from '../components/ReviewBadge.astro';
+
+interface Props {
+  content: VslFormContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id = 'qualify' } = Astro.props;
+const showReviews = content.showReviews !== false;
+---
+
+<Section tone={tone} type="vslForm" id={id} padding="none" class="vsl">
+  <div class="container vsl__wrap">
+    <h2 class="vsl__step vsl__step--one">{content.stepOne}</h2>
+    <div class="vsl__video" data-video={content.videoUrl || undefined}>
+      <ImageSlot
+        image={content.poster}
+        slotId="vslForm.poster"
+        spec={imageSpecs.vslPoster}
+        description="VSL poster frame, presenter's face"
+        widths={[390, 720, 1440]}
+        sizes="(min-width: 1024px) 720px, 100vw"
+        class="vsl__poster"
+        labelPosition="bottom"
+      />
+      {content.videoUrl ? (
+        <button type="button" class="vsl__overlay" data-video-play aria-label={`Play video: ${plainText(content.stepOne)}`}>
+          <span class="vsl__play"><Icon ui="play" size={30} filled /></span>
+          <span class="vsl__hint">{content.playHint}</span>
+        </button>
+      ) : (
+        <span class="vsl__overlay vsl__overlay--static" aria-hidden="true">
+          <span class="vsl__play"><Icon ui="play" size={30} filled /></span>
+          <span class="vsl__hint">{content.playHint}</span>
+        </span>
+      )}
+    </div>
+
+    <h2 class="vsl__step vsl__step--two" id={`${id}-form`}>{content.stepTwo}</h2>
+    <div class="vsl__form">
+      <LeadForm />
+    </div>
+    {showReviews && (
+      <div class="vsl__reviews">
+        <ReviewBadge variant="pill" />
+      </div>
+    )}
+  </div>
+</Section>
+
+<script>
+  import { initVideoTiles } from '../scripts/video.ts';
+  initVideoTiles();
+</script>
+
+<style>
+  .vsl {
+    padding-top: 24px;
+    padding-bottom: 44px;
+  }
+
+  .vsl__wrap {
+    max-width: 760px;
+  }
+
+  .vsl__step {
+    font-size: 17px;
+    line-height: 1.3;
+    font-weight: var(--weight-bold);
+    color: var(--colour-heading);
+    text-align: center;
+    scroll-margin-top: 16px;
+  }
+
+  .vsl__step--one {
+    margin-bottom: 10px;
+  }
+
+  .vsl__step--two {
+    margin-top: 34px;
+    margin-bottom: 16px;
+  }
+
+  .vsl__video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius-video);
+    background: #1a1a1a;
+  }
+
+  .vsl__video :global(.vsl__poster),
+  .vsl__video :global(.slot),
+  .vsl__video :global(iframe),
+  .vsl__video :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .vsl__video :global(.slot) {
+    background: #1a1a1a;
+    color: #bdbdbd;
+  }
+
+  /* Placeholder label at the top, clear of the play hint at the foot. */
+  .vsl__video :global(.slot__label) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 10px;
+    padding: 6px 8px;
+    text-align: center;
+  }
+
+  .vsl__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .vsl__overlay--static {
+    cursor: default;
+  }
+
+  .vsl__overlay:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: -3px;
+  }
+
+  .vsl__play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    padding-left: 4px;
+    border-radius: 50%;
+    background: var(--colour-primary);
+    color: var(--colour-on-primary);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--colour-primary) 25%, transparent);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .vsl__overlay:hover .vsl__play {
+    transform: scale(1.05);
+  }
+
+  .vsl__hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: var(--weight-semibold);
+    color: #fff;
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.6);
+  }
+
+  .vsl__form {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .vsl__reviews {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vsl__play {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .vsl {
+      padding-top: 48px;
+      padding-bottom: 56px;
+    }
+
+    .vsl__step {
+      font-size: 20px;
+    }
+
+    .vsl__step--one {
+      margin-bottom: 12px;
+    }
+
+    .vsl__step--two {
+      margin-top: 44px;
+      margin-bottom: 20px;
+    }
+
+    .vsl__play {
+      width: 84px;
+      height: 84px;
+    }
+  }
+</style>

@@ -12,7 +12,7 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 
 | Slot | Purpose | Target | Accepted range | Exemplar |
 | --- | --- | --- | --- | --- |
-| `cta.label` | The one CTA label used on every button and the submit (34 on reference A, 45 on B) | 34 chars, 7 words | 22 to 46 chars | [pattern](exemplar.md#copy-hero) |
+| `cta.label` | The one CTA label used on every button and the submit (34 on reference A, 45 on B, 20 on C) | 32 chars, 6 words | 17 to 47 chars | [pattern](exemplar.md#copy-hero) |
 | `business.phoneEyebrow` | Invitation above the number in the desktop header | 15 chars, 2 words | 9 to 21 chars | [pattern](exemplar.md#copy-header) |
 | `cta.reinforcement` | Bonus and value restated under every CTA when there is no review badge | 76 chars, 12 words | 60 to 92 chars | [pattern](exemplar.md#copy-hero-b) |
 
@@ -21,6 +21,7 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 | `business.logo` | 440x146 px | 3.01:1 | Full colour logo on transparent background. | Rendered 100x33 (mobile) and 150x50 (desktop). Transparent PNG or SVG. | [standard](exemplar.md#imagery-logo-and-brand-marks) |
 | `business.logoWhite` | 262x116 px | 2.26:1 | Flat white logo for the sage comparison column. | Rendered 104x46 (mobile) and 131x58 (desktop) on the sage comparison column. | [standard](exemplar.md#imagery-logo-and-brand-marks) |
 | `proof.avatars` | 164x48 px | 3.42:1 | Four round customer head shots overlapping in a row. | Row of four round customer faces, overlapping. Rendered 68x20 (mobile) and 82x24 (desktop). | [standard](exemplar.md#imagery-logo-and-brand-marks) |
+| `business.logoWhite (video hero)` | 360x101 px | 3.56:1 | White logo on transparent, wide format, for the dark video hero. | White or light logo on transparent for the dark video hero. Rendered 121x34 at every width. | [standard](exemplar.md#imagery-reference-c) |
 
 ## 1. Hero
 
@@ -378,6 +379,70 @@ Supported range: 3 to 10 questions (6 on reference B). The first starts open.
 | `sections[faq].content.headline` | Everything you are wondering, answered honestly | 89 chars, 11 words | 80 to 98 chars | [pattern](exemplar.md#copy-faq) |
 | `sections[faq].content.items[n].question` | The question in the customer's words | 37 chars, 6 words | 22 to 52 chars | [pattern](exemplar.md#copy-faq) |
 | `sections[faq].content.items[n].answer` | Two to four honest sentences with a number | 207 chars, 32 words | 134 to 280 chars | [pattern](exemplar.md#copy-faq) |
+
+## C. Video hero (reference C)
+
+Supported range: One per page, first. The video loop is optional; the poster is not.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[videoHero].content.callout` | Names the buyer by trade; the starred part shows in the accent colour | 56 chars, 7 words | 50 to 62 chars | [pattern](exemplar.md#copy-video-hero) |
+| `sections[videoHero].content.headline` | One status promise; the starred words are underlined | 44 chars, 9 words | 39 to 49 chars | [pattern](exemplar.md#copy-video-hero) |
+| `sections[videoHero].content.scrollLabel` | The only action on the first screen: down to the video | 18 chars, 4 words | 12 to 24 chars | [pattern](exemplar.md#copy-video-hero) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[videoHero].content.poster` | 1920x1080 px | 1.78:1 | First frame of the background loop: finished work, slow and wide, no faces, no text in frame. | First frame of the background loop, landscape. Covers 390x664 to 390x844 on phones (centre third survives) and 1440x900 on desktop, under a dark gradient. | [standard](exemplar.md#imagery-reference-c) |
+
+## C. VSL and qualify, with the quiz questions (reference C)
+
+Supported range: One per page. The quiz: any number of steps (3 on reference C: two radio gate questions, then 5 contact fields). Radio questions take 2 to 4 options.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[vslForm].content.stepOne` | Step 1: watch the video, and what they learn | 53 chars, 11 words | 47 to 59 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `sections[vslForm].content.playHint` | Tells them the video has sound | 25 chars, 5 words | 17 to 33 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `sections[vslForm].content.stepTwo` | Step 2: the quiz framed as a test | 38 chars, 8 words | 34 to 42 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `form.fields[watched].label` | Gate one: did they watch the video | 107 chars, 21 words | 96 to 118 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `form.fields[watched].options[n]` | Yes, or no with what to do instead | 22 chars, 4 words | 14 to 30 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `form.fields[fit].label` | Gate two: the real qualifying criteria | 156 chars, 24 words | 140 to 172 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+| `form.fields[fit].options[n]` | Yes, or a polite exit | 15 chars, 3 words | 9 to 21 chars | [pattern](exemplar.md#copy-vsl-and-qualify) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[vslForm].content.poster` | 1440x810 px | 1.78:1 | A frame from the VSL with the presenter's face, 16:9. | 16:9 frame from the VSL, ideally the presenter's face. Rendered 350x197 (mobile) and 720x405 (desktop). | [standard](exemplar.md#imagery-reference-c) |
+
+## C. Video results (reference C)
+
+Supported range: 3 to 15 cards (15 on reference C: 10 with a figure, 5 with a quote).
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[videoResults].content.headline` | Client count and three outcomes | 98 chars, 18 words | 88 to 108 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].name` | Client business name as they trade (6 to 30 on the reference) | 18 chars, 3 words | 5 to 31 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].trade` | Their trade in plain words (7 to 28 on the reference) | 17 chars, 3 words | 5 to 29 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].figure` | Confirmed dollar result, or empty for a quote card | 5 chars, 1 words | 3 to 7 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].timeframe` | in [n] months or days | 11 chars, 3 words | 7 to 15 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].detail` | One line of what changed in the business | 48 chars, 9 words | 36 to 60 chars | [pattern](exemplar.md#copy-results) |
+| `sections[videoResults].content.items[n].quote` | Short outcome in the client's words, when there is no figure | 34 chars, 6 words | 23 to 45 chars | [pattern](exemplar.md#copy-results) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[videoResults].content.items[n].poster` | 790x1404 px | 1:1.78 | A 9:16 frame from each client's clip: face in the upper third, plain middle third for the white text. | 9:16 frame from the case-study clip. Rendered 350x622 (mobile) and 395x702 (desktop) under a dark gradient with white text across the middle. | [standard](exemplar.md#imagery-reference-c) |
+
+## C. P.S. (reference C)
+
+Supported range: 2 to 5 paragraphs (4 on reference C), one bold phrase each.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[postscript].content.tag` | P.S. | 4 chars, 1 words | 2 to 6 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.paragraphs[0]` | Opens on their side: what they do well, the frustration | 70 chars, 14 words | 63 to 77 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.paragraphs[1]` | The reframe: not what they assume, the real cause in bold | 136 chars, 26 words | 122 to 150 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.paragraphs[2]` | Proof restated in bold, a first-person belief | 118 chars, 22 words | 106 to 130 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.paragraphs[3]` | The promise and the real per-area limit in bold | 100 chars, 21 words | 90 to 111 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.name` | Founder's first name | 6 chars, 1 words | 0 to 12 chars | [pattern](exemplar.md#copy-ps) |
+| `sections[postscript].content.role` | Founder, [agency] | 19 chars, 3 words | 12 to 26 chars | [pattern](exemplar.md#copy-ps) |
 
 ## Video slots
 

@@ -100,6 +100,9 @@
   --radius-input: 10px;
   --radius-media: 8px;       /* video tiles only */
   --radius-pill: 999px;
+  --radius-button: var(--radius-none); /* reference C: 12px */
+  --radius-card: 12px;       /* reference C result cards */
+  --radius-video: 10px;      /* reference C VSL tile */
 
   /* ---- Elevation ------------------------------------------------------- */
   --shadow-button: 0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
@@ -110,6 +113,8 @@
   --button-pad: 12px 20px;   /* reference is 10/12 at 40px tall; 12px gives 44px minimum tap height */
   --button-min-h: 44px;
   --button-width-mobile: 100%;
+  --button-transform: uppercase; /* reference C: none (sentence case) */
+  --weight-button: var(--weight-semibold); /* reference C: 700 */
   --input-h: 64px;
   --input-pad-x: 19px;
   --input-pad-icon: 60px;

@@ -1,0 +1,105 @@
+---
+/**
+ * P.S. (reference C): the founder's closing note under a thin rule. The tag
+ * opens the first paragraph; phrases wrapped in **asterisks** are set in
+ * bold; signed with a name and a role. No photo.
+ */
+import type { PostscriptContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { emphasis } from '../lib/emphasis.ts';
+import Section from '../components/Section.astro';
+
+interface Props {
+  content: PostscriptContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+---
+
+<Section tone={tone} type="postscript" id={id} padding="none" class="ps">
+  <div class="container ps__inner">
+    <div class="ps__memo">
+      {content.paragraphs.map((p, i) => (
+        <p class="ps__p">
+          {i === 0 && content.tag && <><b class="ps__tag">{content.tag}</b>{' '}</>}
+          <Fragment set:html={emphasis(p)} />
+        </p>
+      ))}
+      <p class="ps__sign">
+        <span class="ps__name">{content.name}</span>
+        <span class="ps__role">{content.role}</span>
+      </p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .ps {
+    padding-top: 0;
+    padding-bottom: 64px;
+  }
+
+  .ps__inner {
+    max-width: calc(640px + 2 * var(--container-pad));
+  }
+
+  .ps__memo {
+    padding-top: 28px;
+    border-top: 1px solid var(--colour-border);
+  }
+
+  .ps__p {
+    margin-bottom: 16px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--colour-body);
+  }
+
+  .ps__p :global(strong),
+  .ps__tag {
+    font-weight: var(--weight-bold);
+    color: var(--colour-heading);
+  }
+
+  .ps__tag {
+    margin-right: 4px;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: var(--weight-extrabold);
+  }
+
+  .ps__sign {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .ps__name {
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: var(--weight-bold);
+    color: var(--colour-heading);
+  }
+
+  .ps__role {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--colour-body);
+  }
+
+  @media (min-width: 1024px) {
+    .ps {
+      padding-top: 8px;
+      padding-bottom: 80px;
+    }
+
+    .ps__memo {
+      padding-top: 36px;
+    }
+
+    .ps__p {
+      font-size: 17px;
+    }
+  }
+</style>

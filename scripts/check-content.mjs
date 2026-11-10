@@ -78,8 +78,13 @@ for (const slot of textSlots) {
   const tol = slot.tolerance ?? 0.1;
   const min = Math.floor(slot.chars * (1 - tol));
   const max = Math.ceil(slot.chars * (1 + tol));
-  if (!sectionPresent(slot.path)) {
+  if (!sectionPresent(slot.path) || (slot.requires && !config.sections.some((s) => s.type === slot.requires && s.enabled !== false))) {
     rows.push(['skip', slot.path, '', `${slot.chars}`, 'section not in this config']);
+    continue;
+  }
+  const fieldName = slot.path.match(/^form\.fields\[([\w-]+)\]/)?.[1];
+  if (fieldName && !config.form.fields.some((f) => f.name === fieldName)) {
+    rows.push(['skip', slot.path, '', `${slot.chars}`, 'field not in this config']);
     continue;
   }
   const found = resolve(slot.path);
@@ -89,10 +94,12 @@ for (const slot of textSlots) {
     if (!optional) failures++;
     continue;
   }
-  for (const [label, text] of found) {
+  for (const [label, raw] of found) {
+    // **Highlight** markers (reference C) are not read by the visitor, so they do not count.
+    const text = raw.replace(/\*\*/g, '');
     const len = text.length;
     const problems = [];
-    if (len === 0 && ['urgency.line', 'cta.reinforcement'].includes(slot.path)) {
+    if (len === 0 && (slot.optional || ['urgency.line', 'cta.reinforcement'].includes(slot.path))) {
       rows.push(['ok', label, '0', `${slot.chars} (optional)`, 'empty by design']);
       continue;
     }

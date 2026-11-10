@@ -10,6 +10,10 @@ export interface ValidationMessages {
   phone: string;
   postcode: string;
   minLength: string;
+  /** Radio fields left unanswered. Falls back to `required`. */
+  choice?: string;
+  url?: string;
+  generic?: string;
 }
 
 export interface FieldRule {
@@ -51,6 +55,18 @@ export function isAustralianPostcode(raw: string): boolean {
   return n >= 200 && n <= 9999;
 }
 
+/** A web address with or without the scheme: "example.com.au" or "https://www.example.com.au/page". */
+export function isUrl(raw: string): boolean {
+  const v = raw.trim();
+  if (/\s/.test(v)) return false;
+  try {
+    const u = new URL(/^https?:\/\//i.test(v) ? v : `https://${v}`);
+    return /\.[a-z]{2,}$/i.test(u.hostname);
+  } catch {
+    return false;
+  }
+}
+
 export function isEmail(raw: string): boolean {
   return EMAIL_RE.test(raw.trim());
 }
@@ -58,7 +74,7 @@ export function isEmail(raw: string): boolean {
 /** Returns an error message for a field value, or null when valid. */
 export function validateField(rule: FieldRule, value: string, messages: ValidationMessages): string | null {
   const v = value.trim();
-  if (!v) return rule.required ? messages.required : null;
+  if (!v) return rule.required ? (rule.type === 'radio' ? messages.choice || messages.required : messages.required) : null;
   switch (rule.type) {
     case 'email':
       return isEmail(v) ? null : messages.email;
@@ -67,7 +83,10 @@ export function validateField(rule: FieldRule, value: string, messages: Validati
     case 'postcode':
       return isAustralianPostcode(v) ? null : messages.postcode;
     case 'select':
+    case 'radio':
       return null;
+    case 'url':
+      return isUrl(v) ? null : messages.url || messages.generic || messages.required;
     default:
       if (rule.minLength && v.length < rule.minLength) return messages.minLength;
       return null;

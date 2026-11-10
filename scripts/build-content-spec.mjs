@@ -48,6 +48,11 @@ const names = {
   beforeAfterGrid: 'B. Before and after grid (reference B)',
   logoGrid: 'B. Materials and supplier logos (reference B)',
   faq: 'B. FAQ (reference B)',
+  videoHero: 'C. Video hero (reference C)',
+  vslForm: 'C. VSL and qualify, with the quiz questions (reference C)',
+  videoResults: 'C. Video results (reference C)',
+  ctaBand: 'C. CTA band (reference C)',
+  postscript: 'C. P.S. (reference C)',
 };
 const order = Object.keys(names);
 
@@ -72,10 +77,15 @@ const ranges = {
   beforeAfterGrid: '2 to 9 items (6 on reference B), three per row on desktop.',
   logoGrid: '4 to 24 logos (18 on reference B), six per row on desktop. The foot photo is optional.',
   faq: '3 to 10 questions (6 on reference B). The first starts open.',
+  videoHero: 'One per page, first. The video loop is optional; the poster is not.',
+  vslForm: 'One per page. The quiz: any number of steps (3 on reference C: two radio gate questions, then 5 contact fields). Radio questions take 2 to 4 options.',
+  videoResults: '3 to 15 cards (15 on reference C: 10 with a figure, 5 with a quote).',
+  ctaBand: 'Any number; usually one, after the proof.',
+  postscript: '2 to 5 paragraphs (4 on reference C), one bold phrase each.',
 };
 
 const grouped = {};
-for (const slot of textSlots) (grouped[sectionOf(slot.path)] ??= { text: [], images: [] }).text.push(slot);
+for (const slot of textSlots) (grouped[slot.requires || sectionOf(slot.path)] ??= { text: [], images: [] }).text.push(slot);
 for (const slot of imageSlots) {
   const sec = slot.path.startsWith('brand') ? 'brand' : slot.path.startsWith('seo') ? 'seo' : sectionOf(slot.path);
   (grouped[sec] ??= { text: [], images: [] }).images.push(slot);

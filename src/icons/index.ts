@@ -37,6 +37,7 @@ export const uiIcons = {
   chevronRight: '<path d="m9 5 7 7-7 7"/>',
   'chevron-down': '<path d="m6 9 6 6 6-6"/>',
   'arrow-up': '<path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>',
+  'arrow-down': '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
   close: '<path d="M6 6l12 12"/><path d="M18 6 6 18"/>',
   quote: '<path d="M7 7a4 4 0 0 0-4 4v6h6v-6H6a1 1 0 0 1 1-1V7Z"/><path d="M18 7a4 4 0 0 0-4 4v6h6v-6h-3a1 1 0 0 1 1-1V7Z"/>',
   phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',

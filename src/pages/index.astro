@@ -14,11 +14,11 @@ import { registry } from '../sections/registry.ts';
 const plan = planSections(site.sections);
 const first = plan[0]?.section;
 const heroFirst = first?.type === 'hero';
-const heroImage = first?.type === 'hero' ? first.content.image.src : undefined;
+const heroImage = first?.type === 'hero' ? first.content.image.src : first?.type === 'videoHero' ? first.content.poster.src : undefined;
 ---
 
 <Base title={site.seo.title} description={site.seo.description} preloadImage={heroImage}>
-  <Header overlay={heroFirst} />
+  {site.header.mode !== 'none' && <Header overlay={heroFirst} />}
   <main>
     {plan.map(({ section, tone }) => {
       const Component = registry[section.type];

@@ -26,11 +26,16 @@ const colourVars = Object.entries(brand.colours)
 const tokenVars = Object.entries(brand.tokens || {})
   .filter(([key, value]) => value && /^[a-z0-9-]+$/i.test(key))
   .map(([key, value]) => `--${key}:${value}`);
-const fontFiles: Record<string, string> = { Manrope: 'manrope-latin.woff2', 'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2' };
+/* Font files to preload per family: the weights the first screen uses. */
+const fontFiles: Record<string, string[]> = {
+  Manrope: ['manrope-latin.woff2'],
+  'Plus Jakarta Sans': ['plus-jakarta-sans-latin.woff2'],
+  Poppins: ['poppins-latin-800-normal.woff2', 'poppins-latin-600-normal.woff2'],
+};
 const fallbackFor = (family: string) => (fontFiles[family] ? `'${family} Fallback'` : "'Manrope Fallback'");
 const fontVars = [`--font-body:'${brand.fonts.family}',${fallbackFor(brand.fonts.family)},system-ui,sans-serif`];
 if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}',${fallbackFor(brand.fonts.headingFamily)},system-ui,sans-serif`);
-const fontPreload = fontFiles[brand.fonts.family] ?? 'manrope-latin.woff2';
+const fontPreload = fontFiles[brand.fonts.family] ?? ['manrope-latin.woff2'];
 
 const texture = resolveImage(brand.texture.src);
 let textureVars: string[] = [];
@@ -70,7 +75,7 @@ if (og.status === 'ok') {
     <meta property="og:type" content="website" />
     {ogUrl && <meta property="og:image" content={ogUrl} />}
     <meta name="format-detection" content="telephone=yes" />
-    <link rel="preload" href={`/fonts/${fontPreload}`} as="font" type="font/woff2" crossorigin />
+    {fontPreload.map((file) => <link rel="preload" href={`/fonts/${file}`} as="font" type="font/woff2" crossorigin />)}
     {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes="100vw" fetchpriority="high" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <MetaPixel />

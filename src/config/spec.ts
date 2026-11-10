@@ -20,6 +20,10 @@ export interface TextSlotSpec {
   exemplar: string;
   /** Tolerance as a fraction. Defaults to 0.1. */
   tolerance?: number;
+  /** Empty values are allowed (for example a result card's figure when it carries a quote instead). */
+  optional?: boolean;
+  /** Only checked when the config has a section of this type (for slots outside sections, such as quiz questions). */
+  requires?: string;
 }
 
 export interface ImageSlotDoc {
@@ -30,7 +34,7 @@ export interface ImageSlotDoc {
 }
 
 export const textSlots: TextSlotSpec[] = [
-  { path: 'cta.label', chars: 34, words: 7, purpose: 'The one CTA label used on every button and the submit (34 on reference A, 45 on B)', exemplar: 'copy-hero', tolerance: 0.35 },
+  { path: 'cta.label', chars: 32, words: 6, purpose: 'The one CTA label used on every button and the submit (34 on reference A, 45 on B, 20 on C)', exemplar: 'copy-hero', tolerance: 0.45 },
   { path: 'business.phoneEyebrow', chars: 15, words: 2, purpose: 'Invitation above the number in the desktop header', exemplar: 'copy-header', tolerance: 0.4 },
   { path: 'sections[hero].content.eyebrow', chars: 43, words: 6, purpose: 'Qualifying question naming the trade and city', exemplar: 'copy-hero' },
   { path: 'sections[hero].content.headline', chars: 163, words: 29, purpose: 'Outcome, timeframe, bonus and dollar value', exemplar: 'copy-hero' },
@@ -159,6 +163,31 @@ export const textSlots: TextSlotSpec[] = [
   { path: 'sections[offerForm:offer-form].content.bullets[2]', chars: 181, words: 26, purpose: 'The protection bullet', exemplar: 'copy-offer-and-form-b', tolerance: 0.15 },
   { path: 'sections[offerForm:offer-form].content.bullets[3]', chars: 99, words: 14, purpose: 'The bonus bullet with its value', exemplar: 'copy-offer-and-form-b', tolerance: 0.15 },
   { path: 'sections[offerForm:offer-form].content.reinforcement', chars: 76, words: 12, purpose: 'Bonus restated under the button', exemplar: 'copy-offer-and-form-b', tolerance: 0.2 },
+  /* Reference C (agency VSL). Asterisk markers do not count towards the length. */
+  { path: 'sections[videoHero].content.callout', chars: 56, words: 7, purpose: 'Names the buyer by trade; the starred part shows in the accent colour', exemplar: 'copy-video-hero' },
+  { path: 'sections[videoHero].content.headline', chars: 44, words: 9, purpose: 'One status promise; the starred words are underlined', exemplar: 'copy-video-hero' },
+  { path: 'sections[videoHero].content.scrollLabel', chars: 18, words: 4, purpose: 'The only action on the first screen: down to the video', exemplar: 'copy-video-hero', tolerance: 0.3 },
+  { path: 'sections[vslForm].content.stepOne', chars: 53, words: 11, purpose: 'Step 1: watch the video, and what they learn', exemplar: 'copy-vsl-and-qualify' },
+  { path: 'sections[vslForm].content.playHint', chars: 25, words: 5, purpose: 'Tells them the video has sound', exemplar: 'copy-vsl-and-qualify', tolerance: 0.3 },
+  { path: 'sections[vslForm].content.stepTwo', chars: 38, words: 8, purpose: 'Step 2: the quiz framed as a test', exemplar: 'copy-vsl-and-qualify' },
+  { path: 'form.fields[watched].label', chars: 107, words: 21, purpose: 'Gate one: did they watch the video', exemplar: 'copy-vsl-and-qualify', requires: 'vslForm' },
+  { path: 'form.fields[watched].options[n]', chars: 22, words: 4, purpose: 'Yes, or no with what to do instead', exemplar: 'copy-vsl-and-qualify', tolerance: 0.35, requires: 'vslForm' },
+  { path: 'form.fields[fit].label', chars: 156, words: 24, purpose: 'Gate two: the real qualifying criteria', exemplar: 'copy-vsl-and-qualify', requires: 'vslForm' },
+  { path: 'form.fields[fit].options[n]', chars: 15, words: 3, purpose: 'Yes, or a polite exit', exemplar: 'copy-vsl-and-qualify', tolerance: 0.35, requires: 'vslForm' },
+  { path: 'sections[videoResults].content.headline', chars: 98, words: 18, purpose: 'Client count and three outcomes', exemplar: 'copy-results' },
+  { path: 'sections[videoResults].content.items[n].name', chars: 18, words: 3, purpose: 'Client business name as they trade (6 to 30 on the reference)', exemplar: 'copy-results', tolerance: 0.7 },
+  { path: 'sections[videoResults].content.items[n].trade', chars: 17, words: 3, purpose: 'Their trade in plain words (7 to 28 on the reference)', exemplar: 'copy-results', tolerance: 0.65 },
+  { path: 'sections[videoResults].content.items[n].figure', chars: 5, words: 1, purpose: 'Confirmed dollar result, or empty for a quote card', exemplar: 'copy-results', tolerance: 0.4, optional: true },
+  { path: 'sections[videoResults].content.items[n].timeframe', chars: 11, words: 3, purpose: 'in [n] months or days', exemplar: 'copy-results', tolerance: 0.35, optional: true },
+  { path: 'sections[videoResults].content.items[n].detail', chars: 48, words: 9, purpose: 'One line of what changed in the business', exemplar: 'copy-results', tolerance: 0.25, optional: true },
+  { path: 'sections[videoResults].content.items[n].quote', chars: 34, words: 6, purpose: 'Short outcome in the client\'s words, when there is no figure', exemplar: 'copy-results', tolerance: 0.3, optional: true },
+  { path: 'sections[postscript].content.tag', chars: 4, words: 1, purpose: 'P.S.', exemplar: 'copy-ps', tolerance: 0.5 },
+  { path: 'sections[postscript].content.paragraphs[0]', chars: 70, words: 14, purpose: 'Opens on their side: what they do well, the frustration', exemplar: 'copy-ps' },
+  { path: 'sections[postscript].content.paragraphs[1]', chars: 136, words: 26, purpose: 'The reframe: not what they assume, the real cause in bold', exemplar: 'copy-ps' },
+  { path: 'sections[postscript].content.paragraphs[2]', chars: 118, words: 22, purpose: 'Proof restated in bold, a first-person belief', exemplar: 'copy-ps' },
+  { path: 'sections[postscript].content.paragraphs[3]', chars: 100, words: 21, purpose: 'The promise and the real per-area limit in bold', exemplar: 'copy-ps' },
+  { path: 'sections[postscript].content.name', chars: 6, words: 1, purpose: 'Founder\'s first name', exemplar: 'copy-ps', tolerance: 1 },
+  { path: 'sections[postscript].content.role', chars: 19, words: 3, purpose: 'Founder, [agency]', exemplar: 'copy-ps', tolerance: 0.35 },
 ];
 
 export const imageSlots: ImageSlotDoc[] = [
@@ -191,4 +220,9 @@ export const imageSlots: ImageSlotDoc[] = [
   { path: 'sections[logoGrid].content.logos[n]', specKey: 'supplierLogo', shot: 'Supplier mark on transparent, 12 to 18 of them.', exemplar: 'imagery-reference-b' },
   { path: 'sections[logoGrid].content.footImage', specKey: 'footImage', shot: 'Optional wide interior at low contrast under the logo tiles.', exemplar: 'imagery-reference-b' },
   { path: 'sections[guarantee].content.decorativeImage', specKey: 'decorative', shot: 'Optional line drawing on transparent, for example a floor plan.', exemplar: 'imagery-reference-b' },
+  /* Slots introduced by reference C */
+  { path: 'business.logoWhite (video hero)', specKey: 'logoHero', shot: 'White logo on transparent, wide format, for the dark video hero.', exemplar: 'imagery-reference-c' },
+  { path: 'sections[videoHero].content.poster', specKey: 'videoHeroPoster', shot: 'First frame of the background loop: finished work, slow and wide, no faces, no text in frame.', exemplar: 'imagery-reference-c' },
+  { path: 'sections[vslForm].content.poster', specKey: 'vslPoster', shot: 'A frame from the VSL with the presenter\'s face, 16:9.', exemplar: 'imagery-reference-c' },
+  { path: 'sections[videoResults].content.items[n].poster', specKey: 'resultPoster', shot: 'A 9:16 frame from each client\'s clip: face in the upper third, plain middle third for the white text.', exemplar: 'imagery-reference-c' },
 ];

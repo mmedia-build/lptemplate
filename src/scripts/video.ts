@@ -31,7 +31,9 @@ export function initVideoTiles(): void {
   document.querySelectorAll<HTMLElement>('[data-video]').forEach((tile) => {
     const button = tile.querySelector<HTMLButtonElement>('[data-video-play]');
     const url = tile.dataset.video;
-    if (!button || !url) return;
+    // Several section types call this; bind each tile once.
+    if (!button || !url || tile.dataset.videoBound) return;
+    tile.dataset.videoBound = '1';
     button.addEventListener('click', () => {
       const player = embedFor(url);
       if (!player) {

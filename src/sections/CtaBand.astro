@@ -1,0 +1,53 @@
+---
+/**
+ * CTA band (reference C): one button on its own after the proof, with the
+ * configured line beneath it (cta.under) and an optional lead line above.
+ */
+import type { CtaBandContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import Section from '../components/Section.astro';
+import Cta from '../components/Cta.astro';
+
+interface Props {
+  content: CtaBandContent;
+  tone: Tone;
+  id?: string;
+  ctaLabel?: string;
+}
+const { content, tone, id, ctaLabel } = Astro.props;
+---
+
+<Section tone={tone} type="ctaBand" id={id} padding="none" class="ctaband">
+  <div class="container ctaband__inner">
+    {content.lead && <p class="ctaband__lead">{content.lead}</p>}
+    <Cta label={ctaLabel} class="ctaband__cta" />
+  </div>
+</Section>
+
+<style>
+  .ctaband {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .ctaband__inner {
+    max-width: 560px;
+  }
+
+  .ctaband__lead {
+    margin-bottom: 16px;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--weight-semibold);
+    text-align: center;
+    color: var(--colour-heading);
+  }
+
+  @media (min-width: 1024px) {
+    .ctaband :global(.btn) {
+      width: 100%;
+      min-width: 0;
+      max-width: 520px;
+    }
+  }
+</style>

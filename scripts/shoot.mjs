@@ -21,6 +21,17 @@ const IOS_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebK
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.json': 'application/json' };
 
+/**
+ * Chromium to launch. Playwright looks for the browser build it was released with; when the
+ * machine has a different build (CHROME_PATH, or the pre-installed /opt/pw-browsers/chromium),
+ * use that instead of failing.
+ */
+export function chromiumOptions() {
+  const candidates = [process.env.CHROME_PATH, '/opt/pw-browsers/chromium'].filter(Boolean);
+  const executablePath = candidates.find((p) => existsSync(p));
+  return executablePath ? { executablePath } : {};
+}
+
 export function serveDist(port = 0, root = dist) {
   const server = createServer((req, res) => {
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
@@ -62,7 +73,7 @@ async function sectionShots(page, prefix, dir) {
 async function main() {
 const { server, url } = await serveDist();
 await fs.mkdir(path.join(outDir, 'sections'), { recursive: true });
-const browser = await chromium.launch();
+const browser = await chromium.launch(chromiumOptions());
 const report = {};
 
 // Mobile, 1x for the full page (matches the reference capture), 2x for details.

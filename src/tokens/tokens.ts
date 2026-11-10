@@ -57,6 +57,11 @@ export const imageSpecs = {
   testimonialPortrait: spec(680, 960, 'Portrait 17:24. Rendered 358x386 (mobile, cropped) and 255x332 (desktop) in the carousel layout.'),
   stepRowImage: spec(1140, 656, 'Landscape 7:4. Rendered 358x206 (mobile) and 569x328 (desktop), cover, in the rows layout.'),
   decorative: spec(948, 700, 'Line drawing or diagram on transparent, for example a floor plan. Rendered 308x225 (mobile) and 474x347 (desktop).'),
+  /* Slots introduced by reference C */
+  logoHero: spec(360, 101, 'White or light logo on transparent for the dark video hero. Rendered 121x34 at every width.'),
+  videoHeroPoster: spec(1920, 1080, 'First frame of the background loop, landscape. Covers 390x664 to 390x844 on phones (centre third survives) and 1440x900 on desktop, under a dark gradient.'),
+  vslPoster: spec(1440, 810, '16:9 frame from the VSL, ideally the presenter\'s face. Rendered 350x197 (mobile) and 720x405 (desktop).'),
+  resultPoster: spec(790, 1404, '9:16 frame from the case-study clip. Rendered 350x622 (mobile) and 395x702 (desktop) under a dark gradient with white text across the middle.'),
 } as const;
 
 export type ImageSlotKey = keyof typeof imageSpecs;

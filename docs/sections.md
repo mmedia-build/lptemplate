@@ -2,7 +2,7 @@
 
 Every section type the template can render, what it is for, what it needs from the client, and what to use instead when that asset is missing. A page is the `sections` array in `site.config.ts`: any type, any order, any number of times (within the ranges below). `enabled: false` drops a section; the backgrounds re-plan from the rendered order. `tone: 'light' | 'muted' | 'dark'` pins a background; `brand.darkTone` decides whether dark means plaster texture (reference A) or near-black with white text (reference B).
 
-Two presets show the two reference sequences: `site.config.ts` (reference A, a concreter: fast trade job, strong review profile) and `examples/site.config.renovation.ts` (reference B, a renovator: slow high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee). Start from the one closer to the client and swap sections in from the other.
+Three presets show the three reference sequences: `site.config.ts` (reference A, a concreter: fast trade job, strong review profile), `examples/site.config.renovation.ts` (reference B, a renovator: slow high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee) and `examples/site.config.vsl.ts` (reference C, an agency's video sales letter: a service sold to business owners, set up for Minus Media). Start from the one closer to the client and swap sections in from the others.
 
 ## Choosing sections from what the client has
 
@@ -24,6 +24,10 @@ Two presets show the two reference sequences: `site.config.ts` (reference A, a c
 | A guarantee with a term in years | `guarantee`. With a cash penalty and a statutory warranty, use the six-paragraph shape with `termsLink: true`. |
 | No guarantee | Drop the section. Never write a soft one. |
 | Recurring phone questions | `faq` after the form. |
+| A video sales letter (2 to 5 minutes) and a pitch that lives on video | `videoHero` (with a short background loop, or its poster alone) then `vslForm`; set `header.mode: 'none'`. |
+| Qualifying criteria the business really applies (revenue floor, area, conditions) | Radio fields with `step` and `stops` in `form.fields`, rendered as the quiz inside `vslForm` (or any form). |
+| Portrait case-study clips of clients with confirmed figures or outcomes | `videoResults` (6 to 15 cards; `grid` on desktop when there are more than six). |
+| A founder who will sign a closing note and a real per-area limit | `postscript` last, after a `ctaBand`. |
 
 ## The types
 
@@ -113,6 +117,26 @@ Job: convert. Needs: headline, bundle image, optional lead line, 2 to 6 bullets,
 
 Job: the partner's questions, answered honestly, for the visitor who scrolled past the form. Needs: headline, 3 to 10 question and answer pairs. Usually after the form. Missing: drop it.
 
+### videoHero (reference C)
+
+Job: stop the scroll with motion, name the buyer by trade, one status promise, and send the visitor down to the video; nothing is asked yet. Needs: callout (a `**highlighted**` part), headline (an `**underlined**` part), scroll label and target (the `vslForm` id), a poster frame, optionally a direct MP4 loop (10 to 30 s, 1080p, under 4 MB, no faces or text) and the white logo. One per page, first; pair it with `header.mode: 'none'` because it carries the logo. Missing video: the poster alone is the hero. Missing poster: the grey slot under the shade.
+
+### vslForm (reference C)
+
+Job: step one, the pitch on video; step two, the quiz. Needs: two step headings, a play hint, the VSL (YouTube, Vimeo, Wistia or MP4) and its 16:9 poster, and the form. The form becomes a quiz when fields carry `step`: radio gate questions (`type: 'radio'`, `options`, optional `stops` messages) on the first steps, contact fields on the last; `form.steps` sets the Next, Back and counter labels. The step two heading's id is `<section id>-form`, which is what `cta.target` should be. The review pill shows under the form when `proof` is set. One per page. Missing VSL: use `offerForm` instead; a quiz still works there.
+
+### videoResults (reference C)
+
+Job: proof at volume with clients on camera: business name, trade, then a figure over a timeframe and a line of detail, or a short quote. Needs: headline, 3 to 15 items with a 9:16 poster and optionally a clip each. `layout: 'column'` (the reference, one card per row) or `'grid'` (three across on desktop). Prefers the dark tone. Missing clips: posters with the text, no play button. Missing figures: use quotes; never both on one card. Missing permission or results: drop the section and use `testimonials`.
+
+### ctaBand (reference C)
+
+Job: one button after the proof, back to the form. Needs: nothing but `cta.label` (and an optional lead line). The line under it follows `cta.under`. Any number; best directly after a proof section.
+
+### postscript (reference C)
+
+Job: the founder's close: the real problem, the proof restated, the true reason for the limit. Needs: a tag (P.S.), four paragraphs with one `**bold**` phrase each, the founder's first name and role. Last before the footer. Missing a founder who will sign: drop it.
+
 ## Lengths and shots
 
-Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3 and 4). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts`.
+Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3, 4 and 5). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts`. The same works for the VSL preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.vsl.ts`.

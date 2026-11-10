@@ -1,0 +1,281 @@
+---
+/**
+ * Video results (reference C): portrait case-study cards, each with a white
+ * tab naming the client business and trade, then either a figure over a
+ * timeframe and one line of detail, or a short quote, over the poster frame
+ * under a dark gradient. The whole card is the play button; the clip loads
+ * only when tapped. 'column' is one card per row (the reference), 'grid' is
+ * three across on desktop. Holds 3 to 15 items.
+ */
+import type { VideoResultsContent } from '../config/types.ts';
+import type { Tone } from '../lib/sections.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  content: VideoResultsContent;
+  tone: Tone;
+  id?: string;
+}
+const { content, tone, id } = Astro.props;
+const layout = content.layout === 'grid' ? 'grid' : 'column';
+---
+
+<Section tone={tone} type="videoResults" id={id} padding="none" class:list={['results', `results--${layout}`]}>
+  <div class="container">
+    <h2 class="results__headline">{content.headline}</h2>
+    <ul class="results__list" role="list">
+      {content.items.map((item, i) => {
+        const Overlay = item.videoUrl ? 'button' : 'div';
+        const overlayAttrs = item.videoUrl
+          ? { type: 'button' as const, 'data-video-play': '', 'aria-label': `Play video: ${item.name}, ${item.trade}` }
+          : {};
+        return (
+          <li class="rcard" data-video={item.videoUrl || undefined}>
+            <ImageSlot
+              image={item.poster}
+              slotId={`videoResults.items[${i}].poster`}
+              spec={imageSpecs.resultPoster}
+              description="9:16 frame from the client's clip"
+              widths={[395, 790]}
+              sizes="(min-width: 1024px) 395px, 90vw"
+              class="rcard__poster"
+              labelPosition="bottom"
+            />
+            <Overlay class="rcard__overlay" {...overlayAttrs}>
+              <span class="rcard__tab">
+                <span class="rcard__name">{item.name}</span>
+                <span class="rcard__trade">{item.trade}</span>
+              </span>
+              <span class="rcard__body">
+                {item.figure ? (
+                  <>
+                    <span class="rcard__figure">{item.figure}</span>
+                    <span class="rcard__time">{item.timeframe}</span>
+                    {item.detail && <span class="rcard__detail">{item.detail}</span>}
+                  </>
+                ) : (
+                  <span class="rcard__quote">{item.quote}</span>
+                )}
+                {item.videoUrl && (
+                  <span class="rcard__play" aria-hidden="true"><Icon ui="play" size={22} filled /></span>
+                )}
+              </span>
+            </Overlay>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Section>
+
+<script>
+  import { initVideoTiles } from '../scripts/video.ts';
+  initVideoTiles();
+</script>
+
+<style>
+  .results {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .results__headline {
+    max-width: 680px;
+    margin: 0 auto 32px;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: var(--weight-extrabold);
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--colour-heading);
+  }
+
+  .results__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rcard {
+    position: relative;
+    /* The reference sizes each card so the whole clip fits the screen: 78% of the viewport height at 9:16. */
+    width: min(100%, calc(78vh * 9 / 16));
+    width: min(100%, calc(78svh * 9 / 16));
+    margin-inline: auto;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: #1a1a1a;
+  }
+
+  .rcard :global(.rcard__poster),
+  .rcard :global(.slot),
+  .rcard :global(iframe),
+  .rcard :global(video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .rcard :global(.slot) {
+    background: #3a3a3a;
+    color: #e6e6e6;
+  }
+
+  .rcard :global(.slot__label) {
+    font-size: 10px;
+    padding: 4px 8px 10px;
+  }
+
+  .rcard__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    background: transparent;
+  }
+
+  button.rcard__overlay {
+    cursor: pointer;
+  }
+
+  .rcard__overlay:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: -3px;
+  }
+
+  .rcard__tab {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  .rcard__name {
+    font-size: clamp(13px, 3.33vw, 15px);
+    line-height: 1.35;
+    font-weight: var(--weight-bold);
+  }
+
+  .rcard__trade {
+    font-size: clamp(11.7px, 3vw, 13.5px);
+    line-height: 1.35;
+    color: #555;
+  }
+
+  .rcard__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 14px 18px;
+    background: linear-gradient(rgb(0 0 0 / 0.45), rgb(0 0 0 / 0.7));
+  }
+
+  .rcard__figure {
+    font-size: clamp(36px, 10.8vw, 78px);
+    line-height: 1;
+    font-weight: var(--weight-extrabold);
+    letter-spacing: -0.02em;
+  }
+
+  .rcard__time {
+    font-size: clamp(15px, 4.36vw, 28px);
+    line-height: 1.15;
+    font-weight: var(--weight-extrabold);
+    text-transform: uppercase;
+  }
+
+  .rcard__detail {
+    max-width: 420px;
+    margin-top: 6px;
+    font-size: clamp(14px, 3.6vw, 17px);
+    line-height: 1.4;
+    font-weight: var(--weight-semibold);
+  }
+
+  .rcard__quote {
+    max-width: 520px;
+    font-size: clamp(22px, 6.4vw, 40px);
+    line-height: 1.12;
+    font-weight: var(--weight-extrabold);
+    letter-spacing: -0.015em;
+  }
+
+  .rcard__play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin-top: 12px;
+    padding-left: 3px;
+    border-radius: 50%;
+    background: var(--colour-primary);
+    color: var(--colour-on-primary);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--colour-primary) 25%, transparent);
+  }
+
+  @media (min-width: 1024px) {
+    .results {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .results__headline {
+      margin-bottom: 44px;
+      font-size: 32px;
+    }
+
+    .results__list {
+      gap: 32px;
+    }
+
+    .rcard__tab {
+      padding: 10px 14px;
+    }
+
+    .rcard__play {
+      width: 58px;
+      height: 58px;
+    }
+
+    .results--grid .results__list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .results--grid .rcard {
+      width: 100%;
+    }
+
+    .results--grid .rcard__figure {
+      font-size: 56px;
+    }
+
+    .results--grid .rcard__time {
+      font-size: 22px;
+    }
+
+    .results--grid .rcard__quote {
+      font-size: 30px;
+    }
+  }
+</style>

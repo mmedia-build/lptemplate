@@ -37,7 +37,7 @@ export interface Brand {
   /** Any colour role from src/tokens/tokens.css can be overridden here, keyed without the --colour- prefix. */
   colours: Partial<Record<
     'heading' | 'body' | 'primary' | 'primary-hover' | 'on-primary' | 'accent' | 'accent-text' | 'accent-strong' |
-    'surface' | 'surface-muted' | 'surface-dark' | 'border' | 'star' | 'danger' | 'focus',
+    'surface' | 'surface-muted' | 'surface-dark' | 'border' | 'star' | 'danger' | 'focus' | 'night',
     string
   >>;
   fonts: {
@@ -58,13 +58,14 @@ export interface Brand {
   /**
    * Any layout token from src/tokens/tokens.css, keyed without the leading dashes, for example
    * { 'section-pad': '50px', 'radius-input': '0px' }. For the handful of values that differ between
-   * the two reference pages; most clients leave this empty.
+   * the reference pages (reference C sets the button shape: 'radius-button', 'button-transform',
+   * 'weight-button', 'shadow-button'); most clients leave this empty.
    */
   tokens: Record<string, string>;
 }
 
 export interface Proof {
-  /** Leave rating or count empty to hide every review badge on the page. */
+  /** Leave rating or count empty to hide every review badge on the page (and reference C's review pill). */
   rating: string;
   count: string;
   source: string;
@@ -77,7 +78,7 @@ export interface Tracking {
   metaPixelId: string;
 }
 
-export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select';
+export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select' | 'radio' | 'url';
 
 export interface FormField {
   name: string;
@@ -91,8 +92,18 @@ export interface FormField {
   icon?: IconName;
   minLength?: number;
   rows?: number;
-  /** Choices for a select field, in the client's own words (for example budget ranges). */
+  /** Choices for a select or radio field, in the client's own words (for example budget ranges). */
   options?: string[];
+  /**
+   * Radio only. Option text to a message shown instead of moving on when that option is chosen,
+   * for a gate question that turns a visitor away (reference C). The visitor can change their answer.
+   */
+  stops?: Record<string, string>;
+  /**
+   * Step number (1, 2, 3...) for a stepped form (reference C's quiz). When any field has a step the
+   * form shows one step at a time with Next and Back; fields without one join the last step.
+   */
+  step?: number;
 }
 
 export interface FormConfig {
@@ -115,9 +126,19 @@ export interface FormConfig {
     postcode: string;
     minLength: string;
     generic: string;
+    /** Radio fields left unanswered. Falls back to `required`. */
+    choice?: string;
+    /** URL fields. */
+    url?: string;
   };
   /** Text on the submit button while sending. */
   sendingLabel: string;
+  /** Stepped forms only. Labels for the step buttons and the counter; {n} and {total} are replaced. */
+  steps?: {
+    nextLabel: string;
+    backLabel: string;
+    counter: string;
+  };
 }
 
 export interface LegalDoc {
@@ -153,6 +174,12 @@ export interface Cta {
 export interface Header {
   /** Shows a fixed phone button at the bottom right on mobile. Off by default to match the reference. */
   stickyPhoneButton: boolean;
+  /**
+   * 'bar' (default): logo and phone over or above the first section (A, B).
+   * 'none': no header on the landing page, for a first section that carries the logo itself
+   * (reference C's video hero). The thank-you page always keeps the bar.
+   */
+  mode?: 'bar' | 'none';
 }
 
 /* ---- Section content ------------------------------------------------- */
@@ -364,6 +391,87 @@ export interface FaqContent {
   showCta?: boolean;
 }
 
+/* ---- Section types introduced by reference C ------------------------- */
+
+/**
+ * Text slots in reference C's sections accept **double asterisks** around a phrase: the callout
+ * shows it in the accent colour, the headline underlines it, P.S. paragraphs set it in bold.
+ * The asterisks do not count towards the slot length.
+ */
+
+/** One-screen hero over a looping background video (or its poster), with the logo inside it and a scroll link instead of a CTA. */
+export interface VideoHeroContent {
+  /** Names the buyer. Wrap the part to highlight in **asterisks**. */
+  callout: string;
+  /** The promise. Wrap the words to underline in **asterisks**. */
+  headline: string;
+  /** Label above the down arrow. */
+  scrollLabel: string;
+  /** Where the scroll link goes, for example '#qualify' (the VSL section's id). */
+  scrollTarget: string;
+  /** Poster frame from the loop. Always shown first and preloaded; it is the first screen until the video plays. */
+  poster: ImageRef;
+  /** Direct MP4 (or WebM) URL of a short muted loop, 1080p, under 4 MB. Empty shows the poster only. */
+  videoUrl: string;
+}
+
+/** Step one: watch the video sales letter. Step two: the stepped qualifying form. */
+export interface VslFormContent {
+  stepOne: string;
+  /** Short line over the play button, for example that the video has sound. */
+  playHint: string;
+  /** 16:9 poster frame for the VSL, ideally the presenter's face. */
+  poster: ImageRef;
+  /** YouTube, Vimeo or Wistia URL, or a direct MP4. Loads only when tapped. */
+  videoUrl: string;
+  stepTwo: string;
+  /** Shows the review pill (rating and count from proof) under the form. Hidden when proof is empty. */
+  showReviews?: boolean;
+}
+
+export interface ResultItem {
+  /** The client's business name as they trade. */
+  name: string;
+  /** Their trade in plain words. */
+  trade: string;
+  /** Dollar result, for example "$1.4M". Leave empty to show the quote instead. */
+  figure: string;
+  /** "in 12 months". Shown in capitals. */
+  timeframe: string;
+  /** One line of what changed in the business. */
+  detail: string;
+  /** Used when figure is empty: a short outcome in the client's words. */
+  quote: string;
+  /** 9:16 poster frame from the clip. */
+  poster: ImageRef;
+  /** YouTube, Vimeo or Wistia URL, or a direct MP4. Empty shows the card without a play button. */
+  videoUrl: string;
+}
+
+/** Wall of portrait video case studies: business, trade, a figure and timeframe or a quote. */
+export interface VideoResultsContent {
+  headline: string;
+  items: ResultItem[];
+  /** 'column': one card per row at every width (reference C). 'grid': three across on desktop. */
+  layout?: 'column' | 'grid';
+}
+
+/** One CTA button on its own, after the proof. */
+export interface CtaBandContent {
+  /** Optional line above the button. Empty on reference C. */
+  lead: string;
+}
+
+/** The founder's closing note: a P.S. with bold phrases, signed. */
+export interface PostscriptContent {
+  /** Usually "P.S." */
+  tag: string;
+  /** Wrap the phrase to set in bold in **asterisks**. The tag opens the first paragraph. */
+  paragraphs: string[];
+  name: string;
+  role: string;
+}
+
 export interface SectionBase {
   /** Turn a section off without deleting its content. */
   enabled: boolean;
@@ -399,7 +507,12 @@ export type SectionConfig =
   | (SectionBase & { type: 'statement'; content: StatementContent })
   | (SectionBase & { type: 'beforeAfterGrid'; content: BeforeAfterGridContent })
   | (SectionBase & { type: 'logoGrid'; content: LogoGridContent })
-  | (SectionBase & { type: 'faq'; content: FaqContent });
+  | (SectionBase & { type: 'faq'; content: FaqContent })
+  | (SectionBase & { type: 'videoHero'; content: VideoHeroContent })
+  | (SectionBase & { type: 'vslForm'; content: VslFormContent })
+  | (SectionBase & { type: 'videoResults'; content: VideoResultsContent })
+  | (SectionBase & { type: 'ctaBand'; content: CtaBandContent })
+  | (SectionBase & { type: 'postscript'; content: PostscriptContent });
 
 export type SectionType = SectionConfig['type'];
 

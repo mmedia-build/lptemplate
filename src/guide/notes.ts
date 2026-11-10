@@ -100,6 +100,26 @@ export const guideNotes: Record<SectionType | 'header' | 'footer', GuideNoteText
     job: 'Answer the six questions a partner asks at the kitchen table, each in two to four honest sentences, for the visitor who scrolled past the form.',
     principle: 'Objection handling after the offer; one honest limitation buys belief for the rest.',
   },
+  videoHero: {
+    job: 'Stop the scroll with motion and one big promise, name the buyer by trade, and send them down to the video. Nothing is asked yet.',
+    principle: 'Pattern interrupt and identity call-out; the only action is a low-commitment scroll.',
+  },
+  vslForm: {
+    job: 'Pitch on video (step one), then let the visitor check whether they qualify (step two) with gate questions before the contact details.',
+    principle: 'Commitment and consistency through numbered steps, and reverse selling: a "no" that turns people away raises the value of a "yes".',
+  },
+  videoResults: {
+    job: 'Prove the service at volume with clients on camera, each card naming a business, a trade and a figure with a timeframe or a short quote.',
+    principle: 'Social proof by similarity and specificity; the length of the wall is part of the argument.',
+  },
+  ctaBand: {
+    job: 'One button after the proof, where intent peaks, back up to the form.',
+    principle: 'A single repeated ask at the moment of most belief.',
+  },
+  postscript: {
+    job: 'Close in the founder\'s voice: name the real problem, restate the proof and give the true reason for the limit.',
+    principle: 'The sales-letter P.S.: reframing, authority from a named founder and genuine scarcity.',
+  },
   footer: {
     job: 'Close the page without offering an exit: logo, copyright and legal text in modals.',
     principle: 'Completeness and compliance without leaking attention.',

@@ -2,8 +2,9 @@
 /**
  * Review proof badge. Hidden entirely when proof.rating or proof.count is
  * empty, so layouts close up with no gap. Two variants: "inline" (one line,
- * under CTAs) and "stacked" (source mark, stars and avatars over the text,
- * above section headings).
+ * under CTAs), "stacked" (source mark, stars and avatars over the text,
+ * above section headings) and "pill" (stars and one line in a rounded
+ * outline, reference C's line under the quiz).
  */
 import { site, hasProof } from '../lib/site.ts';
 import Stars from './Stars.astro';
@@ -11,7 +12,7 @@ import ImageSlot from './ImageSlot.astro';
 import { imageSpecs } from '../tokens/tokens.ts';
 
 interface Props {
-  variant?: 'inline' | 'stacked';
+  variant?: 'inline' | 'stacked' | 'pill';
   class?: string;
 }
 const { variant = 'inline', class: cls } = Astro.props;
@@ -19,7 +20,14 @@ const { rating, count, source, avatars } = site.proof;
 const isGoogle = /google/i.test(source);
 ---
 
-{hasProof && (
+{hasProof && variant === 'pill' && (
+  <div class:list={['badge', 'badge--pill', cls]}>
+    <Stars size={15} />
+    <p class="badge__text"><strong>{rating}</strong> from {count} {source} reviews</p>
+  </div>
+)}
+
+{hasProof && variant !== 'pill' && (
   <div class:list={['badge', `badge--${variant}`, cls]}>
     <span class="badge__marks">
       {isGoogle ? (
@@ -92,7 +100,31 @@ const isGoogle = /google/i.test(source);
     height: 20px;
   }
 
+  .badge--pill {
+    display: inline-flex;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-pill);
+    background: var(--colour-surface);
+    color: var(--colour-body);
+  }
+
+  .badge--pill .badge__text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
   @media (min-width: 1024px) {
+    .badge--pill {
+      gap: 10px;
+      padding: 10px 16px;
+    }
+
+    .badge--pill .badge__text {
+      font-size: 15px;
+    }
+
     .badge--stacked .badge__marks {
       gap: 16px;
     }

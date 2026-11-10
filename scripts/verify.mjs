@@ -5,6 +5,10 @@
  *  2. empty proof: review fields cleared, every badge must be gone
  *  3. form: validation errors, successful submit, redirect, and tracking events
  *  4. guide mode: notes present only when GUIDE_MODE=1
+ *  5. renovation preset (reference B sections)
+ *  6. VSL preset (reference C sections): order, header off, first screen,
+ *     result cards, the stepped quiz with gate and stop messages, review pill
+ *     and tap-to-play from a fixture with proof and video URLs
  *
  *   node scripts/verify.mjs
  */
@@ -12,7 +16,7 @@ import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { serveDist } from './shoot.mjs';
+import { serveDist, chromiumOptions } from './shoot.mjs';
 
 const IOS_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 330.0.0.0';
 const results = [];
@@ -25,7 +29,7 @@ function build(outDir, env = {}) {
   execSync('npx astro build', { stdio: 'pipe', env: { ...process.env, OUT_DIR: outDir, ...env } });
 }
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(chromiumOptions());
 const mobile = () => browser.newContext({ viewport: { width: 390, height: 664 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, userAgent: IOS_UA });
 
 /* ---- 1. Modularity ------------------------------------------------------ */
@@ -234,6 +238,113 @@ build('./dist-renovation', { SITE_CONFIG: 'examples/site.config.renovation.ts' }
   await page.waitForURL('**/thank-you/', { timeout: 10000 });
   ok('preset: valid submit with selects reaches the thank-you page', page.url().endsWith('/thank-you/'));
   ok('preset: no page errors', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+  server.close();
+}
+
+/* ---- 6. VSL preset (reference C sections) ------------------------------- */
+build('./dist-vsl', { SITE_CONFIG: 'examples/site.config.vsl.ts' });
+{
+  const html = await fs.readFile('dist-vsl/index.html', 'utf8');
+  const order = [...html.matchAll(/data-section="([a-zA-Z]+)"/g)].map((m) => m[1]);
+  ok('vsl: reference C section order renders', order.join(',') === 'videoHero,vslForm,videoResults,ctaBand,postscript', order.join(' > '));
+  ok('vsl: no header bar on the landing page (header.mode none)', !/<header[^>]*class="[^"]*\bheader\b/.test(html));
+  ok('vsl: Poppins preloaded and night dark tone', html.includes('poppins-latin-800-normal.woff2') && html.includes('data-dark-tone="night"'));
+  ok('vsl: results planned dark, the rest light', /tone-dark[^>]*data-section="videoResults"/.test(html) && /tone-light[^>]*data-section="vslForm"/.test(html) && /tone-light[^>]*data-section="postscript"/.test(html));
+  ok('vsl: fifteen result cards, ten with figures and five with quotes', (html.match(/class="rcard[ "]/g) || []).length === 15 && (html.match(/class="rcard__figure[ "]/g) || []).length === 10 && (html.match(/class="rcard__quote[ "]/g) || []).length === 5);
+  ok('vsl: no review pill with empty proof', !/class="badge badge--pill/.test(html));
+  ok('vsl: asterisk markers rendered, never shown', !/\*\*/.test(html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '')) && html.includes('vhero__underline') && html.includes('vhero__accent'));
+  ok('vsl: CTA and scroll link targets exist', html.includes('href="#qualify-form"') && html.includes('id="qualify-form"') && html.includes('href="#qualify"') && html.includes('id="qualify"'));
+
+  const { server, url } = await serveDist(0, path.resolve('dist-vsl'));
+  const ctx = await mobile();
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(`${url}/`);
+  await page.waitForLoadState('networkidle');
+  const fit = await page.evaluate(() => {
+    const b = (sel) => document.querySelector(sel)?.getBoundingClientRect();
+    return { heroH: Math.round(b('.vhero').height), downBottom: Math.round(b('.vhero__down').bottom), h1Top: Math.round(b('h1').top), calloutTop: Math.round(b('.vhero__callout').top), vh: innerHeight };
+  });
+  ok('vsl: hero is one screen and holds logo, callout, headline and scroll link', fit.heroH === fit.vh && fit.downBottom <= fit.vh && fit.calloutTop > 40, JSON.stringify(fit));
+
+  const visibleStep = () => page.$$eval('[data-step]', (els) => els.findIndex((e) => e.classList.contains('is-current') && getComputedStyle(e).visibility === 'visible'));
+  const formH = () => page.$eval('[data-lead-form]', (f) => Math.round(f.getBoundingClientRect().height));
+  ok('vsl: quiz starts on step one with the others hidden and inert', (await visibleStep()) === 0 && (await page.$$eval('[data-step][inert]', (els) => els.length)) === 2);
+  ok('vsl: radio choices are at least 44px tall', await page.$$eval('.choice', (els) => els.every((el) => el.getBoundingClientRect().height >= 44)));
+  const h1 = await formH();
+  await page.locator('[data-step="0"] [data-step-next]').scrollIntoViewIfNeeded();
+  await page.tap('[data-step="0"] [data-step-next]');
+  await page.waitForTimeout(250);
+  ok('vsl: Next without an answer shows the choice error and stays', (await visibleStep()) === 0 && (await page.$eval('[data-field="watched"] .field__error', (e) => e.textContent)) === 'Please choose an answer');
+  await page.tap('[data-field="watched"] .choice:nth-child(2)');
+  await page.tap('[data-step="0"] [data-step-next]');
+  await page.waitForTimeout(250);
+  ok('vsl: a stop answer shows its message and does not advance', (await visibleStep()) === 0 && (await page.$eval('[data-stop-for="watched"]', (e) => !e.hidden && e.textContent.length > 20)));
+  await page.tap('[data-field="watched"] .choice:nth-child(1)');
+  ok('vsl: changing the answer clears the stop message', await page.$eval('[data-stop-for="watched"]', (e) => e.hidden));
+  await page.tap('[data-step="0"] [data-step-next]');
+  await page.waitForTimeout(400);
+  ok('vsl: a yes moves to step two with its counter', (await visibleStep()) === 1 && (await page.$eval('[data-step="1"] [data-step-counter]', (e) => e.textContent)) === 'Question 2 of 3');
+  ok('vsl: the form keeps its height between steps', Math.abs((await formH()) - h1) <= 1, `${h1} -> ${await formH()}`);
+  await page.tap('[data-step="1"] [data-step-back]');
+  await page.waitForTimeout(250);
+  ok('vsl: Back returns to step one with the answer kept', (await visibleStep()) === 0 && (await page.$eval('[data-field="watched"] input:checked', (e) => e.value)) === 'Yes, I watched it');
+  await page.tap('[data-step="0"] [data-step-next]');
+  await page.waitForTimeout(250);
+  await page.tap('[data-field="fit"] .choice:nth-child(1)');
+  await page.tap('[data-step="1"] [data-step-next]');
+  await page.waitForTimeout(400);
+  ok('vsl: step three is the contact step', (await visibleStep()) === 2);
+  await page.tap('[data-submit]');
+  await page.waitForTimeout(300);
+  const invalid = await page.$$eval('.field.is-invalid', (els) => els.map((e) => e.dataset.field));
+  ok('vsl: empty submit flags the four required contact fields, not the optional website', ['company', 'name', 'phone', 'email'].every((n) => invalid.includes(n)) && !invalid.includes('company_website'), invalid.join(','));
+  ok('vsl: contact inputs are 16px with the right types', await page.evaluate(() => {
+    const f = (n) => document.querySelector(`form [name="${n}"]`);
+    return [...document.querySelectorAll('.field__input')].every((el) => parseFloat(getComputedStyle(el).fontSize) >= 16) && f('company_website').type === 'url' && f('company').autocomplete === 'organization' && f('phone').type === 'tel' && f('email').type === 'email';
+  }));
+  await page.fill('form [name=company]', 'Test Building Co');
+  await page.fill('form [name=company_website]', 'not a site');
+  await page.fill('form [name=name]', 'Test Person');
+  await page.fill('form [name=phone]', '0412 345 678');
+  await page.fill('form [name=email]', 'test@example.com');
+  await page.tap('[data-submit]');
+  await page.waitForTimeout(300);
+  ok('vsl: a bad website address is rejected', (await page.$$eval('.field.is-invalid', (els) => els.map((e) => e.dataset.field))).includes('company_website'));
+  await page.fill('form [name=company_website]', 'example.com.au');
+  const logged = [];
+  page.on('console', (m) => logged.push(m.text()));
+  await page.tap('[data-submit]');
+  await page.waitForURL('**/thank-you/', { timeout: 10000 });
+  ok('vsl: valid quiz reaches the thank-you page', page.url().endsWith('/thank-you/'));
+  const payload = logged.find((l) => l.includes('[lead] payload assembled')) || '';
+  ok('vsl: payload carries both gate answers and the contact fields', payload.includes('Yes, I watched it') && payload.includes('Yes, that is me') && payload.includes('Test Building Co'), payload.slice(0, 160));
+  ok('vsl: thank-you page keeps its header bar', (await page.$$('header.header')).length === 1);
+  ok('vsl: no page errors', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+  server.close();
+}
+
+build('./dist-vsl-proof', { SITE_CONFIG: 'tests/fixtures/config.vsl-proof.ts' });
+{
+  const html = await fs.readFile('dist-vsl-proof/index.html', 'utf8');
+  ok('vsl fixture: review pill renders with proof', /class="badge badge--pill/.test(html) && html.includes('from 12 Google reviews'));
+  const { server, url } = await serveDist(0, path.resolve('dist-vsl-proof'));
+  const ctx = await mobile();
+  const page = await ctx.newPage();
+  await page.goto(`${url}/`);
+  await page.waitForLoadState('networkidle');
+  await page.locator('.vsl__overlay').scrollIntoViewIfNeeded();
+  await page.tap('.vsl__overlay');
+  await page.waitForTimeout(300);
+  ok('vsl fixture: tapping the VSL swaps in a player', (await page.$$('.vsl__video video')).length === 1 && (await page.$$('.vsl__overlay')).length === 0);
+  await page.locator('.rcard').first().scrollIntoViewIfNeeded();
+  await page.tap('.rcard button.rcard__overlay');
+  await page.waitForTimeout(300);
+  ok('vsl fixture: tapping a result card plays its clip', (await page.$$('.rcard video')).length === 1);
+  ok('vsl fixture: cards without a clip have no play button', (await page.$$('.rcard button')).length === 0 && (await page.$$('.rcard__play')).length === 0);
   await ctx.close();
   server.close();
 }

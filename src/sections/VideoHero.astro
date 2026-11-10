@@ -1,0 +1,258 @@
+---
+/**
+ * Video hero (reference C): one screen tall, a looping background video over
+ * its poster under a dark gradient, the logo inside the hero, a callout that
+ * names the buyer, a big headline and a scroll link down to the VSL instead
+ * of a CTA. The poster is the first screen and the preloaded LCP image; the
+ * video loads only after the page has loaded, and never for reduced motion,
+ * save-data or 2G connections. Set header.mode to 'none' with this hero.
+ */
+import type { VideoHeroContent } from '../config/types.ts';
+import { site } from '../lib/site.ts';
+import { emphasis } from '../lib/emphasis.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import Section from '../components/Section.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  content: VideoHeroContent;
+  id?: string;
+}
+const { content, id } = Astro.props;
+const { business } = site;
+---
+
+<Section tone="hero" type="videoHero" id={id} padding="none" class="vhero">
+  <div class="vhero__media" aria-hidden="true">
+    <ImageSlot
+      image={content.poster}
+      slotId="videoHero.poster"
+      spec={imageSpecs.videoHeroPoster}
+      description="first frame of the background loop, no faces or text"
+      priority
+      picture
+      widths={[480, 780, 1024, 1440, 1920]}
+      sizes="100vw"
+      class="vhero__poster"
+      labelPosition="bottom"
+    />
+    {content.videoUrl && (
+      <video class="vhero__video" muted loop playsinline preload="none" tabindex="-1" data-bg-video={content.videoUrl}></video>
+    )}
+    <div class="vhero__shade"></div>
+  </div>
+
+  <div class="vhero__top">
+    <ImageSlot
+      image={business.logoWhite}
+      slotId="business.logoWhite"
+      spec={imageSpecs.logoHero}
+      description="white logo"
+      loading="eager"
+      widths={[121, 242, 360]}
+      sizes="121px"
+      class="vhero__logo"
+    />
+    <p class="vhero__callout" set:html={emphasis(content.callout, 'strong', 'vhero__accent')} />
+  </div>
+
+  <div class="vhero__main">
+    <h1 class="vhero__headline" set:html={emphasis(content.headline, 'span', 'vhero__underline')} />
+    <a class="vhero__down" href={content.scrollTarget}>
+      <span>{content.scrollLabel}</span>
+      <span class="vhero__arrow"><Icon ui="arrow-down" size={20} strokeWidth={2} /></span>
+    </a>
+  </div>
+</Section>
+
+<script>
+  /* Background loop: after load, only when motion and data are welcome. */
+  const start = () => {
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const slow = Boolean(conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')));
+    if (reduced || slow) return;
+    document.querySelectorAll<HTMLVideoElement>('[data-bg-video]').forEach((video) => {
+      video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
+      video.src = video.dataset.bgVideo || '';
+      video.play().catch(() => {});
+    });
+  };
+  if (document.readyState === 'complete') setTimeout(start, 300);
+  else window.addEventListener('load', () => setTimeout(start, 300), { once: true });
+</script>
+
+<style>
+  .vhero {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    text-align: center;
+  }
+
+  .vhero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .vhero__media :global(.vhero__poster),
+  .vhero__media :global(.slot),
+  .vhero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+  }
+
+  .vhero__media :global(.slot) {
+    background: #3a3a3a;
+    color: #e6e6e6;
+  }
+
+  .vhero__media :global(.slot__label) {
+    font-size: 10px;
+    line-height: 1.2;
+    padding: 4px 8px 86px;
+  }
+
+  .vhero__video {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .vhero__video.is-playing {
+    opacity: 1;
+  }
+
+  /* Measured from reference C: 70% black at the top, 45% at 35%, 50% at 70%, 75% at the foot. */
+  .vhero__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.7) 0%, rgb(0 0 0 / 0.45) 35%, rgb(0 0 0 / 0.5) 70%, rgb(0 0 0 / 0.75) 100%);
+  }
+
+  .vhero__top {
+    position: relative;
+    z-index: 1;
+    padding: 18px 16px 14px;
+  }
+
+  .vhero__top :global(.vhero__logo) {
+    display: block;
+    width: 121px;
+    height: 34px;
+    margin: 0 auto 12px;
+    object-fit: contain;
+  }
+
+  .vhero__top :global(.slot) {
+    background: rgb(255 255 255 / 0.25);
+    color: #fff;
+  }
+
+  .vhero__top :global(.slot__label) {
+    font-size: 8px;
+    line-height: 1.1;
+    padding: 2px;
+  }
+
+  .vhero__callout {
+    max-width: 520px;
+    margin-inline: auto;
+    font-size: clamp(14px, 3.9vw, 17px);
+    line-height: 1.4;
+    font-weight: var(--weight-semibold);
+    color: #fff;
+  }
+
+  .vhero__callout :global(.vhero__accent) {
+    font-weight: var(--weight-bold);
+    color: var(--colour-accent);
+  }
+
+  .vhero__main {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px 72px;
+  }
+
+  .vhero__headline {
+    max-width: 820px;
+    font-size: clamp(32px, 10.5vw, 64px);
+    line-height: 1.08;
+    font-weight: var(--weight-extrabold);
+    letter-spacing: -0.025em;
+    color: #fff;
+  }
+
+  .vhero__headline :global(.vhero__underline) {
+    text-decoration-line: underline;
+    text-decoration-color: var(--colour-primary);
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.12em;
+    text-decoration-skip-ink: none;
+  }
+
+  .vhero__down {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 8px 16px;
+    font-size: clamp(16px, 4.1vw, 17px);
+    line-height: 1.6;
+    font-weight: var(--weight-semibold);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .vhero__down:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+  }
+
+  .vhero__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    animation: vhero-bob 1.6s ease-in-out infinite;
+  }
+
+  @keyframes vhero-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vhero__arrow {
+      animation: none;
+    }
+
+    .vhero__video {
+      transition: none;
+    }
+  }
+</style>

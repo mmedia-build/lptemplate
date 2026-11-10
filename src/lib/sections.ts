@@ -5,7 +5,7 @@
  *  - Strips (trust strip, logo strip, photo grids, gallery, before/after)
  *    inherit the tone of the section above them and do not count towards
  *    alternation.
- *  - Comparison, benefits and guarantee prefer the "dark" tone, but a dark
+ *  - Comparison, benefits, guarantee and video results prefer the "dark" tone, but a dark
  *    section never directly follows another dark section.
  *  - In a run of light sections, every third one becomes "muted" (off-white)
  *    so long runs still have rhythm.
@@ -43,6 +43,11 @@ export const sectionMeta: Record<SectionType, SectionMeta> = {
   beforeAfterGrid: { surface: 'alternate' },
   logoGrid: { surface: 'alternate' },
   faq: { surface: 'alternate' },
+  videoHero: { surface: 'own' },
+  vslForm: { surface: 'alternate' },
+  videoResults: { surface: 'alternate', prefersDark: true },
+  ctaBand: { surface: 'alternate' },
+  postscript: { surface: 'alternate' },
 };
 
 export interface RenderedSection {
@@ -122,4 +127,9 @@ export const sectionHasCta: Record<SectionType, boolean> = {
   beforeAfterGrid: true,
   logoGrid: false,
   faq: true,
+  videoHero: false,
+  vslForm: false,
+  videoResults: false,
+  ctaBand: true,
+  postscript: false,
 };
