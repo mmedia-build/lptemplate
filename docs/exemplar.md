@@ -1,6 +1,6 @@
 # Exemplar: what a page at the standard looks like
 
-Read this before briefing a photographer or writing copy for a client page. It describes the standard the two reference pages set for imagery, video and copy, slot by slot, so a client page can be checked against it. Parts 1 to 3 come from reference A (a concreter, `docs/teardown.md`). Part 4 adds what reference B (a kitchen and bathroom renovator, `docs/teardown-b.md`) does differently and the slots it introduced. A client page follows whichever sections it uses; the checklist at the end covers both.
+Read this before briefing a photographer or writing copy for a client page. It describes the standard the three reference pages set for imagery, video and copy, slot by slot, so a client page can be checked against it. Parts 1 to 3 come from reference A (a concreter, `docs/teardown.md`). Part 4 adds what reference B (a kitchen and bathroom renovator, `docs/teardown-b.md`) does differently and the slots it introduced. Part 5 adds reference C (an agency's video sales letter page, `docs/teardown-c.md`). A client page follows whichever sections it uses; the checklist at the end covers all three.
 
 **This file is not source text.** Client copy is written from the client's own customer research and offer, never by rewording the excerpts below. Excerpts are kept to a phrase or a sentence and exist only to show the pattern. Client images are the client's own jobs, never stock and never the reference's photos.
 
@@ -376,6 +376,72 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 - You to we ratio: about 1 to 1; the owner section and the statement are "we" and "I", the dream, problem, liveable and FAQ sections are "you".
 - CTA consistency: one label, uppercase, twelve times, with the same reinforcement line under eleven of them.
 
+## Part 5: Reference C (agency VSL) patterns
+
+Reference C sells a service to a business owner (a growth agency selling booked jobs to builders and tradies), and its page shows what changes when the argument is video: the first screen asks only for a scroll, the pitch is a video sales letter, the form becomes a quiz that turns people away, and proof is a wall of client case-study clips with a business name, a trade and a number on each. The sections below are the five C adds. A client page built on them is usually the agency's own page or a high-ticket service with a founder who will talk to camera.
+
+### Imagery: reference C
+
+- Total: no still photographs. One background video in the hero (a 27 s loop of finished interiors, shot slow and wide), one VSL (3 minutes 12 seconds, landscape), fifteen portrait case-study clips (clients on site or in their showroom, talking to someone just off camera). The logo is the only image file.
+- The hero video is decoration: no faces, no text in frame, slow camera moves, warm finished interiors. It sits under a 45% to 75% black gradient, so detail does not matter and contrast does.
+- Case-study clips are 9:16, shot on a phone at eye level, the client framed from the waist up with their work, ute, office or team behind them. The first frame (or the poster) has to read at 350 px wide under a dark gradient with white type over its middle third, so keep faces in the upper third and the middle third plain.
+- The template needs a poster image for every video slot (hero, VSL, each card); the reference set none and showed black boxes until each clip loaded. Posters are the client's own frames, exported from the clip.
+- Minimum shot list for a page built on C's sections: 1 background loop (10 to 30 s, 1080p, no faces, no text) and its poster frame, 1 VSL (2 to 5 minutes, 16:9, burned-in captions) and a poster with the presenter's face, 6 to 15 case-study clips (20 to 90 s each, 9:16, captions burned in) each with a poster frame, the logo in white for the dark hero.
+
+### Video: reference C
+
+| Embed | Host and format | Length | Orientation | Playback | Poster | Captions |
+| --- | --- | --- | --- | --- | --- | --- |
+| Hero background | MP4 on the funnel CDN, 3840x2160 | 27.3 s loop | landscape, cover-cropped to portrait on phones | autoplay, muted, loop, inline; paused for reduced motion; skipped on save-data or 2G | none (black until it plays) | none, no speech |
+| VSL | MP4 on the funnel CDN | 3:12 | 16:9 | tap to play with sound and controls; a frame at 2 s shows before | a frame from the file | none observed |
+| Case studies (15) | MP4 on the funnel CDN | not read (loaded on tap) | 9:16 (cards resize to each clip) | tap to play with controls; frame at 1 s lazy-loaded near the viewport | a frame from the file | some clips show burned-in captions in the sampled frames |
+
+Standard for a client's clips: host the VSL on YouTube, Vimeo, Wistia or as an MP4; keep the hero loop under 4 MB (1080p, H.264, no audio track); burn captions into every clip with speech, because most phone viewers start muted; export a poster frame for each.
+
+### Copy: Video hero
+
+- `videoHero.callout`: pattern "Attention **[trade], [trade], [trade] & [trade]**". The bold part renders in the accent colour. Why: names the buyer by trade so the right owner stops and the wrong one leaves; four trades because the agency serves all four. 56 characters, 7 words, with a 46 character highlighted part.
+- `videoHero.headline`: pattern "Become the **[rank or status]** [buyer] in your area". Excerpt: "Become the #1 Builder...". Why: a status outcome, short enough to fill a phone screen at 41 px; the underlined words are the promise. 44 characters, 9 words, about 10 underlined.
+- `videoHero.scrollLabel`: pattern "[Verb] how it works". 18 characters. It is the only action on the first screen and it points at the video, not the form.
+
+### Copy: VSL and qualify
+
+- `vslForm.stepOne`: pattern "Step 1: Watch this short video to [benefit of watching] 👇". 53 characters with the emoji. The emoji points at the video; it is the only decoration the reference uses in copy.
+- `vslForm.playHint`: pattern "Click to watch (sound on)". 25 characters. Tells the viewer the video has speech so they turn sound on.
+- `vslForm.stepTwo`: pattern "Step 2: Check to see if you qualify 👇". 38 characters. "Qualify" frames the form as a test, not a request.
+- Quiz question one (`form.fields[watched].label`): pattern "Before you [contact us], watch the video [above] [to the end]. It will answer [most] of your questions." Why: the first micro-commitment is about the video, not about them; it also filters people who did not watch. 107 characters, 21 words. Options: "Yes I watched it" (16), "No ([what to do instead])" (28) with a stop message that sends them back to the video.
+- Quiz question two (`form.fields[fit].label`): pattern "We only work with [business type] doing $[revenue floor]+ [per year], [attitude], and [one more condition]." Why: the reverse sell: the agency chooses the client. The floor and conditions are the agency's real criteria and never invented. 156 characters, 24 words. Options: "Yes that's me" (13), "No ([polite exit])" (17) with a stop message.
+- Contact step: company name, website (optional, "leave blank if none"), full name, phone, email. Company name comes first because a business is the buyer.
+
+### Copy: Results
+
+- `videoResults.headline`: pattern "[Count]+ [buyers] use us to [outcome one], [outcome two] and [outcome three]". Excerpt: "...use us to fill their calendars...". Why: volume plus three outcomes in the buyer's own words. 98 characters, 18 words. The count is the agency's real client count.
+- `videoResults.items[n].name` and `.trade`: the client's business name as they trade (6 to 30 characters) and their trade in plain words (7 to 28). The trade line is what lets a visitor find themselves in the list.
+- `videoResults.items[n].figure`, `.timeframe`, `.detail`: pattern "$[amount]" (4 to 5 characters: "$1.4M", "$380k"), "in [n] [months or days]" (10 to 12, shown in capitals), and one line of what changed in the business (37 to 57): "Opened a [new premises] and grew the team to [n]." Why: a figure and a timeframe the client has confirmed, then a non-money result (staff, premises) that a reader can picture.
+- `videoResults.items[n].quote`: when the client has no figure, a short outcome in their words, 31 to 42 characters: "Booked out [period] in advance". Never both figure and quote on one card.
+
+### Copy: CTA band
+
+- `cta.label` (C): pattern "Check if you qualify". 20 characters, sentence case. The same label goes on the submit only if the last step is the qualification; otherwise the submit says what happens next ("Book my call").
+
+### Copy: P.S.
+
+- `postscript.paragraphs[0]`: pattern "Most [buyers] I meet [do something well], but [the frustration]." 70 characters after the tag. Opens on their side.
+- `postscript.paragraphs[1]`: pattern "The problem isn't [what they assume]. **[The real cause in two short sentences.]** That's what we fix." 136 characters, bold part about 87. The reframe.
+- `postscript.paragraphs[2]`: pattern "**Our [count]+ clients [result]**, and [a first-person belief]. The results above back it up." 118 characters, bold part about 31.
+- `postscript.paragraphs[3]`: pattern "Our mission is to [the promise]. **So we only take on [a limited number of clients per area].**" 100 characters, bold part about 56. The scarcity must be true: an actual per-area limit the agency keeps.
+- `postscript.name` and `.role`: the founder's first name (5 characters) and "Founder, [agency]" (19).
+
+### Page-level voice summary (C)
+
+- Reading level: grade 5 to 6. The longest text block on the page is 156 characters (quiz question two).
+- Specificity: fifteen dollar figures or outcomes, each with a named business and trade; a revenue floor; a client count. No guarantee and no price.
+- Unique mechanism: none named on the page; the VSL carries it. A client page on C's sections can leave the mechanism to the video.
+- Offer: an implied call ("check if you qualify"); the quiz is the offer. No bonus, no dollar value, no free thing.
+- Social proof: fifteen video case studies, one rating pill. Names are businesses, not people.
+- You to we ratio: about 1 to 1 in the body, first person singular in the P.S.
+- CTA consistency: two asks, both pointing down the page in order (video, then quiz).
+
 ---
 
 ## Is this client page at the standard?
@@ -425,3 +491,13 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 32. If the reinforcement line is used under the CTAs instead of the review badge, does it state a deliverable and a value the client has put in writing?
 33. Does any cash penalty or timeframe guarantee match the client's terms word for word?
 34. Is the gallery's collapsed view made of the client's own finished rooms, at least eight, with no composite image?
+
+### Sections from reference C (only when used)
+
+35. Does the hero have a poster frame from the client's own loop, with no faces or text, and does the loop stay under 4 MB?
+36. Does the VSL have burned-in captions and a poster with the presenter's face, and does the play hint match (sound on)?
+37. Are both gate questions the business's real criteria (revenue floor, conditions), with stop messages that are polite and true?
+38. Does every result card name a real client business with their permission, a trade, and either a confirmed figure with a timeframe or a quote in the client's words (never both, never invented)?
+39. Is every case-study clip 9:16 with captions, and does its poster read under the dark gradient at 350 px wide?
+40. Is the client count in the results heading and the P.S. the real count, and is the per-area limit in the P.S. one the business actually keeps?
+41. Is the P.S. signed by a real founder with their real role?

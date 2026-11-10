@@ -1,0 +1,80 @@
+{
+  "url": "https://landing.bcdigital.com.au/vsl-page",
+  "captured": "2026-11-10",
+  "method": "Firecrawl interactive Chromium: getComputedStyle and getBoundingClientRect at 390x844 (iPhone, Instagram in-app UA, touch, 2x), 390x664 and 1440x900. Full pages from Firecrawl screenshots at the same viewports.",
+  "platform": "GoHighLevel funnel page; the whole design is one hand-written custom-code block (Poppins from Google Fonts, inline CSS and JS); the quiz is a LeadConnector survey iframe.",
+  "pageHeight": { "390x844": 12487, "390x664": 10738, "1440x900": 13942 },
+  "sections390": [
+    { "i": 0, "name": "video hero", "top": 0, "height": 844, "bg": "#000 + autoplay MP4 3840x2160 27.3s muted loop + shade gradient", "pad": "callout 18/16/14, inner 24/20/72", "note": "height is 100svh: 664 at 390x664" },
+    { "i": 1, "name": "vsl and qualify", "top": 844, "height": 1011, "bg": "#fff", "pad": "0 0 44, first heading margin-top 24" },
+    { "i": 2, "name": "results", "top": 1855, "height": 9912, "bg": "#141414", "pad": "48 0" },
+    { "i": 3, "name": "cta band", "top": 11767, "height": 175, "bg": "#fff", "pad": "56 0" },
+    { "i": 4, "name": "postscript", "top": 11942, "height": 545, "bg": "#fff", "pad": "0 0 64, memo padding-top 28 under a 1px rule" }
+  ],
+  "sections1440": [
+    { "i": 0, "name": "video hero", "top": 0, "height": 900 },
+    { "i": 1, "name": "vsl and qualify", "top": 900, "height": 1142, "pad": "16 0 56, first heading at +48" },
+    { "i": 2, "name": "results", "top": 2042, "height": 11265, "pad": "64 0" },
+    { "i": 3, "name": "cta band", "top": 13307, "height": 182, "pad": "56 0" },
+    { "i": 4, "name": "postscript", "top": 13489, "height": 453, "pad": "8 0 80, memo padding-top 36" }
+  ],
+  "firstScreen390x664": {
+    "logo": { "top": 18, "size": "121x34", "natural": "360x101" },
+    "callout": { "top": 64, "height": 43, "lines": 2 },
+    "h1": { "top": 219, "height": 177, "lines": 4 },
+    "scrollLink": { "top": 426, "height": 92, "bottom": 518 },
+    "stepOneHeading": { "top": 688, "note": "below the fold" }
+  },
+  "type": {
+    "family": "Poppins 400/600/700/800 (Google Fonts, OFL)",
+    "callout": { "390": "15.21/21.29 600 #fff, accent part 700 #ff8a33", "1440": "17/23.8" },
+    "h1": { "390": "40.95/44.23 800 -1.02px #fff, max 820", "1440": "64/69.12 800 -1.6px" },
+    "scrollLink": { "390": "16/25.6 600 #fff, 40px circle icon with 6px bob", "1440": "17/27.2" },
+    "stepHeading": { "390": "17/22.1 700 #1a1a1a", "1440": "20/26" },
+    "playHint": { "390": "13/20.8 600 #fff", "1440": "13/20.8" },
+    "reviewPill": { "390": "14/22.4 #3a3a3a, rating bold, 312x42, pad 9/14, 1px #e6e6e6, radius 999", "1440": "15/24, 347x46, pad 10/16" },
+    "h2Results": { "390": "24/28.8 800 -0.24px #fff, max 680", "1440": "32/38.4 800 -0.32px" },
+    "cardName": { "390": "13/17.55 700 #1a1a1a on white tab, pad 8/10", "1440": "15/20.25, pad 10/14" },
+    "cardTrade": { "390": "11.7/15.8 400 #555", "1440": "13.5" },
+    "cardFigure": { "390": "42/42 800 -0.84px #fff", "1440": "78/78 -1.56px" },
+    "cardTimeframe": { "390": "17/19.55 800 uppercase #fff", "1440": "28/32.2" },
+    "cardDetail": { "390": "14/19.6 600 #fff max 420, margin-top 6", "1440": "17/23.8" },
+    "cardQuote": { "390": "24.96 800 #fff", "1440": "40/44.8 -0.6px max 520" },
+    "button": { "390": "17/27.2 700 #1a1a1a on #ff6b00, 350x63, pad 18/20, radius 12, shadow 0 6px 0 #c85400", "1440": "19/30.4, 520x70, pad 20/28" },
+    "psTag": "20/34 800 #1a1a1a",
+    "psBody": { "390": "16/27.2 400 #2a2a2a, bold parts 700 #1a1a1a, paragraph gap 16", "1440": "17/28.9, column 640" },
+    "psName": "19/26.6 700 #1a1a1a",
+    "psRole": "15/21 400 #5a5a5a"
+  },
+  "media": {
+    "heroVideo": "MP4 3840x2160, 27.28 s, autoplay muted loop playsinline, no poster set, fades in on 'playing'; skipped on save-data or 2g; paused for reduced motion",
+    "vsl": "MP4, 192.35 s (3:12), 16:9 box 350x197 (390) and 720x405 (1440), radius 10, #1a1a1a; preview frame from the file at 2 s loaded 2.5 s after load; click swaps in a native player with controls and autoplay; play button 68 (390) or 84 (1440) #ff6b00 circle with a 10px 25% ring",
+    "resultCards": "15 MP4 testimonials, preload none, lazy-loaded near the viewport with a frame at 1 s; card 350x622 (390) and 395x702 (1440), radius 12, shade linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.7)); card resizes to the clip's own ratio once metadata loads; play 50 (390) or 58 (1440) circle with an 8px ring",
+    "captionsOnAnyVideo": false
+  },
+  "form": {
+    "host": "LeadConnector survey iframe (api.leadconnectorhq.com/widget/survey/...), 350x569 (390) and 720x453 (1440)",
+    "steps": [
+      { "n": 1, "type": "radio", "required": true, "questionChars": 107, "options": [16, 28], "note": "gate: watched the video" },
+      { "n": 2, "type": "radio", "required": true, "questionChars": 156, "options": [13, 17], "note": "gate: revenue floor and willingness to film" },
+      { "n": 3, "fields": [
+        { "name": "organization", "type": "text", "required": true },
+        { "name": "website", "type": "text", "required": false },
+        { "name": "full_name", "type": "text", "required": true },
+        { "name": "phone", "type": "tel", "required": true, "autocomplete": "off" },
+        { "name": "email", "type": "email", "required": true }
+      ]}
+    ],
+    "hidden": ["utm_adset", "utm_source", "utm_content", "utm_term", "utm_campaign", "cf-turnstile-response"],
+    "controls": "radio inputs 15x15 (below the 44 px tap minimum); next is a 70x50 arrow button with no text; progress text '1 of 3' in #b2ccff",
+    "validation": "not observed: submitting to the live survey was not attempted (it posts to the agency's CRM)"
+  },
+  "ctas": [
+    { "label": "scroll link under the headline", "target": "step one heading (the VSL)" },
+    { "label": "button after the results", "target": "step two heading (the quiz)" }
+  ],
+  "scripts": ["stcdn.leadconnectorhq.com", "link.msgsndr.com", "fonts.googleapis.com", "static.cloudflareinsights.com", "api.leadconnectorhq.com", "assets.cdn.filesafe.space", "connect.facebook.net", "backend.leadconnectorhq.com", "www.facebook.com"],
+  "animations": ["@keyframes bob: translateY 0 to 6px on the scroll arrow", "reduced motion: all animation and transition off inside the page"],
+  "fixedOnScroll": "a full-viewport white fixed layer behind the page (GHL page background); nothing visible is fixed",
+  "outboundLinks": ["review pill href is the literal text GOOGLE_REVIEWS_URL (broken)"]
+}

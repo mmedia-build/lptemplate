@@ -1,0 +1,775 @@
+{
+ "url": "https://landing.bcdigital.com.au/vsl-page",
+ "captured": "2026-11-10",
+ "note": "Lengths, word counts and five-word excerpts only. Full wording is not stored; the teardown quotes short excerpts where a pattern needs one.",
+ "title": "",
+ "robots": "noindex, nofollow",
+ "sections": [
+  {
+   "i": 0,
+   "name": "video hero",
+   "items": [
+    {
+     "role": "logo alt",
+     "tag": "img",
+     "len": 10,
+     "words": 2,
+     "excerpt": "BC Digital"
+    },
+    {
+     "role": "callout (eyebrow)",
+     "tag": "p",
+     "len": 56,
+     "words": 6,
+     "excerpt": "Attention builders, renovators, carpenters & ...",
+     "accentPart": 46
+    },
+    {
+     "role": "headline",
+     "tag": "h1",
+     "len": 44,
+     "words": 9,
+     "excerpt": "Become the #1 Builder or ...",
+     "underlinedPart": 10
+    },
+    {
+     "role": "scroll link",
+     "tag": "button",
+     "len": 18,
+     "words": 4,
+     "excerpt": "Learn how it works"
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "name": "vsl and qualify",
+   "items": [
+    {
+     "role": "step one heading",
+     "tag": "h2",
+     "len": 53,
+     "words": 12,
+     "excerpt": "Step 1: Watch this short ..."
+    },
+    {
+     "role": "play hint",
+     "tag": "div",
+     "len": 25,
+     "words": 5,
+     "excerpt": "Click to watch (sound on)"
+    },
+    {
+     "role": "step two heading",
+     "tag": "h2",
+     "len": 38,
+     "words": 9,
+     "excerpt": "Step 2: Check to see ..."
+    },
+    {
+     "role": "quiz q1 counter",
+     "tag": "strong",
+     "len": 16,
+     "words": 4,
+     "excerpt": "Question 1 of 3:"
+    },
+    {
+     "role": "quiz q1 question",
+     "tag": "label",
+     "len": 107,
+     "words": 21,
+     "excerpt": "Before you reach out to ..."
+    },
+    {
+     "role": "quiz q1 option yes",
+     "tag": "label",
+     "len": 16,
+     "words": 4,
+     "excerpt": "Yes I watched it"
+    },
+    {
+     "role": "quiz q1 option no",
+     "tag": "label",
+     "len": 28,
+     "words": 6,
+     "excerpt": "No (go back and watch ..."
+    },
+    {
+     "role": "quiz q2 question",
+     "tag": "label",
+     "len": 156,
+     "words": 24,
+     "excerpt": "We only work with established ..."
+    },
+    {
+     "role": "quiz q2 option yes",
+     "tag": "label",
+     "len": 13,
+     "words": 3,
+     "excerpt": "Yes that's me"
+    },
+    {
+     "role": "quiz q2 option no",
+     "tag": "label",
+     "len": 17,
+     "words": 3,
+     "excerpt": "No (please leave)"
+    },
+    {
+     "role": "quiz q3 field",
+     "tag": "label",
+     "len": 12,
+     "words": 2,
+     "excerpt": "Company Name"
+    },
+    {
+     "role": "quiz q3 field",
+     "tag": "label",
+     "len": 29,
+     "words": 5,
+     "excerpt": "Website (Leave Blank if None)"
+    },
+    {
+     "role": "quiz q3 field",
+     "tag": "label",
+     "len": 9,
+     "words": 2,
+     "excerpt": "Your Name"
+    },
+    {
+     "role": "quiz q3 field",
+     "tag": "label",
+     "len": 5,
+     "words": 1,
+     "excerpt": "Phone"
+    },
+    {
+     "role": "quiz q3 field",
+     "tag": "label",
+     "len": 5,
+     "words": 1,
+     "excerpt": "Email"
+    },
+    {
+     "role": "quiz progress",
+     "tag": "span",
+     "len": 6,
+     "words": 3,
+     "excerpt": "1 of 3"
+    },
+    {
+     "role": "review pill",
+     "tag": "a",
+     "len": 26,
+     "words": 5,
+     "excerpt": "4.9 from 58 Google reviews",
+     "href": "literal placeholder GOOGLE_REVIEWS_URL (broken link)"
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "name": "results",
+   "items": [
+    {
+     "role": "headline",
+     "tag": "h2",
+     "len": 98,
+     "words": 18,
+     "excerpt": "65+ builders and tradies use ..."
+    },
+    {
+     "card": 1,
+     "role": "client name",
+     "tag": "b",
+     "len": 19,
+     "words": 3,
+     "excerpt": "Integrity New Homes"
+    },
+    {
+     "card": 1,
+     "role": "client trade",
+     "tag": "span",
+     "len": 19,
+     "words": 3,
+     "excerpt": "Custom home builder"
+    },
+    {
+     "card": 1,
+     "role": "figure",
+     "tag": "span",
+     "len": 4,
+     "words": 1,
+     "excerpt": "$10M"
+    },
+    {
+     "card": 1,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 12,
+     "words": 3,
+     "excerpt": "in 12 months"
+    },
+    {
+     "card": 1,
+     "role": "detail",
+     "tag": "span",
+     "len": 45,
+     "words": 9,
+     "excerpt": "Eight figures of new builds ..."
+    },
+    {
+     "card": 2,
+     "role": "client name",
+     "tag": "b",
+     "len": 17,
+     "words": 3,
+     "excerpt": "NT Building Group"
+    },
+    {
+     "card": 2,
+     "role": "client trade",
+     "tag": "span",
+     "len": 28,
+     "words": 4,
+     "excerpt": "Kitchen & bathroom renovator"
+    },
+    {
+     "card": 2,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$5.2M"
+    },
+    {
+     "card": 2,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 12,
+     "words": 3,
+     "excerpt": "in 12 months"
+    },
+    {
+     "card": 2,
+     "role": "detail",
+     "tag": "span",
+     "len": 47,
+     "words": 10,
+     "excerpt": "Opened a showroom and grew ..."
+    },
+    {
+     "card": 3,
+     "role": "client name",
+     "tag": "b",
+     "len": 16,
+     "words": 2,
+     "excerpt": "FAMS Renovations"
+    },
+    {
+     "card": 3,
+     "role": "client trade",
+     "tag": "span",
+     "len": 22,
+     "words": 3,
+     "excerpt": "Whole home renovations"
+    },
+    {
+     "card": 3,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$3.7M"
+    },
+    {
+     "card": 3,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 12,
+     "words": 3,
+     "excerpt": "in 12 months"
+    },
+    {
+     "card": 3,
+     "role": "detail",
+     "tag": "span",
+     "len": 48,
+     "words": 11,
+     "excerpt": "Opened an office and grew ..."
+    },
+    {
+     "card": 4,
+     "role": "client name",
+     "tag": "b",
+     "len": 17,
+     "words": 3,
+     "excerpt": "TK Outdoor Living"
+    },
+    {
+     "card": 4,
+     "role": "client trade",
+     "tag": "span",
+     "len": 22,
+     "words": 4,
+     "excerpt": "Deck & pergola builder"
+    },
+    {
+     "card": 4,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$1.4M"
+    },
+    {
+     "card": 4,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 12,
+     "words": 3,
+     "excerpt": "in 12 months"
+    },
+    {
+     "card": 4,
+     "role": "detail",
+     "tag": "span",
+     "len": 57,
+     "words": 11,
+     "excerpt": "Over a million dollars in ..."
+    },
+    {
+     "card": 5,
+     "role": "client name",
+     "tag": "b",
+     "len": 7,
+     "words": 1,
+     "excerpt": "Woodpex"
+    },
+    {
+     "card": 5,
+     "role": "client trade",
+     "tag": "span",
+     "len": 9,
+     "words": 1,
+     "excerpt": "Renovator"
+    },
+    {
+     "card": 5,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$800k"
+    },
+    {
+     "card": 5,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 12,
+     "words": 3,
+     "excerpt": "in 12 months"
+    },
+    {
+     "card": 5,
+     "role": "detail",
+     "tag": "span",
+     "len": 54,
+     "words": 11,
+     "excerpt": "A year of renovations that ..."
+    },
+    {
+     "card": 6,
+     "role": "client name",
+     "tag": "b",
+     "len": 16,
+     "words": 3,
+     "excerpt": "MNM Custom Homes"
+    },
+    {
+     "card": 6,
+     "role": "client trade",
+     "tag": "span",
+     "len": 12,
+     "words": 2,
+     "excerpt": "Deck builder"
+    },
+    {
+     "card": 6,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$700k"
+    },
+    {
+     "card": 6,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 10,
+     "words": 3,
+     "excerpt": "in 60 days"
+    },
+    {
+     "card": 6,
+     "role": "detail",
+     "tag": "span",
+     "len": 37,
+     "words": 6,
+     "excerpt": "Two months that changed the ..."
+    },
+    {
+     "card": 7,
+     "role": "client name",
+     "tag": "b",
+     "len": 18,
+     "words": 3,
+     "excerpt": "MRA Outdoor Living"
+    },
+    {
+     "card": 7,
+     "role": "client trade",
+     "tag": "span",
+     "len": 12,
+     "words": 2,
+     "excerpt": "Deck builder"
+    },
+    {
+     "card": 7,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$670k"
+    },
+    {
+     "card": 7,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 11,
+     "words": 3,
+     "excerpt": "in 8 months"
+    },
+    {
+     "card": 7,
+     "role": "detail",
+     "tag": "span",
+     "len": 39,
+     "words": 7,
+     "excerpt": "Decks and pergolas booked back ..."
+    },
+    {
+     "card": 8,
+     "role": "client name",
+     "tag": "b",
+     "len": 13,
+     "words": 2,
+     "excerpt": "Argo Projects"
+    },
+    {
+     "card": 8,
+     "role": "client trade",
+     "tag": "span",
+     "len": 7,
+     "words": 1,
+     "excerpt": "Builder"
+    },
+    {
+     "card": 8,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$400k"
+    },
+    {
+     "card": 8,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 11,
+     "words": 3,
+     "excerpt": "in 3 months"
+    },
+    {
+     "card": 8,
+     "role": "detail",
+     "tag": "span",
+     "len": 45,
+     "words": 8,
+     "excerpt": "A whole quarter of quality ..."
+    },
+    {
+     "card": 9,
+     "role": "client name",
+     "tag": "b",
+     "len": 16,
+     "words": 2,
+     "excerpt": "Elevate Kitchens"
+    },
+    {
+     "card": 9,
+     "role": "client trade",
+     "tag": "span",
+     "len": 7,
+     "words": 1,
+     "excerpt": "Joinery"
+    },
+    {
+     "card": 9,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$380k"
+    },
+    {
+     "card": 9,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 11,
+     "words": 3,
+     "excerpt": "in 3 months"
+    },
+    {
+     "card": 9,
+     "role": "detail",
+     "tag": "span",
+     "len": 53,
+     "words": 12,
+     "excerpt": "Won the work, then had ..."
+    },
+    {
+     "card": 10,
+     "role": "client name",
+     "tag": "b",
+     "len": 6,
+     "words": 1,
+     "excerpt": "KBxter"
+    },
+    {
+     "card": 10,
+     "role": "client trade",
+     "tag": "span",
+     "len": 12,
+     "words": 2,
+     "excerpt": "Deck builder"
+    },
+    {
+     "card": 10,
+     "role": "figure",
+     "tag": "span",
+     "len": 5,
+     "words": 1,
+     "excerpt": "$120k"
+    },
+    {
+     "card": 10,
+     "role": "timeframe",
+     "tag": "span",
+     "len": 10,
+     "words": 3,
+     "excerpt": "in 30 days"
+    },
+    {
+     "card": 10,
+     "role": "detail",
+     "tag": "span",
+     "len": 53,
+     "words": 11,
+     "excerpt": "More work than he can ..."
+    },
+    {
+     "card": 11,
+     "role": "client name",
+     "tag": "b",
+     "len": 16,
+     "words": 2,
+     "excerpt": "Amor Aspirations"
+    },
+    {
+     "card": 11,
+     "role": "client trade",
+     "tag": "span",
+     "len": 9,
+     "words": 1,
+     "excerpt": "Carpenter"
+    },
+    {
+     "card": 11,
+     "role": "quote",
+     "tag": "span",
+     "len": 35,
+     "words": 8,
+     "excerpt": "Booked out for the rest ..."
+    },
+    {
+     "card": 12,
+     "role": "client name",
+     "tag": "b",
+     "len": 21,
+     "words": 3,
+     "excerpt": "Dave Fuller Carpentry"
+    },
+    {
+     "card": 12,
+     "role": "client trade",
+     "tag": "span",
+     "len": 9,
+     "words": 1,
+     "excerpt": "Carpenter"
+    },
+    {
+     "card": 12,
+     "role": "quote",
+     "tag": "span",
+     "len": 31,
+     "words": 6,
+     "excerpt": "Booked out 6+ months in ..."
+    },
+    {
+     "card": 13,
+     "role": "client name",
+     "tag": "b",
+     "len": 12,
+     "words": 2,
+     "excerpt": "JNM Plumbing"
+    },
+    {
+     "card": 13,
+     "role": "client trade",
+     "tag": "span",
+     "len": 18,
+     "words": 2,
+     "excerpt": "Bathroom renovator"
+    },
+    {
+     "card": 13,
+     "role": "quote",
+     "tag": "span",
+     "len": 31,
+     "words": 6,
+     "excerpt": "Booked out 3+ months in ..."
+    },
+    {
+     "card": 14,
+     "role": "client name",
+     "tag": "b",
+     "len": 30,
+     "words": 4,
+     "excerpt": "Monger Building & Construction"
+    },
+    {
+     "card": 14,
+     "role": "client trade",
+     "tag": "span",
+     "len": 12,
+     "words": 2,
+     "excerpt": "Deck builder"
+    },
+    {
+     "card": 14,
+     "role": "quote",
+     "tag": "span",
+     "len": 42,
+     "words": 8,
+     "excerpt": "On the way to becoming ..."
+    },
+    {
+     "card": 15,
+     "role": "client name",
+     "tag": "b",
+     "len": 22,
+     "words": 2,
+     "excerpt": "Brixwell Constructions"
+    },
+    {
+     "card": 15,
+     "role": "client trade",
+     "tag": "span",
+     "len": 18,
+     "words": 2,
+     "excerpt": "Bathroom renovator"
+    },
+    {
+     "card": 15,
+     "role": "quote",
+     "tag": "span",
+     "len": 33,
+     "words": 5,
+     "excerpt": "From irrelevance to TikTok famous"
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "name": "cta band",
+   "items": [
+    {
+     "role": "button",
+     "tag": "button",
+     "len": 20,
+     "words": 4,
+     "excerpt": "Check if you qualify"
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "name": "postscript",
+   "items": [
+    {
+     "role": "tag",
+     "tag": "b",
+     "len": 4,
+     "words": 1,
+     "excerpt": "P.S."
+    },
+    {
+     "role": "paragraph 1 (after the tag)",
+     "tag": "p",
+     "len": 70,
+     "words": 14,
+     "excerpt": "Most builders and tradies I ..."
+    },
+    {
+     "role": "paragraph 2",
+     "tag": "p",
+     "len": 136,
+     "words": 25,
+     "excerpt": "The problem isn’t your work. ...",
+     "boldPart": 87
+    },
+    {
+     "role": "paragraph 3",
+     "tag": "p",
+     "len": 118,
+     "words": 22,
+     "excerpt": "Our 65+ clients are crushing ...",
+     "boldPart": 31
+    },
+    {
+     "role": "paragraph 4",
+     "tag": "p",
+     "len": 100,
+     "words": 22,
+     "excerpt": "Our mission is to make ...",
+     "boldPart": 56
+    },
+    {
+     "role": "sign-off name",
+     "tag": "b",
+     "len": 5,
+     "words": 1,
+     "excerpt": "Ethan"
+    },
+    {
+     "role": "sign-off role",
+     "tag": "span",
+     "len": 19,
+     "words": 3,
+     "excerpt": "Founder, BC Digital"
+    }
+   ]
+  }
+ ]
+}
