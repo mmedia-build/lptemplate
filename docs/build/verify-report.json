@@ -218,5 +218,150 @@
     "name": "preset: no page errors",
     "pass": true,
     "detail": ""
+  },
+  {
+    "name": "vsl: reference C section order renders",
+    "pass": true,
+    "detail": "videoHero > vslForm > videoResults > ctaBand > postscript"
+  },
+  {
+    "name": "vsl: no header bar on the landing page (header.mode none)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: Poppins preloaded and night dark tone",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: results planned dark, the rest light",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: fifteen result cards, ten with figures and five with quotes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: no review pill with empty proof",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: asterisk markers rendered, never shown",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: CTA and scroll link targets exist",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: hero is one screen and holds logo, callout, headline and scroll link",
+    "pass": true,
+    "detail": "{\"heroH\":664,\"downBottom\":495,\"h1Top\":241,\"calloutTop\":64,\"vh\":664}"
+  },
+  {
+    "name": "vsl: quiz starts on step one with the others hidden and inert",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: radio choices are at least 44px tall",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: Next without an answer shows the choice error and stays",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: a stop answer shows its message and does not advance",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: changing the answer clears the stop message",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: a yes moves to step two with its counter",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: the form keeps its height between steps",
+    "pass": true,
+    "detail": "551 -> 551"
+  },
+  {
+    "name": "vsl: Back returns to step one with the answer kept",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: step three is the contact step",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: empty submit flags the four required contact fields, not the optional website",
+    "pass": true,
+    "detail": "company,name,phone,email"
+  },
+  {
+    "name": "vsl: contact inputs are 16px with the right types",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: a bad website address is rejected",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: valid quiz reaches the thank-you page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: payload carries both gate answers and the contact fields",
+    "pass": true,
+    "detail": "[lead] payload assembled {watched: Yes, I watched it, fit: Yes, that is me, company: Test Building Co, company_website: example.com.au, name: Test Person}"
+  },
+  {
+    "name": "vsl: thank-you page keeps its header bar",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl: no page errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl fixture: review pill renders with proof",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl fixture: tapping the VSL swaps in a player",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl fixture: tapping a result card plays its clip",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "vsl fixture: cards without a clip have no play button",
+    "pass": true,
+    "detail": ""
   }
 ]

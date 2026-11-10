@@ -1,0 +1,93 @@
+{
+  "mobileHeight": 12672,
+  "sections390": [
+    {
+      "type": "videoHero",
+      "top": 0,
+      "height": 844
+    },
+    {
+      "type": "vslForm",
+      "top": 844,
+      "height": 963
+    },
+    {
+      "type": "videoResults",
+      "top": 1807,
+      "height": 9912
+    },
+    {
+      "type": "ctaBand",
+      "top": 11719,
+      "height": 175
+    },
+    {
+      "type": "postscript",
+      "top": 11894,
+      "height": 508
+    },
+    {
+      "type": "footer",
+      "top": 12402,
+      "height": 270
+    }
+  ],
+  "firstScreen": {
+    "headline": {
+      "top": 241,
+      "bottom": 374,
+      "fullyVisible": true
+    },
+    "cta": {
+      "top": 1279,
+      "bottom": 1342,
+      "fullyVisible": false
+    },
+    "badge": null,
+    "eyebrow": null,
+    "body": null
+  },
+  "overflow360": {
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "overflowing": []
+  },
+  "overflow430": {
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "overflowing": []
+  },
+  "desktopHeight": 14250,
+  "sections1440": [
+    {
+      "type": "videoHero",
+      "top": 0,
+      "height": 900
+    },
+    {
+      "type": "vslForm",
+      "top": 900,
+      "height": 1208
+    },
+    {
+      "type": "videoResults",
+      "top": 2108,
+      "height": 11265
+    },
+    {
+      "type": "ctaBand",
+      "top": 13374,
+      "height": 175
+    },
+    {
+      "type": "postscript",
+      "top": 13549,
+      "height": 443
+    },
+    {
+      "type": "footer",
+      "top": 13992,
+      "height": 259
+    }
+  ]
+}

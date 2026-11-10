@@ -136,3 +136,51 @@ Where the built page is shorter: the photo set renders six square tiles in two r
 ### Interactions carried over from reference B
 
 Gallery expand (one tap, button leaves), FAQ accordion (buttons with `aria-expanded`, grid-row animation, first open), before and after grid sliders (pointer, touch and keyboard through the shared slider), select fields (native, placeholder option unselectable when required), guarantee terms button (opens the terms modal), testimonials carousel (the shared scroll-snap carousel, one slide per view). Not reproduced on purpose: B's script-injected city, month and year; B's success popup in place of a thank-you route; B's composite logo and photo sprites.
+
+## VSL preset (reference C sections)
+
+Built with `SITE_CONFIG=examples/site.config.vsl.ts OUT_DIR=./dist-vsl npx astro build`; screenshots in `docs/build/vsl/` (`node scripts/shoot.mjs docs/build/vsl --dist=dist-vsl`), quiz states in `docs/build/vsl/interaction-quiz-*.jpg`. Re-run on 10 November 2026 with Chromium 1243 (the pre-installed browser; the scripts now launch it through `chromiumOptions()` in `scripts/shoot.mjs`).
+
+### Lighthouse (mobile, simulated 4G)
+
+| Page | Performance | Accessibility | Best practices | SEO | LCP | CLS |
+| --- | --- | --- | --- | --- | --- | --- |
+| VSL preset `/` | 97 | 100 | 100 | 60 | 2.1 s | 0.002 |
+| VSL preset `/thank-you/` | 100 | 100 | 100 | 60 | 1.5 s | 0 |
+| Default `/` (re-run) | 97 | 100 | 100 | 60 | 2.2 s | 0 |
+| Default `/thank-you/` (re-run) | 100 | 100 | 100 | 60 | 1.4 s | 0 |
+| Renovation preset `/` (re-run) | 97 | 100 | 100 | 60 | 2.3 s | 0.001 |
+
+SEO is 60 on every page for one reason: `noindex` is on by design (`is-crawlable` is the only failing audit). The placeholder build has no poster or video files, so its LCP is the headline text; with a real poster the poster is the LCP and is preloaded, and the background loop starts only after `load`.
+
+### First screen at 390x664
+
+The hero is exactly one screen (664 tall at 664). Logo top 18; callout top 64 (two lines); headline 241 to 374 (three lines of placeholder, four on the reference at 44 characters); scroll link ending at 495. Everything reference C puts on its first screen fits with 169 px to spare; the VSL heading starts at 688, as on the reference.
+
+### Section heights, built versus reference C
+
+| Section | Built 390 | Reference 390 | Built 1440 | Reference 1440 |
+| --- | --- | --- | --- | --- |
+| Video hero | 844 | 844 | 900 | 900 |
+| VSL and qualify | 963 | 1,011 | 1,208 | 1,142 |
+| Results (15 cards) | 9,912 | 9,912 | 11,265 | 11,265 |
+| CTA band | 175 | 175 | 175 | 182 |
+| P.S. | 508 | 545 | 443 | 453 |
+| Footer | 270 | none | 259 | none |
+| Whole page | 12,672 | 12,487 | 14,250 | 13,942 |
+
+Differences over a few percent: the VSL section at 390 is 48 px shorter because the review pill (62 px with its gap) is hidden while `proof` is empty; with proof it is 14 px taller than the reference. At 1440 it is 66 px taller because the native quiz sits in a 560 px column where the reference's iframe was 720 wide and 453 tall. The P.S. is 37 px shorter at 390 because the placeholder paragraphs wrap to one line fewer than the reference's at the same lengths. The page gains the template's footer (terms, privacy, copyright), which the reference does not have. At 1440 the CTA band is 7 px shorter because the button keeps the 17 px label from `brand.tokens` at every width (the reference steps up to 19 px).
+
+### Checks
+
+`npm run verify` now runs 73 checks: the 44 before plus 29 on reference C: section order; no header bar; Poppins preload and night tone; planned tones; fifteen cards (ten figures, five quotes); no pill without proof; highlight markers rendered and never shown; CTA and scroll targets exist; hero one screen with everything in it; quiz starts on step one with the others inert; choices 44 px or taller; Next without an answer errors; a stop answer shows its message and does not advance; changing the answer clears it; a yes advances with the right counter; the form keeps its height between steps; Back keeps the answer; step three is the contact step; empty submit flags the four required fields and not the optional website; contact inputs are 16 px with the right types; a bad website is rejected; a valid quiz reaches the thank-you page; the payload carries both gate answers; the thank-you page keeps its header; no page errors; and, on a fixture with proof and video URLs, the pill renders, the VSL and a result card swap in a player on tap, and cards without a clip have no play button. All 73 pass (`docs/build/verify-report.json`). Overflow at 360 and 430: none.
+
+The default and renovation builds were re-shot after the shared form and button changes; their `report.json` section heights and first-screen positions are unchanged.
+
+### Interactions carried over from reference C
+
+Background loop (muted, inline, after load, off for reduced motion, save-data and 2G, fading in over the poster); scroll link with the bobbing arrow (still for reduced motion); VSL and result cards that load the player only on tap; the three-step quiz (two gate questions and the contact step) with the counter and progress bar. Not reproduced on purpose: the 4K autoplay with no poster; the survey iframe and its 15 px radios; cards that resize to each clip's own ratio after loading; the review pill's link to a placeholder URL; the page without a footer or thank-you route.
+
+### Not verified (reference C)
+
+The reference quiz's own validation messages and success state (submitting test values to the live survey would have sent them to the reference agency's CRM). The reference's case-study clip lengths (they load only on tap). WebKit and Firefox, as before: their Playwright browser downloads are blocked by the network policy.
