@@ -5,7 +5,10 @@
  *    alternating sides on desktop; on phones the card then the photo.
  *  - carousel (reference B): one swipeable slide at a time, the photo above
  *    the quote on phones and beside it on desktop, dots and arrows below.
- * Name, suburb and rating are optional in either layout. Holds 1 to 6 items.
+ *  - videos (reference C): a centred row of 16:9 video cards, the neighbours
+ *    peeking and dimmed, each card with stars, "Name, Business", a result
+ *    line and a small CTA; arrows beneath, no dots, no section CTA.
+ * Name, suburb and rating are optional in every layout. Holds 1 to 6 items.
  */
 import type { TestimonialsContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -18,6 +21,7 @@ import Stars from '../components/Stars.astro';
 import Icon from '../components/Icon.astro';
 import ImageSlot from '../components/ImageSlot.astro';
 import Carousel from '../components/Carousel.astro';
+import VideoTile from '../components/VideoTile.astro';
 
 interface Props {
   content: TestimonialsContent;
@@ -27,14 +31,40 @@ interface Props {
 }
 const { content, tone, id, ctaLabel } = Astro.props;
 const carousel = content.layout === 'carousel';
+const videos = content.layout === 'videos';
 const who = (item: (typeof content.items)[number]) => [item.name, item.suburb].filter(Boolean).join(', ');
 ---
 
 <Section tone={tone} type="testimonials" id={id}>
   <Container>
-    <ReviewBadge variant="stacked" class="testimonials__badge" />
+    {!videos && <ReviewBadge variant="stacked" class="testimonials__badge" />}
     <h2 class="h2 text-center testimonials__headline">{content.headline}</h2>
-    {carousel ? (
+    {videos ? (
+      <Carousel mode="centre" gap="10px" slideWidth={{ mobile: '76%', desktop: '540px' }} label="Client videos" class="testimonials__videos">
+        {content.items.map((item, i) => (
+          <div class="vcard">
+            <VideoTile
+              poster={item.image}
+              videoUrl={item.videoUrl ?? ''}
+              slotId={`testimonials.items[${i}].image`}
+              label={who(item) || item.headline}
+              shape="landscape"
+              spec={imageSpecs.testimonialVideoPoster}
+              description="16:9 poster frame of the client at their work, the result in large type"
+              widths={[300, 540, 600, 1080]}
+              sizes="(min-width: 1024px) 540px, 76vw"
+              class="vcard__video"
+            />
+            <div class="vcard__body">
+              {(item.rating ?? 0) > 0 && <Stars rating={item.rating ?? 0} size={16} class="vcard__stars" />}
+              {who(item) && <h3 class="vcard__name">{who(item)}</h3>}
+              <p class="vcard__result">{item.headline}</p>
+              <Cta label={ctaLabel} size="small" badge={false} align="start" class="vcard__cta" />
+            </div>
+          </div>
+        ))}
+      </Carousel>
+    ) : carousel ? (
       <Carousel perView={{ mobile: 1, desktop: 1 }} gap="30px" label="Customer reviews" class="testimonials__carousel">
         {content.items.map((item, i) => (
           <article class="slide">
@@ -91,7 +121,7 @@ const who = (item: (typeof content.items)[number]) => [item.name, item.suburb].f
         ))}
       </ul>
     )}
-    <Cta label={ctaLabel} class="testimonials__cta" />
+    {!videos && <Cta label={ctaLabel} class="testimonials__cta" />}
   </Container>
 </Section>
 
@@ -104,6 +134,48 @@ const who = (item: (typeof content.items)[number]) => [item.name, item.suburb].f
     max-width: 730px;
     margin-inline: auto;
     margin-bottom: 30px;
+  }
+
+  /* Videos layout (reference C). */
+  .testimonials__videos {
+    margin-inline: calc(var(--container-pad) * -1);
+    width: calc(100% + var(--container-pad) * 2);
+  }
+
+  .vcard {
+    overflow: hidden;
+    background: var(--colour-card);
+    border: 1px solid var(--colour-card-border);
+    border-radius: var(--radius-card);
+  }
+
+  .vcard :global(.vcard__video) {
+    border-radius: 0;
+  }
+
+  .vcard__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 14px 16px 16px;
+  }
+
+  .vcard__stars {
+    color: var(--colour-star);
+  }
+
+  .vcard__name {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0;
+  }
+
+  .vcard__result {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.35;
   }
 
   .testimonials__list {

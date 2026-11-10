@@ -8,6 +8,13 @@ import { site, submitLabel } from '../lib/site.ts';
 import Icon from './Icon.astro';
 
 const { form } = site;
+const visibleLabels = form.labels === 'visible';
+/** Splits "a **bold** b" into text and strong runs; the only markup a checkbox label accepts. */
+const runs = (text: string) => text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part) => ({
+  strong: part.startsWith('**') && part.endsWith('**'),
+  text: part.replace(/^\*\*|\*\*$/g, ''),
+}));
+const plain = (text: string) => text.replace(/\*\*/g, '');
 
 const inputAttrs = (type: string): Record<string, string | number> => {
   switch (type) {
@@ -23,23 +30,51 @@ const inputAttrs = (type: string): Record<string, string | number> => {
 };
 
 const rules = form.fields.map((f) => ({ name: f.name, type: f.type, required: f.required, minLength: f.minLength }));
+const messages = { ...form.messages, checkbox: form.messages.checkbox || form.messages.required };
 const formConfig = JSON.stringify({
   rules,
-  messages: form.messages,
+  messages,
   destination: form.destination,
   thankYouPath: form.thankYouPath,
   sendingLabel: form.sendingLabel,
 });
 ---
 
-<form class="form" method="post" action={form.thankYouPath} novalidate data-lead-form data-form-config={formConfig}>
+<form class:list={['form', visibleLabels && 'form--labels']} method="post" action={form.thankYouPath} novalidate data-lead-form data-form-config={formConfig}>
   <div class="form__fields">
     {form.fields.map((field) => {
       const attrs: Record<string, string | number> = field.type === 'textarea' || field.type === 'select' ? {} : inputAttrs(field.type);
       const id = `field-${field.name}`;
+      if (field.type === 'checkbox') {
+        const describedBy = [field.hint && `${id}-hint`, `${id}-error`].filter(Boolean).join(' ');
+        return (
+          <div class="field field--check" data-field={field.name}>
+            <label class="check" for={id}>
+              <input
+                type="checkbox"
+                id={id}
+                name={field.name}
+                value="yes"
+                class="check__box"
+                required={field.required}
+                aria-describedby={describedBy}
+              />
+              <span class="check__text">
+                <span class="check__label">
+                  {runs(field.label).map((r) => (r.strong ? <strong>{r.text}</strong> : r.text))}
+                </span>
+                {field.hint && <span class="check__hint" id={`${id}-hint`}>{field.hint}</span>}
+              </span>
+            </label>
+            <p class="field__error" id={`${id}-error`} aria-live="polite"></p>
+          </div>
+        );
+      }
       return (
         <div class="field" data-field={field.name}>
-          <label class="visually-hidden" for={id}>{field.label}</label>
+          <label class:list={[visibleLabels ? 'field__label' : 'visually-hidden']} for={id}>
+            {plain(field.label)}{visibleLabels && field.required && <span class="field__req" aria-hidden="true"> *</span>}
+          </label>
           {field.icon && field.icon !== 'none' && <Icon name={field.icon} size={20} class="field__icon" />}
           {field.type === 'select' ? (
             <select
@@ -178,6 +213,85 @@ const formConfig = JSON.stringify({
 
   .field.is-invalid .field__error {
     display: block;
+  }
+
+  /* Visible labels (reference C): small labels over compact inputs. */
+  .form--labels .form__fields {
+    gap: 14px;
+  }
+
+  .field__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: var(--weight-medium);
+    color: var(--colour-heading);
+  }
+
+  .form--labels .field__input {
+    min-height: 48px;
+    padding-block: 11px;
+  }
+
+  .form--labels .field__icon {
+    top: auto;
+    bottom: 14px;
+  }
+
+  .form--labels .field.is-invalid .field__icon {
+    bottom: auto;
+    top: 36px;
+  }
+
+  /* Qualifying checkbox: the whole panel is the label, so the target is the panel, not the 24px box. */
+  .check {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    align-items: start;
+    min-height: var(--tap-min);
+    padding: 12px;
+    background: var(--colour-surface);
+    border: 1px solid var(--colour-heading);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .check__box {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    accent-color: var(--colour-heading);
+    cursor: pointer;
+  }
+
+  .check:has(.check__box:focus-visible) {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: 2px;
+  }
+
+  .check__text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .check__label {
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--colour-heading);
+  }
+
+  .check__hint {
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--colour-body);
+  }
+
+  .field--check.is-invalid .check {
+    border-color: var(--colour-danger);
+    box-shadow: 0 0 0 1px var(--colour-danger);
   }
 
   .form__trap {

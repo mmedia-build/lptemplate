@@ -159,6 +159,24 @@ export const textSlots: TextSlotSpec[] = [
   { path: 'sections[offerForm:offer-form].content.bullets[2]', chars: 181, words: 26, purpose: 'The protection bullet', exemplar: 'copy-offer-and-form-b', tolerance: 0.15 },
   { path: 'sections[offerForm:offer-form].content.bullets[3]', chars: 99, words: 14, purpose: 'The bonus bullet with its value', exemplar: 'copy-offer-and-form-b', tolerance: 0.15 },
   { path: 'sections[offerForm:offer-form].content.reinforcement', chars: 76, words: 12, purpose: 'Bonus restated under the button', exemplar: 'copy-offer-and-form-b', tolerance: 0.2 },
+
+  /* ---- Slots introduced by reference C (agency booking page). Checked only when the section with that id, or the field with that name, is in the config. ---- */
+  { path: 'sections[hero:c-hero].content.eyebrow', chars: 40, words: 6, purpose: 'FOR [TRADE] [ROLE PLURAL] ONLY; one line on the pill at 390 wide', exemplar: 'copy-hero-c' },
+  { path: 'sections[hero:c-hero].content.headline', chars: 27, words: 5, purpose: 'The moment they care about, ending in "to"', exemplar: 'copy-hero-c', tolerance: 0.15 },
+  { path: 'sections[hero:c-hero].content.headlineAccent', chars: 29, words: 6, purpose: 'The outcome as a dollar figure in their unit of work', exemplar: 'copy-hero-c', tolerance: 0.15 },
+  { path: 'sections[hero:c-hero].content.body', chars: 36, words: 6, purpose: 'Guaranteed. Or we [reversal]. (or the qualifying condition)', exemplar: 'copy-hero-c', tolerance: 0.2 },
+  { path: 'sections[hero:c-hero].content.video.label', chars: 15, words: 3, purpose: 'Bold line on the play panel', exemplar: 'copy-hero-c', tolerance: 0.4 },
+  { path: 'sections[hero:c-hero].content.video.caption', chars: 30, words: 5, purpose: 'What the video shows', exemplar: 'copy-hero-c', tolerance: 0.3 },
+  { path: 'sections[offerForm:c-booking].content.headline', chars: 31, words: 5, purpose: 'Book your [named offer] call', exemplar: 'copy-booking-form-c', tolerance: 0.2 },
+  { path: 'sections[offerForm:c-booking].content.lead', chars: 24, words: 5, purpose: 'This isn\'t a [thing they fear].', exemplar: 'copy-booking-form-c', tolerance: 0.3 },
+  { path: 'sections[offerForm:c-booking].content.intro', chars: 144, words: 26, purpose: 'Free, how long, what it is for, what they will not be asked to do', exemplar: 'copy-booking-form-c' },
+  { path: 'form.fields[qualified].label', chars: 109, words: 17, purpose: 'I confirm my business [trade] and [threshold], with the two in **bold**', exemplar: 'copy-booking-form-c' },
+  { path: 'form.fields[qualified].hint', chars: 44, words: 7, purpose: 'Required to book your [named offer] call.', exemplar: 'copy-booking-form-c', tolerance: 0.2 },
+  { path: 'sections[testimonials:c-testimonials].content.headline', chars: 25, words: 5, purpose: 'Hear it from our clients.', exemplar: 'copy-video-testimonials-c', tolerance: 0.25 },
+  { path: 'sections[testimonials:c-testimonials].content.items[n].headline', chars: 44, words: 7, purpose: 'The result as a number, from their records', exemplar: 'copy-video-testimonials-c', tolerance: 0.35 },
+  { path: 'sections[testimonials:c-testimonials].content.items[n].name', chars: 5, words: 1, purpose: 'First name', exemplar: 'copy-video-testimonials-c', tolerance: 1 },
+  { path: 'sections[testimonials:c-testimonials].content.items[n].suburb', chars: 15, words: 2, purpose: 'Business name', exemplar: 'copy-video-testimonials-c', tolerance: 0.45 },
+  { path: 'footer.disclaimer', chars: 173, words: 31, purpose: 'Optional platform disclaimer', exemplar: 'copy-footer-c', tolerance: 0.3 },
 ];
 
 export const imageSlots: ImageSlotDoc[] = [
@@ -191,4 +209,7 @@ export const imageSlots: ImageSlotDoc[] = [
   { path: 'sections[logoGrid].content.logos[n]', specKey: 'supplierLogo', shot: 'Supplier mark on transparent, 12 to 18 of them.', exemplar: 'imagery-reference-b' },
   { path: 'sections[logoGrid].content.footImage', specKey: 'footImage', shot: 'Optional wide interior at low contrast under the logo tiles.', exemplar: 'imagery-reference-b' },
   { path: 'sections[guarantee].content.decorativeImage', specKey: 'decorative', shot: 'Optional line drawing on transparent, for example a floor plan.', exemplar: 'imagery-reference-b' },
+  /* Slots introduced by reference C */
+  { path: 'sections[hero:c-hero].content.video.poster', specKey: 'heroVideoPoster', shot: 'Poster frame of the explainer, 16:9, the presenter facing camera and outside the centre where the play panel sits.', exemplar: 'imagery-reference-c' },
+  { path: 'sections[testimonials:c-testimonials].content.items[n].image', specKey: 'testimonialVideoPoster', shot: 'Poster frame of each client video, 16:9, the client at their work or premises looking at camera, the result printed large.', exemplar: 'imagery-reference-c' },
 ];

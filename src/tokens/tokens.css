@@ -34,11 +34,17 @@
   --colour-slot-text: #4a4a4a;
   --colour-night: #121212;          /* base of the "night" dark tone (reference B sections on black) */
   --colour-panel: #333333;          /* charcoal trust panel (reference B) */
+  --colour-on-night: #ffffff;       /* text on the night surface (video hero, dark header) */
+  --colour-highlight: var(--colour-accent); /* second half of the video hero headline (reference C lime) */
+  --colour-card: var(--colour-surface-muted); /* active video testimonial card (reference C) */
+  --colour-card-border: transparent;
 
   /* ---- Typography ------------------------------------------------------ */
   --font-sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-body: var(--font-sans);
   --font-heading: var(--font-sans);
+  --font-display: var(--font-heading); /* section headlines (h2); reference C sets a serif */
+  --weight-h2: 600;
 
   --weight-regular: 400;
   --weight-medium: 500;
@@ -100,6 +106,8 @@
   --radius-input: 10px;
   --radius-media: 8px;       /* video tiles only */
   --radius-pill: 999px;
+  --radius-button: 0px;      /* reference C: 5px */
+  --radius-card: 0px;        /* reference C: 10 to 12px */
 
   /* ---- Elevation ------------------------------------------------------- */
   --shadow-button: 0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
@@ -110,6 +118,9 @@
   --button-pad: 12px 20px;   /* reference is 10/12 at 40px tall; 12px gives 44px minimum tap height */
   --button-min-h: 44px;
   --button-width-mobile: 100%;
+  --button-transform: uppercase; /* reference C: none */
+  --button-border: 0;            /* reference C: 1px solid near-black */
+  --button-shadow: var(--shadow-button); /* reference C: none */
   --input-h: 64px;
   --input-pad-x: 19px;
   --input-pad-icon: 60px;

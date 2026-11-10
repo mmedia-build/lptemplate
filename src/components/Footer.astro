@@ -31,6 +31,7 @@ const { business, legal, footer } = site;
         Copyright &copy; <span>{currentYear}</span> {business.name}. {footer.copyrightSuffix}
         {business.abn && <span class="footer__abn">ABN {business.abn}</span>}
       </p>
+      {footer.disclaimer && <p class="footer__disclaimer">{footer.disclaimer}</p>}
       <p class="footer__legal">
         <button type="button" class="footer__legal-btn" data-open-modal="terms">{legal.terms.label}</button>
         <span aria-hidden="true">·</span>
@@ -51,6 +52,14 @@ const { business, legal, footer } = site;
 <style>
   .footer {
     background: var(--colour-surface);
+  }
+
+  .footer__disclaimer {
+    max-width: 640px;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--colour-body);
   }
 
   .footer__inner {

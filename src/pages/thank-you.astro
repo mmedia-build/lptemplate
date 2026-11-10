@@ -20,6 +20,9 @@ const { thankYou, business } = site;
         <div class="thanks__inner">
           <h1 class="thanks__headline">{thankYou.headline}</h1>
           <h2 class="h2 thanks__sub">{thankYou.subheadline}</h2>
+          {thankYou.bookingUrl && (
+            <a class="btn thanks__book" href={thankYou.bookingUrl} data-booking-link>{thankYou.bookingLabel || site.cta.label}</a>
+          )}
           <ol class="thanks__steps">
             {thankYou.steps.map((step, i) => (
               <li class="thanks__step">
@@ -31,11 +34,15 @@ const { thankYou, business } = site;
               </li>
             ))}
           </ol>
-          <p class="thanks__phone-label">{thankYou.phoneLabel}</p>
-          <a class="btn thanks__call" href={telHref}>
-            <Icon ui="phone" size={22} filled class="thanks__call-icon" />
-            {business.phoneDisplay}
-          </a>
+          {business.phoneDisplay && (
+            <>
+              <p class="thanks__phone-label">{thankYou.phoneLabel}</p>
+              <a class="btn thanks__call" href={telHref}>
+                <Icon ui="phone" size={22} filled class="thanks__call-icon" />
+                {business.phoneDisplay}
+              </a>
+            </>
+          )}
         </div>
       </Container>
     </section>

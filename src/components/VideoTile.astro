@@ -1,10 +1,14 @@
 ---
 /**
- * Portrait video tile. Shows the poster with a play glyph; on tap it swaps in
- * the host's player (YouTube, Vimeo, Wistia) or a native <video> for an MP4.
+ * Video tile. Shows the poster with a play glyph; on tap it swaps in the
+ * host's player (YouTube, Vimeo, Wistia) or a native <video> for an MP4.
  * No third-party script loads until the visitor chooses to play.
+ * 'portrait' (9:16) is the projects tile of reference A; 'landscape' (16:9)
+ * is reference C's hero explainer and testimonial cards. With a title the
+ * play button becomes a labelled panel (C's hero).
  */
 import type { ImageRef } from '../config/types.ts';
+import type { ImageSlotSpec } from '../tokens/tokens.ts';
 import { imageSpecs } from '../tokens/tokens.ts';
 import ImageSlot from './ImageSlot.astro';
 import Icon from './Icon.astro';
@@ -14,22 +18,64 @@ interface Props {
   videoUrl: string;
   slotId: string;
   label: string;
+  shape?: 'portrait' | 'landscape';
+  spec?: ImageSlotSpec;
+  description?: string;
+  widths?: number[];
+  sizes?: string;
+  /** Bold line on a labelled play panel. */
+  title?: string;
+  /** Small line under the title. */
+  caption?: string;
+  priority?: boolean;
+  class?: string;
 }
-const { poster, videoUrl, slotId, label } = Astro.props;
+const {
+  poster,
+  videoUrl,
+  slotId,
+  label,
+  shape = 'portrait',
+  spec = imageSpecs.videoPoster,
+  description = 'portrait poster frame from the clip',
+  widths = [188, 376, 640],
+  sizes = '(min-width: 1024px) 25vw, 50vw',
+  title,
+  caption,
+  priority = false,
+  class: cls,
+} = Astro.props;
+const panel = Boolean(title);
 ---
 
-<div class="video" data-video={videoUrl || undefined}>
+<div class:list={['video', `video--${shape}`, panel && 'video--panel', cls]} data-video={videoUrl || undefined}>
   <ImageSlot
     image={poster}
     slotId={slotId}
-    spec={imageSpecs.videoPoster}
-    description="portrait poster frame from the clip"
-    widths={[188, 376, 640]}
-    sizes="(min-width: 1024px) 25vw, 50vw"
+    spec={spec}
+    description={description}
+    widths={widths}
+    sizes={sizes}
+    priority={priority}
+    loading={priority ? 'eager' : undefined}
     class="video__poster"
     labelPosition="bottom"
   />
-  {videoUrl ? (
+  {panel ? (
+    videoUrl ? (
+      <button type="button" class="video__panel" data-video-play aria-label={`Play video: ${label}`}>
+        <Icon ui="play" size={22} filled />
+        <strong class="video__title">{title}</strong>
+        {caption && <span class="video__caption">{caption}</span>}
+      </button>
+    ) : (
+      <span class="video__panel video__play--static">
+        <Icon ui="play" size={22} filled />
+        <strong class="video__title">{title}</strong>
+        {caption && <span class="video__caption">{caption}</span>}
+      </span>
+    )
+  ) : videoUrl ? (
     <button type="button" class="video__play" data-video-play aria-label={`Play video: ${label}`}>
       <Icon ui="play" size={44} filled />
     </button>
@@ -78,6 +124,78 @@ const { poster, videoUrl, slotId, label } = Astro.props;
     background: rgb(131 148 120 / 0.8);
     color: var(--colour-primary);
     border-radius: 6px;
+  }
+
+  .video--landscape {
+    aspect-ratio: 16 / 9;
+  }
+
+  .video--landscape .video__play {
+    width: 64px;
+    max-width: none;
+    aspect-ratio: 1;
+    border-radius: var(--radius-pill);
+    background: rgb(10 10 10 / 0.78);
+    color: #fff;
+  }
+
+  .video--landscape .video__play :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Labelled play panel (reference C hero): dark glass with a light border and a soft ring. */
+  .video__panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 174px;
+    max-width: 78%;
+    padding: 10px 16px 12px;
+    transform: translate(-50%, -50%);
+    background: rgb(10 10 10 / 0.9);
+    color: var(--colour-on-night);
+    border: 2px solid var(--colour-on-night);
+    border-radius: 9px;
+    box-shadow: 0 0 0 4px rgb(255 255 255 / 0.13);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .video__panel:focus-visible {
+    outline: 3px solid var(--colour-highlight);
+    outline-offset: 3px;
+  }
+
+  .video__title {
+    font-size: 20px;
+    line-height: 1.1;
+    font-weight: var(--weight-bold);
+  }
+
+  .video__caption {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 1024px) {
+    .video__title {
+      font-size: 29px;
+    }
+
+    .video__caption {
+      font-size: 17px;
+    }
+
+    .video__panel {
+      padding: 16px 28px 18px;
+      gap: 6px;
+    }
   }
 
   .video__play--static {

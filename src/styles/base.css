@@ -111,9 +111,10 @@ strong {
 }
 
 .h2 {
+  font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: var(--lh-h2);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-h2);
   letter-spacing: var(--ls-h2);
 }
 
@@ -282,12 +283,12 @@ strong {
   font-size: var(--fs-button);
   line-height: var(--lh-button);
   font-weight: var(--weight-semibold);
-  text-transform: uppercase;
+  text-transform: var(--button-transform);
   text-align: center;
   text-decoration: none;
-  border: 0;
-  border-radius: var(--radius-none);
-  box-shadow: var(--shadow-button);
+  border: var(--button-border);
+  border-radius: var(--radius-button);
+  box-shadow: var(--button-shadow);
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
   -webkit-tap-highlight-color: transparent;

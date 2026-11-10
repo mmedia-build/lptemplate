@@ -56,6 +56,8 @@ export const imageSpecs = {
   footImage: spec(2732, 1100, 'Wide, low contrast. Rendered full width, 300 tall (mobile) and 520 (desktop), cover, fading in from the section colour.'),
   testimonialPortrait: spec(680, 960, 'Portrait 17:24. Rendered 358x386 (mobile, cropped) and 255x332 (desktop) in the carousel layout.'),
   stepRowImage: spec(1140, 656, 'Landscape 7:4. Rendered 358x206 (mobile) and 569x328 (desktop), cover, in the rows layout.'),
+  heroVideoPoster: spec(1600, 900, 'Landscape 16:9 poster frame for the hero explainer. Rendered 358x201 (mobile) and 870x489 (desktop). Keep the face out of the centre, where the play button sits.'),
+  testimonialVideoPoster: spec(1080, 608, 'Landscape 16:9 poster frame for each testimonial video, the result in large type. Rendered 286x161 (mobile) and 540x304 (desktop).'),
   decorative: spec(948, 700, 'Line drawing or diagram on transparent, for example a floor plan. Rendered 308x225 (mobile) and 474x347 (desktop).'),
 } as const;
 

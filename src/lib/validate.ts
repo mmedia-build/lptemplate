@@ -10,6 +10,8 @@ export interface ValidationMessages {
   phone: string;
   postcode: string;
   minLength: string;
+  /** Required checkbox left unticked. Falls back to required. */
+  checkbox?: string;
 }
 
 export interface FieldRule {
@@ -58,6 +60,7 @@ export function isEmail(raw: string): boolean {
 /** Returns an error message for a field value, or null when valid. */
 export function validateField(rule: FieldRule, value: string, messages: ValidationMessages): string | null {
   const v = value.trim();
+  if (rule.type === 'checkbox') return v || !rule.required ? null : messages.checkbox || messages.required;
   if (!v) return rule.required ? messages.required : null;
   switch (rule.type) {
     case 'email':

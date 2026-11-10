@@ -26,10 +26,21 @@ const colourVars = Object.entries(brand.colours)
 const tokenVars = Object.entries(brand.tokens || {})
   .filter(([key, value]) => value && /^[a-z0-9-]+$/i.test(key))
   .map(([key, value]) => `--${key}:${value}`);
-const fontFiles: Record<string, string> = { Manrope: 'manrope-latin.woff2', 'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2' };
-const fallbackFor = (family: string) => (fontFiles[family] ? `'${family} Fallback'` : "'Manrope Fallback'");
-const fontVars = [`--font-body:'${brand.fonts.family}',${fallbackFor(brand.fonts.family)},system-ui,sans-serif`];
-if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}',${fallbackFor(brand.fonts.headingFamily)},system-ui,sans-serif`);
+const fontFiles: Record<string, string> = {
+  Manrope: 'manrope-latin.woff2',
+  'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2',
+  'League Spartan': 'league-spartan-latin.woff2',
+};
+/** System serif faces need no files; reference C's section headings use one. */
+const systemSerif = ['Times New Roman', 'Times', 'Georgia'];
+const stackFor = (family: string) => {
+  if (systemSerif.includes(family)) return `'${family}',Times,Georgia,serif`;
+  const fallback = fontFiles[family] ? `'${family} Fallback'` : "'Manrope Fallback'";
+  return `'${family}',${fallback},system-ui,sans-serif`;
+};
+const fontVars = [`--font-body:${stackFor(brand.fonts.family)}`];
+if (brand.fonts.headingFamily) fontVars.push(`--font-heading:${stackFor(brand.fonts.headingFamily)}`);
+if (brand.fonts.displayFamily) fontVars.push(`--font-display:${stackFor(brand.fonts.displayFamily)}`);
 const fontPreload = fontFiles[brand.fonts.family] ?? 'manrope-latin.woff2';
 
 const texture = resolveImage(brand.texture.src);

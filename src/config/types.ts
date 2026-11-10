@@ -37,7 +37,9 @@ export interface Brand {
   /** Any colour role from src/tokens/tokens.css can be overridden here, keyed without the --colour- prefix. */
   colours: Partial<Record<
     'heading' | 'body' | 'primary' | 'primary-hover' | 'on-primary' | 'accent' | 'accent-text' | 'accent-strong' |
-    'surface' | 'surface-muted' | 'surface-dark' | 'border' | 'star' | 'danger' | 'focus',
+    'surface' | 'surface-muted' | 'surface-dark' | 'border' | 'star' | 'danger' | 'focus' |
+    /* Reference C: the near-black of the video hero and dark header, the text on it, and the headline accent. */
+    'night' | 'on-night' | 'highlight' | 'card' | 'card-border',
     string
   >>;
   fonts: {
@@ -45,6 +47,11 @@ export interface Brand {
     family: string;
     /** Optional heading family. Defaults to the body family. */
     headingFamily?: string;
+    /**
+     * Optional family for section headlines (h2) only, for example 'Times New Roman' for reference C's
+     * serif section headings. System serif names need no font files. Defaults to the heading family.
+     */
+    displayFamily?: string;
   };
   /** Optional texture image for the "dark" sections, under src/images. Empty uses the generated plaster texture. */
   texture: ImageRef;
@@ -77,7 +84,7 @@ export interface Tracking {
   metaPixelId: string;
 }
 
-export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select';
+export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select' | 'checkbox';
 
 export interface FormField {
   name: string;
@@ -93,10 +100,21 @@ export interface FormField {
   rows?: number;
   /** Choices for a select field, in the client's own words (for example budget ranges). */
   options?: string[];
+  /**
+   * Small line under the field. For a checkbox it sits under the label inside the panel
+   * (reference C: "Required to book your call.").
+   */
+  hint?: string;
 }
 
 export interface FormConfig {
   fields: FormField[];
+  /**
+   * 'hidden' (default, references A and B): labels are for screen readers and the placeholder shows.
+   * 'visible' (reference C): a small label sits above every field.
+   * A checkbox's label is always visible (it is the sentence being confirmed). Bold phrases: **like this**.
+   */
+  labels?: 'hidden' | 'visible';
   /** Defaults to cta.label when empty. */
   submitLabel: string;
   /** Where the lead goes. Read by src/lib/submit-lead.ts. Empty means log only. */
@@ -115,6 +133,8 @@ export interface FormConfig {
     postcode: string;
     minLength: string;
     generic: string;
+    /** Shown when a required checkbox is left unticked. Falls back to the required message. */
+    checkbox?: string;
   };
   /** Text on the submit button while sending. */
   sendingLabel: string;
@@ -148,11 +168,18 @@ export interface Cta {
   under: 'auto' | 'badge' | 'reinforcement' | 'none';
   /** One line restating the bonus and its value, for pages without a review profile. Empty hides it. */
   reinforcement: string;
+  /** 'arrow' adds the up-right arrow reference C puts after every CTA label. Defaults to 'none'. */
+  icon?: 'none' | 'arrow';
 }
 
 export interface Header {
   /** Shows a fixed phone button at the bottom right on mobile. Off by default to match the reference. */
   stickyPhoneButton: boolean;
+  /**
+   * What sits at the right of the header. 'phone' (default): the click-to-call number (A, B).
+   * 'cta': a compact CTA link on desktop, nothing on phones (reference C). 'none': the logo alone.
+   */
+  action?: 'phone' | 'cta' | 'none';
 }
 
 /* ---- Section content ------------------------------------------------- */
@@ -166,8 +193,27 @@ export interface HeroContent {
    * 'cover': the photo fills the hero behind the text (reference A, needs a washed photo).
    * 'band': on phones the photo sits as a band under the CTA with the text on a flat surface
    * (reference B); on desktop it covers as usual.
+   * 'video': a near-black hero with the eyebrow on a pill, a two-tone headline, a one-line
+   * guarantee (the body slot), a 16:9 video and the CTA (reference C). The image is not used.
    */
-  imageLayout?: 'cover' | 'band';
+  imageLayout?: 'cover' | 'band' | 'video';
+  /** Video layout: the second half of the headline, on its own line in the highlight colour. */
+  headlineAccent?: string;
+  /** Video layout: the explainer clip. */
+  video?: HeroVideo;
+  /** Video layout: show urgency.line (hand-written, empty by default) under the CTA with a dot. */
+  showUrgency?: boolean;
+}
+
+export interface HeroVideo {
+  /** 16:9 poster frame, the presenter's face outside the centre of the frame. Required for the tile to show anything but grey. */
+  poster: ImageRef;
+  /** YouTube, Vimeo or Wistia URL, or a direct MP4. Nothing loads until the visitor taps play. */
+  videoUrl: string;
+  /** Bold line on the play button, for example "Watch the video". */
+  label: string;
+  /** Small line under it naming what the video shows. */
+  caption: string;
 }
 
 export interface TrustItem { icon: IconName; label: string }
@@ -226,13 +272,20 @@ export interface Testimonial {
   suburb?: string;
   /** 1 to 5. Omit or set 0 to hide the stars. */
   rating?: number;
+  /** In the videos layout this is the 16:9 poster frame. */
   image: ImageRef;
+  /** Videos layout: the clip (YouTube, Vimeo, Wistia or MP4). Loads only when tapped. */
+  videoUrl?: string;
 }
 export interface TestimonialsContent {
   headline: string;
   items: Testimonial[];
-  /** 'rows': photo beside a card, alternating sides (A). 'carousel': one swipeable slide at a time with the photo above the quote (B). */
-  layout?: 'rows' | 'carousel';
+  /**
+   * 'rows': photo beside a card, alternating sides (A). 'carousel': one swipeable slide at a time with the photo above the quote (B).
+   * 'videos': a centred row of 16:9 video cards with the neighbours peeking, a result line, stars and a CTA on each card (C).
+   * In the videos layout headline is the result line, name and suburb read "Name, Business", body is not shown.
+   */
+  layout?: 'rows' | 'carousel' | 'videos';
 }
 
 export interface BenefitItem { icon: IconName; title: string; body: string }
@@ -289,10 +342,21 @@ export interface OfferBullet { lead: string; text: string }
 export interface OfferFormContent {
   headline: string;
   bundleImage: ImageRef;
-  /** Optional line introducing the bullets, for example "Here is a fraction of what you will get:". */
+  /**
+   * Optional line introducing the bullets, for example "Here is a fraction of what you will get:".
+   * In the booking layout it is the bold first sentence of the intro.
+   */
   lead?: string;
   bullets: OfferBullet[];
   reinforcement: string;
+  /**
+   * 'offer' (default, A and B): headline, bundle image, bullets, the form, the reinforcement line.
+   * 'booking' (C): headline, a short intro (lead in bold, then intro) and the form in a white card.
+   * Bundle image, bullets and reinforcement are not shown in the booking layout.
+   */
+  layout?: 'offer' | 'booking';
+  /** Booking layout: the rest of the intro after the bold lead. */
+  intro?: string;
 }
 
 /* ---- Section types introduced by reference B ------------------------- */
@@ -409,6 +473,12 @@ export interface ThankYou {
   steps: Array<{ title: string; body: string }>;
   phoneLabel: string;
   seoTitle: string;
+  /**
+   * Optional booking calendar link (reference C hands the visitor to a calendar after the form).
+   * When set, the thank-you page leads with a button to it; the phone block shows only when a number is set.
+   */
+  bookingUrl?: string;
+  bookingLabel?: string;
 }
 
 export interface SiteConfig {
@@ -423,7 +493,11 @@ export interface SiteConfig {
   urgency: { line: string };
   legal: { terms: LegalDoc; privacy: LegalDoc };
   seo: Seo;
-  footer: { copyrightSuffix: string };
+  footer: {
+    copyrightSuffix: string;
+    /** Optional small print under the copyright, for example a platform disclaimer. */
+    disclaimer?: string;
+  };
   thankYou: ThankYou;
   sections: SectionConfig[];
 }

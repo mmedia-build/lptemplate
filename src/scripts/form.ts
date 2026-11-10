@@ -26,6 +26,13 @@ export function initLeadForms(): void {
 
     const fieldEl = (name: string) => form.querySelector<HTMLElement>(`[data-field="${name}"]`);
     const control = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
+    /** A checkbox reads as its value when ticked and empty when not, so required and payload logic stay the same. */
+    const valueOf = (name: string): string => {
+      const input = control(name);
+      if (!input) return '';
+      if (input instanceof HTMLInputElement && input.type === 'checkbox') return input.checked ? input.value || 'yes' : '';
+      return input.value;
+    };
 
     const showError = (name: string, message: string | null) => {
       const wrap = fieldEl(name);
@@ -41,7 +48,7 @@ export function initLeadForms(): void {
       let firstBad: string | null = null;
       for (const rule of config.rules) {
         const input = control(rule.name);
-        const message = validateField(rule, input?.value ?? '', config.messages);
+        const message = validateField(rule, input ? valueOf(rule.name) : '', config.messages);
         showError(rule.name, message);
         if (message && !firstBad) firstBad = rule.name;
       }
@@ -58,6 +65,10 @@ export function initLeadForms(): void {
     for (const rule of config.rules) {
       const input = control(rule.name);
       if (!input) continue;
+      if (rule.type === 'checkbox') {
+        input.addEventListener('change', () => showError(rule.name, validateField(rule, valueOf(rule.name), config.messages)));
+        continue;
+      }
       input.addEventListener('blur', () => {
         if (input.value.trim()) showError(rule.name, validateField(rule, input.value, config.messages));
       });
@@ -88,7 +99,7 @@ export function initLeadForms(): void {
 
       const fields: Record<string, string> = {};
       for (const rule of config.rules) {
-        const value = control(rule.name)?.value.trim() ?? '';
+        const value = valueOf(rule.name).trim();
         fields[rule.name] = rule.type === 'tel' ? normalisePhone(value) : value;
       }
 

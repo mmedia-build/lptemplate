@@ -3,6 +3,8 @@
  * The offer and the form: optional urgency line, offer headline, bundle
  * image, value bullets, lead form and reinforcement line. Carries the CTA
  * anchor id. Holds 2 to 6 bullets.
+ * Booking layout (reference C): headline, a short intro with a bold lead
+ * sentence, and the form in a white card. No bundle, bullets or reinforcement.
  */
 import type { OfferFormContent } from '../config/types.ts';
 import type { Tone } from '../lib/sections.ts';
@@ -22,8 +24,26 @@ interface Props {
 const { content, tone, id } = Astro.props;
 const sectionId = id || ctaTarget.replace(/^#/, '');
 const urgency = site.urgency.line.trim();
+const booking = content.layout === 'booking';
 ---
 
+{booking ? (
+<Section tone={tone} type="offerForm" id={sectionId} class="offer offer--booking">
+  <Container>
+    <h2 class="h2 text-center offer__headline">{content.headline}</h2>
+    {(content.lead || content.intro) && (
+      <p class="offer__intro">
+        {content.lead && <strong>{content.lead}</strong>}
+        {content.lead && content.intro && ' '}
+        {content.intro}
+      </p>
+    )}
+    <div class="offer__card">
+      <LeadForm />
+    </div>
+  </Container>
+</Section>
+) : (
 <Section tone={tone} type="offerForm" id={sectionId} class="offer">
   <Container>
     {urgency && <p class="eyebrow text-center offer__urgency">{urgency}</p>}
@@ -59,6 +79,7 @@ const urgency = site.urgency.line.trim();
     <p class="caption text-center offer__reinforcement">{content.reinforcement}</p>
   </Container>
 </Section>
+)}
 
 <style>
   .offer__urgency {
@@ -122,7 +143,54 @@ const urgency = site.urgency.line.trim();
     margin-top: 6px;
   }
 
+  /* Booking layout (reference C). */
+  .offer--booking.section--default {
+    padding-top: 28px;
+    padding-bottom: 32px;
+  }
+
+  .offer--booking .offer__headline {
+    margin-bottom: 10px;
+  }
+
+  .offer__intro {
+    max-width: 680px;
+    margin: 0 auto 22px;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .offer__card {
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+    padding: 18px 14px 16px;
+    background: #fff;
+    border: 1px solid var(--colour-card-border);
+    border-radius: 10px;
+  }
+
   @media (min-width: 1024px) {
+    .offer--booking.section--default {
+      padding-top: 48px;
+      padding-bottom: 56px;
+    }
+
+    .offer--booking .offer__headline {
+      margin-bottom: 14px;
+    }
+
+    .offer__intro {
+      margin-bottom: 30px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .offer__card {
+      padding: 24px 20px 22px;
+    }
+
     .offer__headline {
       margin-bottom: 30px;
     }

@@ -5,7 +5,7 @@
  * chosen by cta.under in config. Label comes from config, overridable per
  * section. Every CTA scrolls to the offer form.
  */
-import { ctaLabel, ctaTarget, ctaUnder, reinforcementLine } from '../lib/site.ts';
+import { site, ctaLabel, ctaTarget, ctaUnder, reinforcementLine } from '../lib/site.ts';
 import ReviewBadge from './ReviewBadge.astro';
 
 interface Props {
@@ -15,15 +15,25 @@ interface Props {
   badge?: boolean;
   align?: 'center' | 'start';
   wide?: boolean;
+  /** 'small' is the compact button reference C puts on every testimonial card. */
+  size?: 'default' | 'small';
   class?: string;
 }
 
-const { label = ctaLabel, href = ctaTarget, badge = true, align = 'center', wide = true, class: cls } = Astro.props;
+const { label = ctaLabel, href = ctaTarget, badge = true, align = 'center', wide = true, size = 'default', class: cls } = Astro.props;
 const under = badge ? ctaUnder : 'none';
+const arrow = site.cta.icon === 'arrow';
 ---
 
-<div class:list={['cta', `cta--${align}`, cls]}>
-  <a class:list={['btn', wide && 'btn--wide']} href={href}>{label}</a>
+<div class:list={['cta', `cta--${align}`, size === 'small' && 'cta--small', cls]}>
+  <a class:list={['btn', wide && size !== 'small' && 'btn--wide', arrow && 'btn--arrow', size === 'small' && 'btn--small']} href={href}>
+    {label}
+    {arrow && (
+      <svg class="btn__arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path d="M6 18 18 6M8 6h10v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )}
+  </a>
   {under === 'badge' && <ReviewBadge variant="inline" class="cta__badge" />}
   {under === 'reinforcement' && <p class="cta__line">{reinforcementLine}</p>}
 </div>
@@ -37,6 +47,41 @@ const under = badge ? ctaUnder : 'none';
     width: 100%;
   }
 
+  .btn--arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .btn--arrow.btn--wide,
+  .cta:not(.cta--small) .btn--arrow {
+    display: flex;
+  }
+
+  .btn__arrow {
+    flex: none;
+  }
+
+  .cta--small {
+    align-items: flex-start;
+  }
+
+  .cta--small .btn--small {
+    display: inline-flex;
+    width: auto;
+    /* 48 so the button is still 44 tall on a neighbouring carousel card scaled to 0.92. */
+    min-height: 48px;
+    padding: 10px 14px;
+    font-size: 15px;
+    gap: 10px;
+  }
+
+  .cta--small .btn--small .btn__arrow {
+    width: 16px;
+    height: 16px;
+  }
+
   .cta__line {
     max-width: 296px;
     font-size: var(--fs-small);
@@ -47,6 +92,10 @@ const under = badge ? ctaUnder : 'none';
   }
 
   @media (min-width: 1024px) {
+    .cta:not(.cta--small) .btn--arrow {
+      display: inline-flex;
+    }
+
     .cta--start {
       display: inline-flex;
       width: auto;
