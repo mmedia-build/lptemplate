@@ -32,7 +32,7 @@ The repeatable per-client process (intake call, Claude session build, Vercel pre
 - `src/pages/thank-you.astro`: the thank-you route. The Meta `Lead` event fires there once, only after a real submit.
 - `scripts/`: `check-content.mjs`, `build-content-spec.mjs`, `shoot.mjs`, `verify.mjs`, `lighthouse.mjs`.
 - `examples/site.config.renovation.ts`: the reference B preset, every slot an instruction at the measured length.
-- `docs/prompts/reference-rebuild-brief.md`: the niche-agnostic brief that produced this template, with a fill-in block, for the next reference page or the next niche.
+- `docs/prompts/reference-rebuild-brief.md`: the niche-agnostic brief that produced this template, with a fill-in block. The same brief as a Claude skill: `.claude/skills/reference-rebuild/` (invoke with `/reference-rebuild` in this repository) and the installable `docs/skills/reference-rebuild.skill`.
 - `docs/`: `teardown.md` and `teardown-b.md`, `exemplar.md`, `sections.md`, `content-spec.md`, `decisions.md`, `verification.md`, `launch-playbook.md`, `intake-brief.md`, the reference captures in `docs/reference/` and `docs/reference-b/`, and the build captures in `docs/build/` (the preset's in `docs/build/renovation/`).
 
 ## Sections
