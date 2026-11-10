@@ -218,5 +218,125 @@
     "name": "preset: no page errors",
     "pass": true,
     "detail": ""
+  },
+  {
+    "name": "agency: reference C section order renders",
+    "pass": true,
+    "detail": "hero > offerForm > testimonials"
+  },
+  {
+    "name": "agency: League Spartan preloaded, serif section headlines from the system",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: dark header with a CTA link and no phone link",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: hero video loads nothing until tapped",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: nothing under the CTAs and no generated urgency",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: four visible labels and one required checkbox",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: eyebrow, headline, guarantee, video and CTA end inside 664, eyebrow on one line",
+    "pass": true,
+    "detail": "{\"pillH\":31,\"guaranteeBottom\":290,\"videoBottom\":504,\"ctaBottom\":576,\"vh\":664}"
+  },
+  {
+    "name": "agency: tap targets at least 44px (buttons, card CTAs, arrows, checkbox panel)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: every card CTA points at the form",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: first video card is current on load",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: next arrow brings the second card to the centre",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: vertical swipe on the carousel still scrolls the page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: empty submit flags the four fields and the checkbox",
+    "pass": true,
+    "detail": "name,phone,email,company,qualified"
+  },
+  {
+    "name": "agency: checkbox error uses the checkbox message",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: checkbox is 24px and the whole panel toggles it",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: ticking clears the checkbox error",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: valid submit reaches the thank-you page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: payload carries company and qualified=yes",
+    "pass": true,
+    "detail": "[lead] form.destination.url is empty, so the lead was logged only null | [lead] payload assembled {name: Test Person, phone: 0412345678, email: test@example.com, company: Test Renovations, qualified: yes} null"
+  },
+  {
+    "name": "agency: thank-you hides the phone block when no number is set",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency: no page errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency video: a hand-written urgency line shows under the hero CTA and still fits 664",
+    "pass": true,
+    "detail": "{\"text\":\"Test line written by hand\",\"bottom\":609}"
+  },
+  {
+    "name": "agency video: tapping the hero panel loads the player",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency video: tapping a card loads only that card",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "agency video: thank-you leads with the booking calendar link",
+    "pass": true,
+    "detail": ""
   }
 ]

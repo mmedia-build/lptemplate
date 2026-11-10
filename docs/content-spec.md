@@ -15,6 +15,7 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 | `cta.label` | The one CTA label used on every button and the submit (34 on reference A, 45 on B) | 34 chars, 7 words | 22 to 46 chars | [pattern](exemplar.md#copy-hero) |
 | `business.phoneEyebrow` | Invitation above the number in the desktop header | 15 chars, 2 words | 9 to 21 chars | [pattern](exemplar.md#copy-header) |
 | `cta.reinforcement` | Bonus and value restated under every CTA when there is no review badge | 76 chars, 12 words | 60 to 92 chars | [pattern](exemplar.md#copy-hero-b) |
+| `footer.disclaimer` | Optional platform disclaimer | 173 chars, 31 words | 121 to 225 chars | [pattern](exemplar.md#copy-footer-c) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
@@ -32,10 +33,17 @@ Image files go under `src/images/` and are referenced by file name in `site.conf
 | `sections[hero:b-hero].content.eyebrow` | For [city] homeowners who are done with [category] horror stories | 74 chars, 11 words | 66 to 82 chars | [pattern](exemplar.md#copy-hero-b) |
 | `sections[hero:b-hero].content.headline` | Outcome, timeframe, fixed price and the penalty | 99 chars, 19 words | 89 to 109 chars | [pattern](exemplar.md#copy-hero-b) |
 | `sections[hero:b-hero].content.body` | The named method, what it removes, No X. No Y. No Z. | 375 chars, 52 words | 337 to 413 chars | [pattern](exemplar.md#copy-hero-b) |
+| `sections[hero:c-hero].content.eyebrow` | FOR [TRADE] [ROLE PLURAL] ONLY; one line on the pill at 390 wide | 40 chars, 6 words | 36 to 44 chars | [pattern](exemplar.md#copy-hero-c) |
+| `sections[hero:c-hero].content.headline` | The moment they care about, ending in "to" | 27 chars, 5 words | 22 to 32 chars | [pattern](exemplar.md#copy-hero-c) |
+| `sections[hero:c-hero].content.headlineAccent` | The outcome as a dollar figure in their unit of work | 29 chars, 6 words | 24 to 34 chars | [pattern](exemplar.md#copy-hero-c) |
+| `sections[hero:c-hero].content.body` | Guaranteed. Or we [reversal]. (or the qualifying condition) | 36 chars, 6 words | 28 to 44 chars | [pattern](exemplar.md#copy-hero-c) |
+| `sections[hero:c-hero].content.video.label` | Bold line on the play panel | 15 chars, 3 words | 9 to 21 chars | [pattern](exemplar.md#copy-hero-c) |
+| `sections[hero:c-hero].content.video.caption` | What the video shows | 30 chars, 5 words | 21 to 39 chars | [pattern](exemplar.md#copy-hero-c) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
 | `sections[hero].content.image` | 2400x1400 px | 1.71:1 | Wide finished job, house visible, no people, subject in the centre third; washed out behind the text. | Covers the hero at every width. Centre of the frame is what survives the mobile crop (390x811). | [standard](exemplar.md#imagery-hero) |
+| `sections[hero:c-hero].content.video.poster` | 1600x900 px | 1.78:1 | Poster frame of the explainer, 16:9, the presenter facing camera and outside the centre where the play panel sits. | Landscape 16:9 poster frame for the hero explainer. Rendered 358x201 (mobile) and 870x489 (desktop). Keep the face out of the centre, where the play button sits. | [standard](exemplar.md#imagery-reference-c) |
 
 ## 2. Trust strip
 
@@ -135,10 +143,15 @@ Supported range: 1 to 6 items (3 on the reference).
 | `sections[testimonials:b-testimonials].content.headline` | What [city] homeowners say | 70 chars, 9 words | 63 to 77 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
 | `sections[testimonials:b-testimonials].content.items[n].headline` | Job type | 22 chars, 3 words | 15 to 29 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
 | `sections[testimonials:b-testimonials].content.items[n].body` | The customer's own thank-you | 155 chars, 28 words | 124 to 186 chars | [pattern](exemplar.md#copy-testimonials-b-carousel) |
+| `sections[testimonials:c-testimonials].content.headline` | Hear it from our clients. | 25 chars, 5 words | 18 to 32 chars | [pattern](exemplar.md#copy-video-testimonials-c) |
+| `sections[testimonials:c-testimonials].content.items[n].headline` | The result as a number, from their records | 44 chars, 7 words | 28 to 60 chars | [pattern](exemplar.md#copy-video-testimonials-c) |
+| `sections[testimonials:c-testimonials].content.items[n].name` | First name | 5 chars, 1 words | 0 to 10 chars | [pattern](exemplar.md#copy-video-testimonials-c) |
+| `sections[testimonials:c-testimonials].content.items[n].suburb` | Business name | 15 chars, 2 words | 8 to 22 chars | [pattern](exemplar.md#copy-video-testimonials-c) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |
 | `sections[testimonials].content.items[n].image` | 790x844 px | 1:1.07 | The reviewer's finished job, drone or street level, subject in the vertical centre. | Near square portrait. Rendered 350x263 (mobile, cropped) and 395x422 (desktop). | [standard](exemplar.md#imagery-testimonials) |
+| `sections[testimonials:c-testimonials].content.items[n].image` | 1080x608 px | 1.78:1 | Poster frame of each client video, 16:9, the client at their work or premises looking at camera, the result printed large. | Landscape 16:9 poster frame for each testimonial video, the result in large type. Rendered 286x161 (mobile) and 540x304 (desktop). | [standard](exemplar.md#imagery-reference-c) |
 
 ## 10. Benefits
 
@@ -256,6 +269,11 @@ Supported range: 2 to 6 bullets (4 on the reference); 1 to 8 form fields (5 on r
 | `sections[offerForm:offer-form].content.bullets[2]` | The protection bullet | 181 chars, 26 words | 153 to 209 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
 | `sections[offerForm:offer-form].content.bullets[3]` | The bonus bullet with its value | 99 chars, 14 words | 84 to 114 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
 | `sections[offerForm:offer-form].content.reinforcement` | Bonus restated under the button | 76 chars, 12 words | 60 to 92 chars | [pattern](exemplar.md#copy-offer-and-form-b) |
+| `sections[offerForm:c-booking].content.headline` | Book your [named offer] call | 31 chars, 5 words | 24 to 38 chars | [pattern](exemplar.md#copy-booking-form-c) |
+| `sections[offerForm:c-booking].content.lead` | This isn't a [thing they fear]. | 24 chars, 5 words | 16 to 32 chars | [pattern](exemplar.md#copy-booking-form-c) |
+| `sections[offerForm:c-booking].content.intro` | Free, how long, what it is for, what they will not be asked to do | 144 chars, 26 words | 129 to 159 chars | [pattern](exemplar.md#copy-booking-form-c) |
+| `form.fields[qualified].label` | I confirm my business [trade] and [threshold], with the two in **bold** | 109 chars, 17 words | 98 to 120 chars | [pattern](exemplar.md#copy-booking-form-c) |
+| `form.fields[qualified].hint` | Required to book your [named offer] call. | 44 chars, 7 words | 35 to 53 chars | [pattern](exemplar.md#copy-booking-form-c) |
 
 | Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
 | --- | --- | --- | --- | --- | --- |

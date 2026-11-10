@@ -2,11 +2,11 @@
 
 Results from the built placeholder page. Re-run with `npm run build && npm run shoot && npm run verify && npm run lighthouse`. Raw outputs: `docs/build/report.json`, `docs/build/verify-report.json`, `docs/build/lighthouse-mobile.json`, `docs/build/lighthouse-mobile-thank-you.json`.
 
-## Lighthouse (mobile, simulated 4G, Chromium 153 headless)
+## Lighthouse (mobile, simulated 4G, headless Chromium; re-run 10 November 2026 with the container's Chromium 1243 build)
 
 | Page | Performance | Accessibility | Best practices | SEO | LCP | FCP | TBT | CLS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `/` (placeholder content) | 97 | 100 | 100 | 60 | 2.2 s | 1.8 s | 0 ms | 0 |
+| `/` (placeholder content) | 98 | 100 | 100 | 60 | 2.1 s | 1.9 s | 0 ms | 0 |
 | `/thank-you/` | 100 | 100 | 100 | 60 | | | | |
 
 SEO is 60 because the page is `noindex` on purpose (`seo.noindex` defaults to true for an ad landing page); the only failing SEO audit is "is-crawlable". With a real hero photo the LCP element becomes that image: it is preloaded with `fetchpriority="high"`, served as AVIF/WebP with a 480 to 2400 px srcset, and never lazy loaded.
@@ -89,7 +89,7 @@ Built from `examples/site.config.renovation.ts` with `SITE_CONFIG=examples/site.
 
 | Page | Performance | Accessibility | Best practices | SEO | LCP | FCP | TBT | CLS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `/` (placeholder content, Plus Jakarta Sans, night dark tone) | 98 | 100 | 100 | 60 | 2.1 s | 1.9 s | 0 ms | 0.001 |
+| `/` (placeholder content, Plus Jakarta Sans, night dark tone) | 97 | 100 | 100 | 60 | 2.3 s | 2.0 s | 0 ms | 0.001 |
 | `/thank-you/` | 100 | 100 | 100 | 60 | | | | |
 
 SEO is 60 for the same reason as the default build (`noindex` on purpose).
@@ -136,3 +136,51 @@ Where the built page is shorter: the photo set renders six square tiles in two r
 ### Interactions carried over from reference B
 
 Gallery expand (one tap, button leaves), FAQ accordion (buttons with `aria-expanded`, grid-row animation, first open), before and after grid sliders (pointer, touch and keyboard through the shared slider), select fields (native, placeholder option unselectable when required), guarantee terms button (opens the terms modal), testimonials carousel (the shared scroll-snap carousel, one slide per view). Not reproduced on purpose: B's script-injected city, month and year; B's success popup in place of a thank-you route; B's composite logo and photo sprites.
+
+## Agency preset (reference C sections)
+
+Built from `examples/site.config.agency.ts` with `SITE_CONFIG=examples/site.config.agency.ts OUT_DIR=./dist-agency npx astro build`, screenshotted with `node scripts/shoot.mjs docs/build/agency --dist=dist-agency` and scored with `node scripts/lighthouse.mjs / --dist=dist-agency --tag=agency` (and `/thank-you/`). Raw outputs: `docs/build/agency/report.json`, `docs/build/agency/lighthouse-mobile.json`, `docs/build/agency/lighthouse-mobile-thankyou.json`, captures in `docs/build/agency/` and per-section crops in `docs/build/agency/sections/`.
+
+### Lighthouse (mobile, simulated 4G)
+
+| Page | Performance | Accessibility | Best practices | SEO | LCP | FCP | TBT | CLS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `/` (placeholder content, League Spartan, video hero) | 99 | 100 | 100 | 60 | 1.8 s | 1.6 s | 0 ms | 0 |
+| `/thank-you/` | 100 | 100 | 100 | 60 | 1.4 s | 1.2 s | 0 ms | 0 |
+
+SEO is 60 for the same reason as the other builds (`noindex` on purpose). The first run scored 96 for accessibility: the neighbouring video cards were dimmed to 55% (reference C uses 48% plus a blur), which took their CTA text to 4.1:1 and the placeholder labels to 2.3:1. They are now dimmed to 90% and scaled to 0.92, and a slide wrapper that used `role="group"` on an `article` became a `div`. Both fixes are in `docs/decisions.md`.
+
+### First screen at 390x664
+
+Header 0 to 52, eyebrow pill one line (31 px tall), headline 113 to 257 (four lines at 34 px), guarantee line 267 to 290, video 306 to 504, CTA 520 to 576. With a hand-written urgency line (the `config.agency-video.ts` fixture) the line ends at 609. Everything reference C puts above its video, plus the CTA it does not manage to show, ends inside 664 with 55 px to spare (88 px without an urgency line). Reference C at the same size: the CTA starts at 641 and is cut off at 664.
+
+### Section heights, built versus reference C
+
+Reference values from `docs/teardown-c.md`. On the built page the header overlays the hero, so the header and hero rows are compared together.
+
+| Section | Built 390 | Reference 390 | Built 1440 | Reference 1440 |
+| --- | --- | --- | --- | --- |
+| Header + hero | 604 | 60 + 742 = 802 | 1,048 | 82 + 1,022 = 1,104 |
+| Booking form | 727 | 638 | 790 | 907 |
+| Video testimonials | 517 | 583 | 706 | 754 |
+| Footer | 318 | 215 | 312 | 236 |
+| Whole page | 2,165 | 2,376 (including 84 px of body padding) | 2,857 | 3,001 |
+
+Why they differ: the built hero is 198 px shorter at 390 because it has to be (the first-screen fix: one-line 12 px eyebrow, 34 px headline, tighter gaps) and because the scarcity block (45 px plus gaps) is empty until a real limit is written. The booking form is 89 px taller at 390 because labels are 14 px instead of 12, inputs are 48 px instead of 42 to 47, and the checkbox panel's hint is 12 px instead of 10 (all accessibility floors). On desktop it is 117 px shorter: C's card is 664 px tall with wider gaps between its fields (labels at 15 px with about 26 px above each) and a taller confirmation panel, where the built card keeps the phone spacing. The testimonials are shorter because the result line placeholder is one line and the arrows sit closer to the cards. The footer is taller because it keeps the terms and privacy buttons and a logo row that reference C does not have.
+
+### Checks
+
+`npm run verify` now runs 68 checks: the 44 from the default build and the renovation preset plus 24 on the agency preset and its fixture (section order; League Spartan preload and the system serif for section headlines; dark header with a CTA link and no phone; the hero video loading nothing until tapped; nothing under the CTAs and no urgency line unless written; four visible labels and a required checkbox; first-screen fit with a one-line eyebrow; tap targets including card CTAs, arrows and the checkbox panel; card CTAs pointing at the form; the centred carousel's current card on load and after the next arrow; a vertical swipe on the carousel still scrolling the page; empty submit flagging all five fields with the checkbox's own message; the 24 px checkbox toggled from anywhere on its panel; ticking clearing the error; a valid submit reaching the thank-you page with `company` and `qualified=yes` in the payload; the thank-you page hiding the phone block when no number is set; no page errors; and, on the fixture, a hand-written urgency line under the hero CTA that still fits 664, tap-to-load for the hero panel and for one card only, and the thank-you page leading with the booking calendar link). All 68 pass; the record is `docs/build/verify-report.json`. Overflow checks at 360 and 430 report no horizontal overflow on the preset.
+
+### Interactions carried over from reference C, and not
+
+Carried over: the centred testimonial carousel with neighbours peeking (native scroll-snap, arrows, swipe, keyboard on the track, focus inside a neighbour brings it to the centre), a CTA on every card, the labelled play panel on the hero video, visible field labels, the qualifying checkbox, the arrow after every CTA label. Changed: the hero video does not autoplay and loads nothing until tapped (C autoplays a 1920x1080 MP4 muted with `preload="auto"`); the submit is never disabled (C greys it out until the box is ticked); neighbours are dimmed lightly instead of blurred. Not reproduced on purpose: the hard-coded "spots available" count and closing date, the Santa hat drawn on the headline, the hand-drawn underline under the guarantee line, Cloudflare Turnstile (the template's honeypot is its spam guard; a client can add Turnstile in `src/lib/submit-lead.ts` if spam appears), the country picker on the phone field, the second H1.
+
+### What could not be verified for reference C
+
+- The reference's own validation messages and success state: a submit on the live form was refused as a live-site action, so C's error copy is unknown and the template's messages are its own.
+- The booking calendar C hands the visitor to after the form, which is only reachable by submitting.
+- Interaction captures of the reference (carousel before and after, video unmute): the remote browser returned screenshots only as inline base64 this session could not write to disk, so the states are described from the DOM in `docs/teardown-c.md` rather than captured.
+- Testimonial video lengths (C loads them with `preload="none"`).
+- WebKit and Firefox: not installed in this container; Chromium only.
+

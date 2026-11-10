@@ -32,8 +32,13 @@ function sectionsOfType(selector) {
   return config.sections.filter((s) => s.type === type && !(s.id && specific && specific.has(s.id)));
 }
 
-/** A slot under a section selector is skipped (not failed) when no such section is in this config. */
+/**
+ * A slot under a section selector is skipped (not failed) when no such section is in this config,
+ * and a slot under form.fields[name] is skipped when the form has no field of that name.
+ */
 function sectionPresent(pathExpr) {
+  const f = pathExpr.match(/^form\.fields\[([a-z][\w-]*)\]/i);
+  if (f && f[1] !== 'n' && !/^\d+$/.test(f[1])) return (config.form?.fields ?? []).some((x) => x.name === f[1]);
   const m = pathExpr.match(/^sections\[([\w:-]+)\]/);
   return m ? sectionsOfType(m[1]).length > 0 : true;
 }
@@ -78,21 +83,27 @@ for (const slot of textSlots) {
   const tol = slot.tolerance ?? 0.1;
   const min = Math.floor(slot.chars * (1 - tol));
   const max = Math.ceil(slot.chars * (1 + tol));
+  if (slot.path === 'business.phoneEyebrow' && (config.header?.action ?? 'phone') !== 'phone') {
+    rows.push(['skip', slot.path, '', `${slot.chars}`, 'header shows no phone']);
+    continue;
+  }
   if (!sectionPresent(slot.path)) {
-    rows.push(['skip', slot.path, '', `${slot.chars}`, 'section not in this config']);
+    rows.push(['skip', slot.path, '', `${slot.chars}`, slot.path.startsWith('form.') ? 'field not in this config' : 'section not in this config']);
     continue;
   }
   const found = resolve(slot.path);
   if (!found.length) {
-    const optional = ['cta.reinforcement', 'sections[offerForm].content.lead'].includes(slot.path);
+    const optional = ['cta.reinforcement', 'sections[offerForm].content.lead', 'footer.disclaimer'].includes(slot.path);
     rows.push([optional ? 'skip' : 'MISSING', slot.path, '', `${slot.chars}`, optional ? 'optional, not set' : '']);
     if (!optional) failures++;
     continue;
   }
-  for (const [label, text] of found) {
+  for (const [label, raw] of found) {
+    // **bold** markers in a checkbox label are markup, not copy.
+    const text = raw.replace(/\*\*/g, '');
     const len = text.length;
     const problems = [];
-    if (len === 0 && ['urgency.line', 'cta.reinforcement'].includes(slot.path)) {
+    if (len === 0 && ['urgency.line', 'cta.reinforcement', 'footer.disclaimer'].includes(slot.path)) {
       rows.push(['ok', label, '0', `${slot.chars} (optional)`, 'empty by design']);
       continue;
     }

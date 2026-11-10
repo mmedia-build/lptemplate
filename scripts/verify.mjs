@@ -11,7 +11,7 @@
 import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { chromium } from 'playwright';
+import { launchBrowser } from './browser.mjs';
 import { serveDist } from './shoot.mjs';
 
 const IOS_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 330.0.0.0';
@@ -25,7 +25,7 @@ function build(outDir, env = {}) {
   execSync('npx astro build', { stdio: 'pipe', env: { ...process.env, OUT_DIR: outDir, ...env } });
 }
 
-const browser = await chromium.launch();
+const browser = await launchBrowser();
 const mobile = () => browser.newContext({ viewport: { width: 390, height: 664 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, userAgent: IOS_UA });
 
 /* ---- 1. Modularity ------------------------------------------------------ */
@@ -234,6 +234,104 @@ build('./dist-renovation', { SITE_CONFIG: 'examples/site.config.renovation.ts' }
   await page.waitForURL('**/thank-you/', { timeout: 10000 });
   ok('preset: valid submit with selects reaches the thank-you page', page.url().endsWith('/thank-you/'));
   ok('preset: no page errors', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+  server.close();
+}
+
+/* ---- 6. Agency preset (reference C sections) ----------------------------- */
+build('./dist-agency', { SITE_CONFIG: 'examples/site.config.agency.ts' });
+{
+  const html = await fs.readFile('dist-agency/index.html', 'utf8');
+  const order = [...html.matchAll(/data-section="([a-zA-Z]+)"/g)].map((m) => m[1]);
+  ok('agency: reference C section order renders', order.join(',') === 'hero,offerForm,testimonials', order.join(' > '));
+  ok('agency: League Spartan preloaded, serif section headlines from the system', html.includes('league-spartan-latin.woff2') && !html.includes('manrope-latin.woff2"') && /--font-display:'Times New Roman'/.test(html));
+  ok('agency: dark header with a CTA link and no phone link', /class="[^"]*header--dark/.test(html) && html.includes('header__cta') && !/href="tel:/.test(html));
+  ok('agency: hero video loads nothing until tapped', !/<iframe|<video/.test(html) && html.includes('hero.video.poster'));
+  ok('agency: nothing under the CTAs and no generated urgency', !/class="cta__line/.test(html) && !/class="[^"]*\bbadge\b/.test(html) && !/class="hero__status/.test(html));
+  ok('agency: four visible labels and one required checkbox', (html.match(/class="field__label[ "]/g) || []).length === 4 && /type="checkbox"[^>]*required/.test(html));
+
+  const { server, url } = await serveDist(0, path.resolve('dist-agency'));
+  const ctx = await mobile();
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(`${url}/`);
+  await page.waitForLoadState('networkidle');
+  const fit = await page.evaluate(() => {
+    const b = (sel) => document.querySelector(sel)?.getBoundingClientRect();
+    return { pillH: Math.round(b('.hero__pill').height), guaranteeBottom: Math.round(b('.hero__guarantee').bottom), videoBottom: Math.round(b('.hero__video').bottom), ctaBottom: Math.round(b('.hero .btn').bottom), vh: innerHeight };
+  });
+  ok('agency: eyebrow, headline, guarantee, video and CTA end inside 664, eyebrow on one line', fit.ctaBottom <= fit.vh && fit.pillH <= 34, JSON.stringify(fit));
+  ok('agency: tap targets at least 44px (buttons, card CTAs, arrows, checkbox panel)', await page.$$eval('.btn, .carousel__arrow, .check', (els) => els.every((el) => el.getBoundingClientRect().height >= 44)));
+  ok('agency: every card CTA points at the form', await page.$$eval('.vcard .btn', (els) => els.length === 4 && els.every((a) => a.getAttribute('href') === '#c-booking')));
+  const current = async () => page.$$eval('.vcard', (els) => els.findIndex((e) => e.classList.contains('is-current')));
+  await page.locator('[data-section="testimonials"] [data-carousel-track]').scrollIntoViewIfNeeded();
+  ok('agency: first video card is current on load', (await current()) === 0);
+  await page.tap('[data-section="testimonials"] [data-carousel-next]');
+  await page.waitForTimeout(700);
+  ok('agency: next arrow brings the second card to the centre', (await current()) === 1);
+  const track = await page.$('[data-section="testimonials"] [data-carousel-track]');
+  const tbox = await track.boundingBox();
+  const cdp = await ctx.newCDPSession(page);
+  const touch = async (type, x, y) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
+  const y0 = await page.evaluate(() => scrollY);
+  await touch('touchStart', tbox.x + tbox.width / 2, tbox.y + 40);
+  for (let i = 1; i <= 8; i++) await touch('touchMove', tbox.x + tbox.width / 2, tbox.y + 40 - i * 20);
+  await touch('touchEnd');
+  await page.waitForTimeout(300);
+  ok('agency: vertical swipe on the carousel still scrolls the page', (await page.evaluate(() => scrollY)) !== y0);
+  await page.locator('[data-submit]').scrollIntoViewIfNeeded();
+  await page.tap('[data-submit]');
+  await page.waitForTimeout(300);
+  const invalid = await page.$$eval('.field.is-invalid', (els) => els.map((e) => e.dataset.field));
+  ok('agency: empty submit flags the four fields and the checkbox', ['name', 'phone', 'email', 'company', 'qualified'].every((n) => invalid.includes(n)), invalid.join(','));
+  ok('agency: checkbox error uses the checkbox message', (await page.$eval('[data-field="qualified"] .field__error', (e) => e.textContent)).includes('tick'));
+  ok('agency: checkbox is 24px and the whole panel toggles it', await page.evaluate(() => {
+    const box = document.querySelector('.check__box');
+    const r = box.getBoundingClientRect();
+    document.querySelector('.check__hint').click();
+    return r.width >= 24 && box.checked;
+  }));
+  ok('agency: ticking clears the checkbox error', !(await page.$eval('[data-field="qualified"]', (e) => e.classList.contains('is-invalid'))));
+  await page.fill('form [name=name]', 'Test Person');
+  await page.fill('form [name=phone]', '0412 345 678');
+  await page.fill('form [name=email]', 'test@example.com');
+  await page.fill('form [name=company]', 'Test Renovations');
+  const lines = [];
+  page.on('console', async (m) => {
+    const arg = m.args()[1];
+    const value = arg ? await arg.jsonValue().catch(() => null) : null;
+    lines.push(`${m.text()} ${JSON.stringify(value)}`);
+  });
+  await page.tap('[data-submit]');
+  await page.waitForURL('**/thank-you/', { timeout: 10000 });
+  ok('agency: valid submit reaches the thank-you page', page.url().endsWith('/thank-you/'));
+  await page.waitForTimeout(200);
+  ok('agency: payload carries company and qualified=yes', lines.some((l) => l.includes('[lead] payload assembled') && /company:? "?Test Renovations/.test(l) && /qualified:? "?yes/.test(l)), lines.join(' | ').slice(0, 300));
+  ok('agency: thank-you hides the phone block when no number is set', (await page.$$('a[href^="tel:"]')).length === 0);
+  ok('agency: no page errors', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+  server.close();
+}
+build('./dist-agency-video', { SITE_CONFIG: 'tests/fixtures/config.agency-video.ts' });
+{
+  const { server, url } = await serveDist(0, path.resolve('dist-agency-video'));
+  const ctx = await mobile();
+  const page = await ctx.newPage();
+  await page.route(/youtube|vimeo|ytimg/, (route) => route.abort());
+  await page.goto(`${url}/`);
+  await page.waitForLoadState('networkidle');
+  const status = await page.$eval('.hero__status', (e) => ({ text: e.textContent.trim(), bottom: Math.round(e.getBoundingClientRect().bottom) })).catch(() => null);
+  ok('agency video: a hand-written urgency line shows under the hero CTA and still fits 664', status?.text === 'Test line written by hand' && status.bottom <= 664, JSON.stringify(status));
+  await page.tap('.hero [data-video-play]');
+  await page.waitForTimeout(300);
+  ok('agency video: tapping the hero panel loads the player', await page.$eval('.hero__video', (el) => !!el.querySelector('iframe[src*="youtube-nocookie.com/embed/aaaaaaaaaaa"]')));
+  await page.locator('.vcard [data-video-play]').first().scrollIntoViewIfNeeded();
+  await page.locator('.vcard [data-video-play]').first().tap();
+  await page.waitForTimeout(300);
+  ok('agency video: tapping a card loads only that card', (await page.$$('.vcard iframe')).length === 1);
+  await page.goto(`${url}/thank-you/`);
+  ok('agency video: thank-you leads with the booking calendar link', await page.$eval('[data-booking-link]', (a) => a.href === 'https://example.com/calendar'));
   await ctx.close();
   server.close();
 }

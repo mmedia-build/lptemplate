@@ -2,7 +2,7 @@
 
 Every section type the template can render, what it is for, what it needs from the client, and what to use instead when that asset is missing. A page is the `sections` array in `site.config.ts`: any type, any order, any number of times (within the ranges below). `enabled: false` drops a section; the backgrounds re-plan from the rendered order. `tone: 'light' | 'muted' | 'dark'` pins a background; `brand.darkTone` decides whether dark means plaster texture (reference A) or near-black with white text (reference B).
 
-Two presets show the two reference sequences: `site.config.ts` (reference A, a concreter: fast trade job, strong review profile) and `examples/site.config.renovation.ts` (reference B, a renovator: slow high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee). Start from the one closer to the client and swap sections in from the other.
+Three presets show the three reference sequences: `site.config.ts` (reference A, a concreter: fast trade job, strong review profile), `examples/site.config.renovation.ts` (reference B, a renovator: slow high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee) and `examples/site.config.agency.ts` (reference C, an agency's booking page for business owners: a video hero, a qualifying form, video testimonials; set up for Minus Media). Start from the one closer to the client and swap sections in from the others.
 
 ## Choosing sections from what the client has
 
@@ -24,6 +24,10 @@ Two presets show the two reference sequences: `site.config.ts` (reference A, a c
 | A guarantee with a term in years | `guarantee`. With a cash penalty and a statutory warranty, use the six-paragraph shape with `termsLink: true`. |
 | No guarantee | Drop the section. Never write a soft one. |
 | Recurring phone questions | `faq` after the form. |
+| An explainer video and an offer that sells a call, not a job (the agency case) | `hero` with `imageLayout: 'video'`, then `offerForm` with `layout: 'booking'` second, not last. The video carries the argument. |
+| Client testimonial videos, landscape, with a result per client | `testimonials` with `layout: 'videos'` (a CTA on every card). |
+| A qualifying threshold (revenue, trade, region) | A `checkbox` field in the form, with the threshold in `**bold**`, and `form.labels: 'visible'`. |
+| A booking calendar the visitor picks a time in | `thankYou.bookingUrl`: the thank-you page leads with a button to it. |
 
 ## The types
 
@@ -31,7 +35,7 @@ Columns: job on the page; assets and copy it needs; count range; what to do when
 
 ### hero
 
-Job: qualify, state the outcome with a timeframe and a stacked bonus or a penalty, CTA on the first screen. Needs: eyebrow, headline, paragraph, one wide finished-job photo. `imageLayout: 'cover'` (A) washes the photo behind the text; `'band'` (B) puts the photo under the CTA on phones. Always first; one per page. Missing photo: the grey slot renders; a band hero without a photo still lays out.
+Job: qualify, state the outcome with a timeframe and a stacked bonus or a penalty, CTA on the first screen. Needs: eyebrow, headline, paragraph, one wide finished-job photo. `imageLayout: 'cover'` (A) washes the photo behind the text; `'band'` (B) puts the photo under the CTA on phones; `'video'` (C) is a near-black hero with the eyebrow on a pill, the headline in two parts (`headline`, then `headlineAccent` in the highlight colour), a one-line guarantee or condition in `body`, a 16:9 explainer (`video.poster`, `video.videoUrl`, `video.label`, `video.caption`) and the CTA; `showUrgency` puts a hand-written `urgency.line` under the CTA. The video layout also turns the header dark. Always first; one per page. Missing photo: the grey slot renders; a band hero without a photo still lays out. Missing video: the poster renders with a static panel; with no poster either, use the band layout.
 
 ### trustStrip
 
@@ -79,7 +83,7 @@ Job: inoculate against the cheaper quote. Needs: headline, 2 to 10 rows per side
 
 ### testimonials
 
-Job: customers say it. Needs: 1 to 6 reviews with a photo each; `layout: 'rows'` (A) wants headline, body, name, suburb, rating; `'carousel'` (B) needs headline (job type) and body, the rest optional. Missing names: the carousel hides them; the standard still asks for a first name and suburb.
+Job: customers say it. Needs: 1 to 6 reviews with a photo each; `layout: 'rows'` (A) wants headline, body, name, suburb, rating; `'carousel'` (B) needs headline (job type) and body, the rest optional; `'videos'` (C) takes a 16:9 poster and `videoUrl` per item, the result line in `headline`, the first name in `name` and the business in `suburb`, five stars in `rating`, and puts a compact CTA on every card (no section CTA, no body). Missing names: the carousel hides them; the standard still asks for a first name and suburb. Missing videos: the posters render with a static play glyph; with no posters either, use the carousel layout with photos.
 
 ### benefits
 
@@ -107,7 +111,7 @@ Job: risk reversal with a name, a badge and a term. Needs: badge lines (two, opt
 
 ### offerForm
 
-Job: convert. Needs: headline, bundle image, optional lead line, 2 to 6 bullets, the form (1 to 8 fields: text, email, tel, postcode, textarea, select with options), the reinforcement line. One per page, last or second last; its id is the CTA target. `urgency.line` stays empty unless hand-written.
+Job: convert. Needs: headline, bundle image, optional lead line, 2 to 6 bullets, the form (1 to 8 fields: text, email, tel, postcode, textarea, select with options, checkbox), the reinforcement line. One per page, last or second last; its id is the CTA target. `urgency.line` stays empty unless hand-written. `layout: 'booking'` (C) shows only the headline, a bold `lead` and an `intro`, and the form in a white card, and sits second on the page, straight after the hero. A `checkbox` field takes a sentence with `**bold**` phrases and an optional `hint`; `form.labels: 'visible'` puts labels above the fields.
 
 ### faq
 
@@ -115,4 +119,4 @@ Job: the partner's questions, answered honestly, for the visitor who scrolled pa
 
 ## Lengths and shots
 
-Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3 and 4). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts`.
+Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3, 4 and 5). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts` or `examples/site.config.agency.ts`. Reference C's sections keep the ids `c-hero`, `c-booking` and `c-testimonials`, and its checkbox field the name `qualified`.

@@ -6,7 +6,7 @@
  *
  *   node scripts/shoot.mjs [outDir=docs/build] [--mobile-only]
  */
-import { chromium } from 'playwright';
+import { launchBrowser } from './browser.mjs';
 import { createServer } from 'node:http';
 import { promises as fs, createReadStream, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -62,7 +62,7 @@ async function sectionShots(page, prefix, dir) {
 async function main() {
 const { server, url } = await serveDist();
 await fs.mkdir(path.join(outDir, 'sections'), { recursive: true });
-const browser = await chromium.launch();
+const browser = await launchBrowser();
 const report = {};
 
 // Mobile, 1x for the full page (matches the reference capture), 2x for details.

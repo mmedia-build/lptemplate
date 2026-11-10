@@ -52,6 +52,21 @@ Send the client the asset list at the bottom and ask for review figures, logo fi
 21f. What are the six questions customers ask on the phone before they book, and your honest answers, including the one where the answer is "no" or "it costs more"? (`faq`)
 21g. What is the one fear that outranks the finished result, in the customer's words, and what do you do about it on site? (`split:liveable`)
 
+## Part 5c: For the agency preset (ask when the page sells a call to a business owner)
+
+Feeds `examples/site.config.agency.ts` (reference C). Every answer must come from the business's own records or signed terms.
+
+1. What is the offer called? (It goes on every button, the video caption and the form headline.)
+2. Who is it for, in one line: which trades, and what size of business? What is the qualifying threshold you would put in writing (revenue, jobs a month, region)? (Feeds the eyebrow and the checkbox.)
+3. What moment does that owner dread, and what outcome do you promise in their unit of work, with a figure you can back? (Feeds the two-part headline.)
+4. Is there a guarantee? Send the exact wording from the agreement. If not, what condition do you put on taking a client? (Feeds the guarantee line.)
+5. How long is the call, is it free, and what does it decide? What will the owner not be asked to do on it? (Feeds the form intro.)
+6. Which clients will appear on video, with their permission? For each: first name, business name, and the result from their own figures. (Feeds the video testimonials.)
+7. Which booking calendar should the visitor land on after the form? (Feeds `thankYou.bookingUrl`.)
+8. Is there a real, written limit on how many clients you take this round? If not, the urgency line stays empty.
+
+Assets: one 16:9 explainer video of two to four minutes with captions burned in and a poster frame showing the presenter away from the centre; three to six 16:9 client videos of 30 to 120 seconds, each with a poster frame printing the result; the logo in white and in full colour.
+
 ## Part 6: Brand and tracking
 
 23. Logo files (colour and white), brand colours if any, phone number as you want it displayed, business name as customers know it, ABN if you want it shown. (`business`, `brand`)

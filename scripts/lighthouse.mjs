@@ -14,13 +14,13 @@ import { promises as fs } from 'node:fs';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { serveDist } from './shoot.mjs';
+import { chromeCandidates } from './browser.mjs';
 
 const args = process.argv.slice(2);
 const pagePath = args.find((a) => !a.startsWith('--')) || '/';
 const distArg = args.find((a) => a.startsWith('--dist='));
 const tag = (args.find((a) => a.startsWith('--tag=')) || '').slice(6);
-const candidates = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', process.env.CHROME_PATH].filter(Boolean);
-const chromePath = candidates.find((p) => existsSync(p));
+const chromePath = chromeCandidates.find((p) => existsSync(p));
 const { server, url } = await serveDist(0, distArg ? path.resolve(distArg.slice(7)) : undefined);
 const chrome = await launch({ chromePath, chromeFlags: ['--headless=new', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'] });
 const result = await lighthouse(`${url}${pagePath}`, { port: chrome.port, output: 'json', logLevel: 'error' });

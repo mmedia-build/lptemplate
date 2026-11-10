@@ -21,7 +21,7 @@ The repeatable pathway from "new client" to "ads live", using this template with
 
 ### Day 2: build
 
-6. Decide the preset from the intake: reference A (`site.config.ts`) for a fast trade job with a review profile, reference B (`examples/site.config.renovation.ts`) for a slow, high-value job with an owner to name and no reviews. `docs/sections.md` has the table that maps what the client has to the sections to use; the two can be mixed.
+6. Decide the preset from the intake: reference A (`site.config.ts`) for a fast trade job with a review profile, reference B (`examples/site.config.renovation.ts`) for a slow, high-value job with an owner to name and no reviews, reference C (`examples/site.config.agency.ts`) when the page sells a call to a business owner with an explainer video and client videos. `docs/sections.md` has the table that maps what the client has to the sections to use; the three can be mixed.
 7. Start a Claude Code session in the client repository. Give it the transcript, the preset choice, the review figures, the webhook URL, the pixel ID, the legal documents and the asset folder. The project's `CLAUDE.md` tells it the rest: write copy to the content spec and exemplar, place images, run the checks, open a pull request.
 8. Review the pull request: read every slot against the "Is this client page at the standard?" checklist at the end of `docs/exemplar.md`. Anything invented (a number, a suburb, a quote) gets removed, not improved.
 9. Import the repository into Vercel (first push). Vercel builds the PR branch and posts a preview URL on the pull request.
