@@ -1,0 +1,1278 @@
+{
+ "source": "https://kingkong.co/30-minute-strategy-session/",
+ "captured": "2026-11-11",
+ "note": "Text nodes of the rendered funnel, grouped by step in document order. Reference wording, kept for study only; never paste into a config.",
+ "blocks": [
+  {
+   "index": 0,
+   "block": "step",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "eyebrow success",
+     "text": "Success! We've received your order and will dispatch it shortly 🥳",
+     "chars": 65,
+     "words": 11
+    },
+    {
+     "tag": "h2",
+     "class": null,
+     "text": "Last Step: Schedule Your Free 30-Min Strategy Session Call Now",
+     "chars": 62,
+     "words": 10
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "By claiming your free 30-minute strategy session call, you will experience faster and bigger results, with the lowest cost of mistakes than those who skip it. PLUS you'll also get a 100% free scaling growth map ($1,000 value) 🚀.",
+     "chars": 228,
+     "words": 39
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Get Started",
+     "chars": 11,
+     "words": 2
+    },
+    {
+     "tag": "a",
+     "class": "kkra-shortstring term-all",
+     "text": "4.8 stars out of 7,614 reviews",
+     "chars": 30,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": "eyebrow",
+     "text": "Servicing Clients In:",
+     "chars": 21,
+     "words": 3
+    },
+    {
+     "tag": "span",
+     "class": "js-current-country-emojis",
+     "text": "🇺🇸",
+     "chars": 2,
+     "words": 1
+    },
+    {
+     "tag": "h2",
+     "class": null,
+     "text": "Free 30-Minute Scaling Growth Map Session",
+     "chars": 41,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "Claim your 100% FREE no-obligation 30-minute scaling growth map call ($1,000 value). This is strictly for people who are hungry for growth. If that's you, then let's scale your biz to the moon!",
+     "chars": 193,
+     "words": 33
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "See If You're A Fit",
+     "chars": 19,
+     "words": 5
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "block": "step",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Okay, we’ll make this quick and painless (pinky promise). But before we start - we don't wanna be rude...So what’s your name?",
+     "chars": 125,
+     "words": 22
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Enter your first name",
+     "chars": 21
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "block": "step",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Awesome!",
+     "chars": 8,
+     "words": 1
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "What's your email",
+     "chars": 17,
+     "words": 3
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "?",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "input",
+     "type": "email",
+     "placeholder": "Email *",
+     "chars": 7
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "block": "step option-cards",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "First, what do you sell?",
+     "chars": 24,
+     "words": 5
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "Okay thanks for that",
+     "chars": 20,
+     "words": 4
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": ", to find out if King Kong is a good fit for helping you grow your business... We've got a few questions.",
+     "chars": 105,
+     "words": 22
+    },
+    {
+     "tag": "span",
+     "class": "option-card__title",
+     "text": "Product",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "option-card__desc",
+     "text": "Ecommerce, SaaS, apps, physical goods",
+     "chars": 37,
+     "words": 5
+    },
+    {
+     "tag": "span",
+     "class": "option-card__title",
+     "text": "Service",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "option-card__desc",
+     "text": "Agencies, clinics, trades, coaches",
+     "chars": 34,
+     "words": 4
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "block": "step channels",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Okay great! What types of marketing are you currently using?",
+     "chars": 60,
+     "words": 10
+    },
+    {
+     "tag": "small",
+     "class": null,
+     "text": "(Select more than one if applicable)",
+     "chars": 36,
+     "words": 6
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "Meta Ads",
+     "chars": 8,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "Google Ads",
+     "chars": 10,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "TikTok Ads",
+     "chars": 10,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "Other Paid Ads",
+     "chars": 14,
+     "words": 3
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "SEO / Content Marketing",
+     "chars": 23,
+     "words": 4
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "Organic",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "Referrals / Word of Mouth",
+     "chars": 25,
+     "words": 5
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "TV, Radio or Print",
+     "chars": 18,
+     "words": 4
+    },
+    {
+     "tag": "span",
+     "class": "channel__label",
+     "text": "None",
+     "chars": 4,
+     "words": 1
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "block": "step country",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "What country is your business based in?",
+     "chars": 39,
+     "words": 7
+    },
+    {
+     "tag": "input",
+     "type": "hidden",
+     "placeholder": "Country *",
+     "chars": 9
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "block": "step budget",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "How much is your",
+     "chars": 16,
+     "words": 4
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "monthly marketing budget?",
+     "chars": 25,
+     "words": 3
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "We're asking you this first to see if we'd be a good fit. And Secondly to identify what the best strategies for growth are within your budget.",
+     "chars": 142,
+     "words": 27
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Under $5K",
+     "chars": 9,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$5K – $10K",
+     "chars": 10,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$10K – $20K",
+     "chars": 11,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$20K – $50K",
+     "chars": 11,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$50K – $100K",
+     "chars": 12,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$100K – $250K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$250K – $500K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$500K+",
+     "chars": 6,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "block": "step website",
+   "nodes": [
+    {
+     "tag": "span",
+     "class": null,
+     "text": "Great",
+     "chars": 5,
+     "words": 1
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": ", what's your website url?",
+     "chars": 26,
+     "words": 5
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "If you don't have one, type \"don't have one\"",
+     "chars": 44,
+     "words": 9
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Website *",
+     "chars": 9
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "block": "step describe",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Briefly describe your business, what do you sell, to who and at what price point?",
+     "chars": 81,
+     "words": 15
+    },
+    {
+     "tag": "span",
+     "class": "dictation__label",
+     "text": "Dictate about your business for 1-2 minutes",
+     "chars": 43,
+     "words": 7
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "block": "step revenue",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "What is your current YEARLY revenue?",
+     "chars": 36,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "We're asking you, so we only prescribe strategies that are going to have a meaningful impact on your company's revenue.",
+     "chars": 119,
+     "words": 20
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Under $60K",
+     "chars": 10,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$60K – $100K",
+     "chars": 12,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$100K – $250K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$250K – $500K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$500K – $1M",
+     "chars": 11,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$1M – $3M",
+     "chars": 9,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$3M – $10M",
+     "chars": 10,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$10M+",
+     "chars": 5,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "block": "step revenue",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "What is your TARGET yearly revenue?",
+     "chars": 35,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "We're asking so we can build you a growth plan to help you achieve this.",
+     "chars": 72,
+     "words": 15
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Under $60K",
+     "chars": 10,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$60K – $100K",
+     "chars": 12,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$100K – $250K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$250K – $500K",
+     "chars": 13,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$500K – $1M",
+     "chars": 11,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$1M – $3M",
+     "chars": 9,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$3M – $10M",
+     "chars": 10,
+     "words": 3
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "$10M+",
+     "chars": 5,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "block": "step describe obstacle",
+   "nodes": [
+    {
+     "tag": "span",
+     "class": null,
+     "text": "Alright",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": ", be honest…what’s the #1 biggest obstacle holding you back from hitting your revenue goal?",
+     "chars": 91,
+     "words": 15
+    },
+    {
+     "tag": "small",
+     "class": null,
+     "text": "(Don’t skip the hairy details. We need to know about every score and every sore…. so give as much detail as you can about WHAT it is you feel is holding you back)",
+     "chars": 162,
+     "words": 33
+    },
+    {
+     "tag": "span",
+     "class": "dictation__label",
+     "text": "Dictate what’s holding you back for 1-2 minutes",
+     "chars": 47,
+     "words": 8
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 12,
+   "block": "step start",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "When are you looking to get started?",
+     "chars": 36,
+     "words": 7
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Immediately",
+     "chars": 11,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "In the Next 2 Weeks",
+     "chars": 19,
+     "words": 5
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "2-4 Weeks",
+     "chars": 9,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "4-6 Weeks",
+     "chars": 9,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "6 Weeks+",
+     "chars": 8,
+     "words": 2
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Never",
+     "chars": 5,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "I’m just shooting the sh",
+     "chars": 24,
+     "words": 5
+    },
+    {
+     "tag": "span",
+     "class": "span-required-field",
+     "text": "*",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "t",
+     "chars": 1,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 13,
+   "block": "step agency-course",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Okay great, which of the following",
+     "chars": 34,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "best describes your situation",
+     "chars": 29,
+     "words": 4
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "and what you’re looking for?",
+     "chars": 28,
+     "words": 5
+    },
+    {
+     "tag": "div",
+     "class": "offer__eyebrow",
+     "text": "Do It For Me",
+     "chars": 12,
+     "words": 4
+    },
+    {
+     "tag": "div",
+     "class": "offer__title",
+     "text": "Agency",
+     "chars": 6,
+     "words": 1
+    },
+    {
+     "tag": "div",
+     "class": "offer__desc",
+     "text": "I’d prefer to just hire you guys to do it all for me. (This option is more expensive, but involves less work and time from you). P.S. We’re unlike any agency you’ve ever worked with, because we guarantee results and smell like frangipanis in the summer.",
+     "chars": 253,
+     "words": 46
+    },
+    {
+     "tag": "div",
+     "class": "offer__cta",
+     "text": "Get Started",
+     "chars": 11,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": null,
+     "text": "4.6",
+     "chars": 3,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "kkra-shortstring__inner",
+     "text": "stars out of",
+     "chars": 12,
+     "words": 3
+    },
+    {
+     "tag": "span",
+     "class": null,
+     "text": "607 reviews",
+     "chars": 11,
+     "words": 2
+    },
+    {
+     "tag": "div",
+     "class": "offer__eyebrow",
+     "text": "Teach Me How To Do It",
+     "chars": 21,
+     "words": 6
+    },
+    {
+     "tag": "div",
+     "class": "offer__title",
+     "text": "Courses",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "div",
+     "class": "offer__desc",
+     "text": "I’d like to learn your magic witchcraft for myself. Gimme the copy, paste, plug-and-play funnels, frameworks and tools to do it myself. (This option is cheaper, but involves more work and time from you) P.S. Includes an awesome global community.",
+     "chars": 245,
+     "words": 40
+    },
+    {
+     "tag": "div",
+     "class": "offer__cta",
+     "text": "Get Started",
+     "chars": 11,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "offer__badge",
+     "text": "4K+",
+     "chars": 3,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": null,
+     "text": "4.8",
+     "chars": 3,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "kkra-shortstring__inner",
+     "text": "stars out of",
+     "chars": 12,
+     "words": 3
+    },
+    {
+     "tag": "span",
+     "class": null,
+     "text": "7,007 reviews",
+     "chars": 13,
+     "words": 2
+    }
+   ]
+  },
+  {
+   "index": 14,
+   "block": "step scale",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "step-pill",
+     "text": "We're almost done, just 2 more questions.",
+     "chars": 41,
+     "words": 7
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "On a scale of 1-10... (1 being I'm fine where I am, and 10 being I'll do anything to reach my revenue goals.) What number are you?",
+     "chars": 130,
+     "words": 27
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "1",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "2",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "3",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "4",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "5",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "6",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "7",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "8",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "9",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "10",
+     "chars": 2,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 15,
+   "block": "step heard",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Where did you FIRST hear about us?",
+     "chars": 34,
+     "words": 7
+    },
+    {
+     "tag": "p",
+     "class": "mb-5",
+     "text": "Seriously, we are curious :) Please answer this simple question and help us get better.",
+     "chars": 87,
+     "words": 15
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Where did you hear about us? *",
+     "chars": 30
+    },
+    {
+     "tag": "button",
+     "class": null,
+     "text": "Continue",
+     "chars": 8,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 16,
+   "block": "step icons yes-no",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "step-pill",
+     "text": "Okay",
+     "chars": 4,
+     "words": 1
+    },
+    {
+     "tag": "p",
+     "class": "step-pill",
+     "text": "you made it – last question…",
+     "chars": 28,
+     "words": 6
+    },
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "Do you pinky promise that if you qualify for a phone call, you will show up at the selected time?",
+     "chars": 97,
+     "words": 20
+    },
+    {
+     "tag": "i",
+     "class": null,
+     "text": "🙅‍♂️",
+     "chars": 4,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "No",
+     "chars": 2,
+     "words": 1
+    },
+    {
+     "tag": "i",
+     "class": null,
+     "text": "👌",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Yes",
+     "chars": 3,
+     "words": 1
+    }
+   ]
+  },
+  {
+   "index": 17,
+   "block": "step final",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h4",
+     "text": "You made the cut. This is where it gets interesting...",
+     "chars": 54,
+     "words": 10
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "Not everyone's a fit, but based on your answers, we can help you grow. Pop your details in, choose a time, and let's see how far this can go.",
+     "chars": 141,
+     "words": 29
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "First Name *",
+     "chars": 12
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Last Name",
+     "chars": 9,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "span-required-field",
+     "text": "*",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Last Name *",
+     "chars": 11
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Mobile",
+     "chars": 6,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "span-required-field",
+     "text": "*",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "div",
+     "class": "iti__selected-dial-code",
+     "text": "+1",
+     "chars": 2,
+     "words": 1
+    },
+    {
+     "tag": "input",
+     "type": "tel",
+     "placeholder": "Mobile *",
+     "chars": 8
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Company Name",
+     "chars": 12,
+     "words": 2
+    },
+    {
+     "tag": "span",
+     "class": "span-required-field",
+     "text": "*",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Company Name *",
+     "chars": 14
+    },
+    {
+     "tag": "label",
+     "class": null,
+     "text": "Website",
+     "chars": 7,
+     "words": 1
+    },
+    {
+     "tag": "span",
+     "class": "span-required-field",
+     "text": "*",
+     "chars": 1,
+     "words": 1
+    },
+    {
+     "tag": "input",
+     "type": "text",
+     "placeholder": "Website *",
+     "chars": 9
+    },
+    {
+     "tag": "button",
+     "class": "infusion-recaptcha",
+     "text": "Book My Strategy Session",
+     "chars": 24,
+     "words": 4
+    }
+   ]
+  },
+  {
+   "index": 18,
+   "block": "js-modal",
+   "nodes": [
+    {
+     "tag": "button",
+     "class": "btn btn-green js-close",
+     "text": "Yes, let's keep going",
+     "chars": 21,
+     "words": 4
+    }
+   ]
+  },
+  {
+   "index": 19,
+   "block": "js-modal ssexitintent",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "h2",
+     "text": "Hold up there, Tiger.",
+     "chars": 21,
+     "words": 4
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "Alright let's try this again, shall we? Look, it takes less than",
+     "chars": 64,
+     "words": 12
+    },
+    {
+     "tag": "span",
+     "class": null,
+     "text": "2-minutes",
+     "chars": 9,
+     "words": 1
+    },
+    {
+     "tag": "p",
+     "class": null,
+     "text": "to fill out this form…*focus*... and then you'll get your hot little hands on a free marketing blueprint ($1,000 value).",
+     "chars": 120,
+     "words": 20
+    },
+    {
+     "tag": "button",
+     "class": "js-close btn btn-green",
+     "text": "Give me the $1,000 strategy for free",
+     "chars": 36,
+     "words": 7
+    },
+    {
+     "tag": "p",
+     "class": "disclaimer",
+     "text": "Privacy Policy: There is a special place in hell for spammers and we never wanna visit.",
+     "chars": 87,
+     "words": 16
+    }
+   ]
+  },
+  {
+   "index": 20,
+   "block": "form-loader",
+   "nodes": [
+    {
+     "tag": "p",
+     "class": "form-loader__pct",
+     "text": "0%",
+     "chars": 2,
+     "words": 1
+    },
+    {
+     "tag": "li",
+     "class": null,
+     "text": "Checking your answers",
+     "chars": 21,
+     "words": 3
+    },
+    {
+     "tag": "li",
+     "class": null,
+     "text": "Reviewing your business goals",
+     "chars": 29,
+     "words": 4
+    },
+    {
+     "tag": "li",
+     "class": null,
+     "text": "Connecting you with the best strategist",
+     "chars": 39,
+     "words": 6
+    },
+    {
+     "tag": "li",
+     "class": null,
+     "text": "Loading your calendar",
+     "chars": 21,
+     "words": 3
+    },
+    {
+     "tag": "p",
+     "class": "form-loader__done",
+     "text": "All set! Opening your calendar…",
+     "chars": 31,
+     "words": 5
+    }
+   ]
+  }
+ ]
+}
