@@ -293,22 +293,22 @@
         "step": "about",
         "kind": "longtext",
         "top": 130,
-        "height": 537,
+        "height": 504,
         "question": {
           "top": 130,
-          "bottom": 260,
+          "bottom": 227,
           "width": 360,
-          "height": 130
+          "height": 97
         },
         "control": {
-          "top": 288,
-          "bottom": 578,
+          "top": 255,
+          "bottom": 545,
           "width": 360,
           "height": 290
         },
         "button": {
-          "top": 602,
-          "bottom": 667,
+          "top": 569,
+          "bottom": 634,
           "width": 360,
           "height": 65
         },
@@ -418,7 +418,7 @@
         "step": "offer",
         "kind": "offers",
         "top": 130,
-        "height": 1294,
+        "height": 1454,
         "question": {
           "top": 130,
           "bottom": 260,
@@ -427,9 +427,9 @@
         },
         "control": {
           "top": 288,
-          "bottom": 1424,
+          "bottom": 1584,
           "width": 360,
-          "height": 1136
+          "height": 1296
         },
         "button": null,
         "lit": 10,
@@ -656,7 +656,7 @@
         "question": {
           "top": 130,
           "bottom": 216,
-          "width": 798,
+          "width": 640,
           "height": 86
         },
         "control": {
@@ -680,22 +680,22 @@
         "step": "location",
         "kind": "select",
         "top": 130,
-        "height": 239,
+        "height": 282,
         "question": {
           "top": 130,
-          "bottom": 173,
-          "width": 798,
-          "height": 43
+          "bottom": 216,
+          "width": 480,
+          "height": 86
         },
         "control": {
-          "top": 201,
-          "bottom": 277,
+          "top": 244,
+          "bottom": 320,
           "width": 520,
           "height": 76
         },
         "button": {
-          "top": 297,
-          "bottom": 369,
+          "top": 340,
+          "bottom": 412,
           "width": 520,
           "height": 72
         },
@@ -708,16 +708,16 @@
         "step": "budget",
         "kind": "choice",
         "top": 130,
-        "height": 436,
+        "height": 479,
         "question": {
           "top": 130,
-          "bottom": 173,
+          "bottom": 216,
           "width": 798,
-          "height": 43
+          "height": 86
         },
         "control": {
-          "top": 279,
-          "bottom": 566,
+          "top": 322,
+          "bottom": 609,
           "width": 798,
           "height": 287
         },
@@ -763,7 +763,7 @@
         "question": {
           "top": 130,
           "bottom": 216,
-          "width": 798,
+          "width": 720,
           "height": 86
         },
         "control": {
@@ -833,22 +833,22 @@
         "step": "obstacle",
         "kind": "longtext",
         "top": 130,
-        "height": 560,
+        "height": 604,
         "question": {
           "top": 130,
-          "bottom": 216,
-          "width": 798,
-          "height": 86
+          "bottom": 260,
+          "width": 720,
+          "height": 130
         },
         "control": {
-          "top": 304,
-          "bottom": 594,
+          "top": 348,
+          "bottom": 638,
           "width": 680,
           "height": 290
         },
         "button": {
-          "top": 618,
-          "bottom": 690,
+          "top": 662,
+          "bottom": 734,
           "width": 680,
           "height": 72
         },
@@ -884,7 +884,7 @@
         "step": "offer",
         "kind": "offers",
         "top": 130,
-        "height": 703,
+        "height": 799,
         "question": {
           "top": 130,
           "bottom": 260,
@@ -893,9 +893,9 @@
         },
         "control": {
           "top": 288,
-          "bottom": 833,
+          "bottom": 929,
           "width": 1086,
-          "height": 546
+          "height": 642
         },
         "button": null,
         "lit": 10,
@@ -911,7 +911,7 @@
         "question": {
           "top": 187,
           "bottom": 316,
-          "width": 798,
+          "width": 760,
           "height": 130
         },
         "control": {
@@ -930,22 +930,22 @@
         "step": "heard",
         "kind": "select",
         "top": 130,
-        "height": 317,
+        "height": 360,
         "question": {
           "top": 130,
-          "bottom": 173,
-          "width": 798,
-          "height": 43
+          "bottom": 216,
+          "width": 480,
+          "height": 86
         },
         "control": {
-          "top": 279,
-          "bottom": 355,
+          "top": 322,
+          "bottom": 398,
           "width": 520,
           "height": 76
         },
         "button": {
-          "top": 375,
-          "bottom": 447,
+          "top": 418,
+          "bottom": 490,
           "width": 520,
           "height": 72
         },
@@ -958,16 +958,16 @@
         "step": "promise",
         "kind": "yesno",
         "top": 130,
-        "height": 343,
+        "height": 386,
         "question": {
           "top": 187,
-          "bottom": 273,
-          "width": 798,
-          "height": 86
+          "bottom": 316,
+          "width": 640,
+          "height": 130
         },
         "control": {
-          "top": 301,
-          "bottom": 473,
+          "top": 344,
+          "bottom": 516,
           "width": 1140,
           "height": 172
         },
@@ -985,7 +985,7 @@
         "question": {
           "top": 130,
           "bottom": 216,
-          "width": 798,
+          "width": 640,
           "height": 86
         },
         "control": {
@@ -1350,7 +1350,7 @@
         "step": "offer",
         "kind": "offers",
         "top": 130,
-        "height": 1306,
+        "height": 1466,
         "question": {
           "top": 130,
           "bottom": 245,
@@ -1359,9 +1359,9 @@
         },
         "control": {
           "top": 273,
-          "bottom": 1436,
+          "bottom": 1596,
           "width": 330,
-          "height": 1163
+          "height": 1323
         },
         "button": null,
         "lit": 10,

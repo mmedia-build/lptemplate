@@ -379,6 +379,83 @@ Supported range: 3 to 10 questions (6 on reference B). The first starts open.
 | `sections[faq].content.items[n].question` | The question in the customer's words | 37 chars, 6 words | 22 to 52 chars | [pattern](exemplar.md#copy-faq) |
 | `sections[faq].content.items[n].answer` | Two to four honest sentences with a number | 207 chars, 32 words | 134 to 280 chars | [pattern](exemplar.md#copy-faq) |
 
+## C. Quiz funnel (reference C)
+
+Supported range: 6 to 20 steps (16 on reference C, plus the intro and the contact step). Progress dots: 5 to 12 (10 on the reference); fewer dots than steps fills the row early. Options per step: 2 to 4 cards, 3 to 9 radio pills, 3 to 12 multi-select pills, 2 offer cards, 2 yes/no cards, a scale of up to 10. Contact fields: 3 to 6. Loader lines: 3 to 5. Steps are measured by name; a step a config does not have is skipped.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `sections[quiz:c-quiz].content.intro.eyebrow` | Short uppercase qualifier above the headline | 21 chars, 3 words | 14 to 28 chars | [pattern](exemplar.md#copy-c-intro) |
+| `sections[quiz:c-quiz].content.intro.headline` | Free [length] [named deliverable] session | 41 chars, 6 words | 36 to 46 chars | [pattern](exemplar.md#copy-c-intro) |
+| `sections[quiz:c-quiz].content.intro.body` | Claim, value in brackets, who it is strictly for, invitation | 193 chars, 33 words | 173 to 213 chars | [pattern](exemplar.md#copy-c-intro) |
+| `sections[quiz:c-quiz].content.intro.cta` | Label on the first button (11 on the reference, 19 on its test variant) | 11 chars, 2 words | 2 to 20 chars | [pattern](exemplar.md#copy-c-intro) |
+| `sections[quiz:c-quiz].content.steps[first_name].question` | Promise it is quick, then ask the name | 125 chars, 22 words | 106 to 144 chars | [pattern](exemplar.md#copy-c-short-answers) |
+| `sections[quiz:c-quiz].content.steps[first_name].placeholder` | Placeholder | 21 chars, 4 words | 10 to 32 chars | [pattern](exemplar.md#copy-c-short-answers) |
+| `sections[quiz:c-quiz].content.steps[email].question` | One-word reaction, then the email ask (name token not counted) | 27 chars, 5 words | 18 to 36 chars | [pattern](exemplar.md#copy-c-short-answers) |
+| `sections[quiz:c-quiz].content.steps[sells].question` | The easy identity question | 24 chars, 5 words | 14 to 34 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[sells].sub` | Thanks, and that a few questions follow to check fit | 122 chars, 24 words | 103 to 141 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[sells].options[n].label` | Card title | 7 chars, 1 words | 0 to 14 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[sells].options[n].description` | Three or four examples of who picks the card | 36 chars, 5 words | 25 to 47 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[marketing].question` | What they already use | 60 chars, 10 words | 48 to 72 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[marketing].note` | Bracketed note that more than one can be picked | 36 chars, 6 words | 25 to 47 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[marketing].options[n].label` | Option label, 4 to 25 characters on the reference | 14 chars, 2 words | 2 to 26 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[location].question` | Where the business is based | 39 chars, 7 words | 27 to 51 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[budget].question` | First money question | 42 chars, 7 words | 33 to 51 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[budget].sub` | Why you ask: fit first, approach second | 142 chars, 27 words | 120 to 164 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[budget].options[n].label` | Band label, 6 to 13 characters on the reference | 12 chars, 3 words | 2 to 22 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[website].question` | Website ask after the name (name token not counted) | 26 chars, 4 words | 15 to 37 chars | [pattern](exemplar.md#copy-c-short-answers) |
+| `sections[quiz:c-quiz].content.steps[website].sub` | What to type when there is no website | 44 chars, 8 words | 30 to 58 chars | [pattern](exemplar.md#copy-c-short-answers) |
+| `sections[quiz:c-quiz].content.steps[about].question` | Describe the business: what, to whom, at what price | 81 chars, 15 words | 68 to 94 chars | [pattern](exemplar.md#copy-c-long-answers) |
+| `sections[quiz:c-quiz].content.steps[about].dictateLabel` | Label on the dictate chip | 43 chars, 7 words | 34 to 52 chars | [pattern](exemplar.md#copy-c-long-answers) |
+| `sections[quiz:c-quiz].content.steps[revenue].question` | Current yearly revenue | 36 chars, 6 words | 28 to 44 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[revenue].sub` | Why you ask: only suggest what moves revenue | 119 chars, 21 words | 101 to 137 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[revenue].options[n].label` | Band label | 12 chars, 3 words | 2 to 22 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[revenue_goal].question` | Target yearly revenue | 35 chars, 6 words | 28 to 42 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[revenue_goal].sub` | Why you ask: to build the plan | 79 chars, 17 words | 67 to 91 chars | [pattern](exemplar.md#copy-c-money-questions) |
+| `sections[quiz:c-quiz].content.steps[obstacle].question` | The number one obstacle (name token not counted) | 89 chars, 16 words | 75 to 103 chars | [pattern](exemplar.md#copy-c-long-answers) |
+| `sections[quiz:c-quiz].content.steps[obstacle].note` | Bracketed nudge to give every uncomfortable detail | 162 chars, 31 words | 137 to 187 chars | [pattern](exemplar.md#copy-c-long-answers) |
+| `sections[quiz:c-quiz].content.steps[obstacle].dictateLabel` | Label on the dictate chip | 47 chars, 8 words | 37 to 57 chars | [pattern](exemplar.md#copy-c-long-answers) |
+| `sections[quiz:c-quiz].content.steps[timing].question` | When they want to start | 36 chars, 7 words | 28 to 44 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[timing].options[n].label` | Timing label, 5 to 26 characters on the reference | 14 chars, 2 words | -7 to 35 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[offer].question` | Which of these describes your situation | 93 chars, 16 words | 79 to 107 chars | [pattern](exemplar.md#copy-c-offer-cards) |
+| `sections[quiz:c-quiz].content.steps[offer].offers[n].eyebrow` | Spaced uppercase line: 12 and 21 on the reference | 16 chars, 4 words | 9 to 23 chars | [pattern](exemplar.md#copy-c-offer-cards) |
+| `sections[quiz:c-quiz].content.steps[offer].offers[n].description` | Visitor-voice description with the trade-off in brackets and a P.S. | 253 chars, 46 words | 227 to 279 chars | [pattern](exemplar.md#copy-c-offer-cards) |
+| `sections[quiz:c-quiz].content.steps[offer].offers[n].cta` | Button strip on the card | 11 chars, 2 words | 5 to 17 chars | [pattern](exemplar.md#copy-c-offer-cards) |
+| `sections[quiz:c-quiz].content.steps[commitment].pill` | Pill counting down what is left | 41 chars, 7 words | 32 to 50 chars | [pattern](exemplar.md#copy-c-commitment) |
+| `sections[quiz:c-quiz].content.steps[commitment].question` | The 1 to 10 question with both ends described | 130 chars, 27 words | 110 to 150 chars | [pattern](exemplar.md#copy-c-commitment) |
+| `sections[quiz:c-quiz].content.steps[heard].question` | Where they first heard of you | 34 chars, 7 words | 27 to 41 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[heard].sub` | Why you ask | 87 chars, 15 words | 73 to 101 chars | [pattern](exemplar.md#copy-c-choice-screens) |
+| `sections[quiz:c-quiz].content.steps[promise].pill` | Pill: you made it, last question (name token not counted) | 31 chars, 6 words | 21 to 41 chars | [pattern](exemplar.md#copy-c-commitment) |
+| `sections[quiz:c-quiz].content.steps[promise].question` | The promise to show up | 97 chars, 19 words | 82 to 112 chars | [pattern](exemplar.md#copy-c-commitment) |
+| `sections[quiz:c-quiz].content.contact.question` | Tell them they qualified | 54 chars, 10 words | 45 to 63 chars | [pattern](exemplar.md#copy-c-contact) |
+| `sections[quiz:c-quiz].content.contact.sub` | Not everyone fits, you can help, pop in the details, pick a time | 141 chars, 26 words | 119 to 163 chars | [pattern](exemplar.md#copy-c-contact) |
+| `sections[quiz:c-quiz].content.contact.submitLabel` | Submit label naming the call | 24 chars, 4 words | 16 to 32 chars | [pattern](exemplar.md#copy-c-contact) |
+| `sections[quiz:c-quiz].content.loader.lines[n]` | Loader line, 21 to 39 characters on the reference | 27 chars, 4 words | 13 to 41 chars | [pattern](exemplar.md#copy-c-loader) |
+| `sections[quiz:c-quiz].content.loader.doneLine` | Closing loader line | 31 chars, 5 words | 21 to 41 chars | [pattern](exemplar.md#copy-c-loader) |
+| `sections[quiz:c-quiz].content.exitPrompt.headline` | Exit prompt headline | 21 chars, 4 words | 14 to 28 chars | [pattern](exemplar.md#copy-c-exit-prompt) |
+| `sections[quiz:c-quiz].content.exitPrompt.body` | Try again, two minutes, what they get and its value | 195 chars, 34 words | 175 to 215 chars | [pattern](exemplar.md#copy-c-exit-prompt) |
+| `sections[quiz:c-quiz].content.exitPrompt.cta` | Exit prompt button | 36 chars, 7 words | 28 to 44 chars | [pattern](exemplar.md#copy-c-exit-prompt) |
+| `sections[quiz:c-quiz].content.exitPrompt.disclaimer` | One privacy line in the brand voice | 87 chars, 16 words | 73 to 101 chars | [pattern](exemplar.md#copy-c-exit-prompt) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `sections[quiz].content.steps[offer].offers[n].proofImage` | 500x80 px | 6.25:1 | Row of client logos (with permission) or customer faces on transparent, under the button on an offer card. | Row of client logos or customer faces on transparent. Rendered 250x40 under the button on an offer card. | [standard](exemplar.md#imagery-reference-c) |
+| `sections[quiz].content.exitPrompt.image` | 1160x652 px | 1.78:1 | Optional picture for the exit prompt: the owner, the team or the deliverable. Leave empty for a text-only prompt. | Landscape 16:9. Rendered up to 580x326 in the exit prompt. Optional; the prompt works without it. | [standard](exemplar.md#imagery-reference-c) |
+
+## C. Not-a-fit page (reference C)
+
+Supported range: 0 to 3 resource cards (2 on reference C). The page is built only when the config has `notFit` and the quiz has a `notFitPath`.
+
+| Slot | Purpose | Target | Accepted range | Exemplar |
+| --- | --- | --- | --- | --- |
+| `notFit.headline` | A kind no for a screened-out visitor | 52 chars, 11 words | 44 to 60 chars | [pattern](exemplar.md#copy-c-not-a-fit) |
+| `notFit.body` | Who the calls are for and that no call can be booked today | 169 chars, 30 words | 143 to 195 chars | [pattern](exemplar.md#copy-c-not-a-fit) |
+| `notFit.resources[n].body` | What the free resource is: 95 and 82 on the reference | 88 chars, 15 words | 66 to 110 chars | [pattern](exemplar.md#copy-c-not-a-fit) |
+
+| Image slot | Export size | Ratio | Shot | Crop on the page | Exemplar |
+| --- | --- | --- | --- | --- | --- |
+| `notFit.resources[n].image` | 600x400 px | 1.50:1 | Optional cover or thumbnail of the free resource. | Landscape 3:2. Rendered 293x195 (mobile) on a resource card on the not-a-fit page. Optional. | [standard](exemplar.md#imagery-reference-c) |
+
 ## Video slots
 
 | Slot | Format | Standard |

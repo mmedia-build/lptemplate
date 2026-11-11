@@ -263,7 +263,8 @@ export default defineConfig({
             // Job: the first money question. Say why you ask. Question about 42, sub-line about 142 characters.
             name: 'budget',
             kind: 'choice',
-            question: 'How much is your monthly [kind of] budget?',
+            // The line break is deliberate: the reference breaks this question by hand so the second line carries the subject.
+            question: 'How much is your\nmonthly [kind of] budget?',
             sub: 'Say you ask this first to see if you would be a good fit, and second to work out which approach is the best one inside what they can spend.',
             // The client's own bands, lowest first. Eight on the reference. Scores add to the lead score (up to 30 here).
             options: [
@@ -292,7 +293,7 @@ export default defineConfig({
             // Job: get them to write the call's opening for you. About 81 characters. The dictate chip label about 43.
             name: 'about',
             kind: 'longtext',
-            question: 'Ask them to briefly describe the business: what they sell, to whom, at what price?',
+            question: 'Ask them to describe the business: what they sell, to whom, at what price?',
             label: 'About your business',
             placeholder: 'Type your answer here…',
             rows: 5,
@@ -368,6 +369,7 @@ export default defineConfig({
             offers: [
               {
                 value: 'Done for you',
+                icon: 'handshake',
                 eyebrow: 'Do It For Me',
                 title: '[Name]',
                 description: 'In the visitor\'s voice: say they would rather hire you to do it all. In brackets, the honest trade-off (costs more, takes less of their time). Close with a P.S. that says what makes you unlike others they have tried, with one light line.',
@@ -378,6 +380,7 @@ export default defineConfig({
               },
               {
                 value: 'Teach me',
+                icon: 'clipboard',
                 eyebrow: 'Teach Me How To Do It',
                 title: '[Name]',
                 description: 'In the visitor\'s voice: say they want to learn it and do it themselves, and name what they get. In brackets, the honest trade-off (costs less, takes more of their time). Close with a P.S. naming one extra that comes with it, such as a community.',

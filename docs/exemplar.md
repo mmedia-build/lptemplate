@@ -4,6 +4,8 @@ Read this before briefing a photographer or writing copy for a client page. It d
 
 **This file is not source text.** Client copy is written from the client's own customer research and offer, never by rewording the excerpts below. Excerpts are kept to a phrase or a sentence and exist only to show the pattern. Client images are the client's own jobs, never stock and never the reference's photos.
 
+Part 5 adds reference C (an agency's strategy-session quiz funnel, `docs/teardown-c.md`): a page that asks instead of arguing.
+
 Slot IDs match `site.config.ts` and `docs/content-spec.md`. Character counts are the reference's own content, measured from the live DOM.
 
 ---
@@ -376,6 +378,101 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 - You to we ratio: about 1 to 1; the owner section and the statement are "we" and "I", the dream, problem, liveable and FAQ sections are "you".
 - CTA consistency: one label, uppercase, twelve times, with the same reinforcement line under eleven of them.
 
+## Part 5: Reference C (agency quiz funnel) patterns
+
+Reference C sells a free call, not a job, and it does not argue. The ad has done the persuading; the page asks one question per screen and lets the answers do the rest. Its lessons are about sequence, voice and small behaviours, not photos. Client copy is never written by rewording the excerpts below; they show the pattern.
+
+### Imagery: reference C
+
+- Total: no photographs on the default path. The page is type, white cards and one brand colour on a flat #f9f9f9 ground.
+- The only pictures are inside the two offer cards (a row of client logos with a count badge, and a row of customer faces) and in the desktop exit prompt (one animated picture of a person).
+- Icons: a 26 px line icon in a 56 px rounded tile on each option card; one or two brand icons in overlapping white circles on each multi-select pill. The template draws neutral line icons and never ships third-party brand marks.
+- Logo: one, 143x20 on the reference, centred in a 50 px white bar. The template renders it up to 100x30.
+- Minimum shot list for a page built on C: the logo. Optional: one row of client logos with written permission (500x80, transparent) for the offer card, one picture for the exit prompt (16:9), one cover image per free resource on the not-a-fit page (3:2).
+- What not to add: a hero photo, a video, a badge row. The first screen works because nothing competes with the button.
+
+### Copy C: Intro
+
+- `intro.eyebrow`: pattern "[WHO THIS IS FOR]:" in capitals. On the reference it reads "Servicing clients in:" followed by a flag looked up from the visitor's location; the template takes a hand-written qualifier instead. 21 characters.
+- `intro.headline`: pattern "Free [length] [named deliverable] session". Excerpt: "Free 30-Minute ... Session". Why: three facts and no adjectives: free, how long, what you leave with. The deliverable has a name, so it reads as a thing and not a sales call. 41 characters, 6 words.
+- `intro.body`: pattern "Claim your [free, no-obligation] [length] [call] ($[value] value). This is strictly for [who]. If that's you, then [invitation in the brand voice]." Excerpt: "This is strictly for people who are hungry for growth." Why: the value in brackets prices the free thing; "strictly for" flatters the right visitor and warns the wrong one before the questions do. 193 characters, 33 words.
+- `intro.cta`: two to five words. The reference was testing a plain start label against a fit-check label on the day of capture. Why it works either way: the tap submits nothing, so it costs nothing.
+
+### Copy C: Short answers
+
+- `steps[first_name].question`: pattern "[Promise it is quick] ([aside]). [A polite reason to ask]... what's your name?" Why: the first question is the easiest one there is, asked the way a person would ask it. 125 characters.
+- `steps[email].question`: pattern "[One-word reaction]! What's your email, [name]?" Why: the reaction makes it a conversation; the name proves the page listened. The lead exists from this screen on. 28 characters plus the name.
+- `steps[website].question` and `sub`: pattern "[Name], what's your website?" and a line that says what to type if there is none. Why: removes the only reason to stall on this screen.
+- Every later question may use the name once. More than that reads as a trick.
+
+### Copy C: Choice screens
+
+- Question pattern: "[Reaction to the last answer]. [The question]?" Excerpts: "Okay great!", "First,". Why: each screen acknowledges the last tap.
+- Option cards (`cards`): a one-word title and a description that lists three or four examples, so the visitor recognises themselves instead of deciding.
+- Multi-select (`multi`): a bracketed note that more than one may be ticked; options in the visitor's words, with "None" last.
+- Select (`select`): only for long lists (place, source). Preselect the likely answer when there is one.
+- `steps[heard].sub`: pattern "[Admit you are curious]. [Say the answer helps you improve]." Why: gives a reason for a question that does nothing for the visitor.
+
+### Copy C: Money questions
+
+- Pattern: the question, then one sentence that begins "We're asking..." and gives a reason that serves the visitor. Excerpt: "We're asking you this first to see if we'd be a good fit." Why: money questions without a reason end quizzes.
+- Bands, never an exact figure; lowest first; the top band open-ended.
+- Capitals on the one word that changes between two similar questions (current, target).
+- The gap between the current and the target answer is the opening of the sales call. Ask both.
+
+### Copy C: Long answers
+
+- `steps[about].question`: pattern "Briefly describe your business: what do you sell, to who, at what price point?" Three prompts in one question, so nobody stares at an empty box. 81 characters.
+- `steps[obstacle].question` and `note`: pattern "[Name], be honest... what's the number one obstacle holding you back from [the goal they just named]?" then a bracketed nudge to leave nothing out. Why: it is asked after both revenue questions, so the obstacle is measured against a number the visitor chose.
+- `dictateLabel`: pattern "Dictate [the thing] for 1-2 minutes". Talking is easier than typing on a phone; a longer answer is a warmer lead.
+
+### Copy C: Offer cards
+
+- `steps[offer].question`: "which of the following best describes your situation". The choice is framed as describing the visitor, not buying.
+- Each card: a spaced eyebrow in the visitor's voice ("Do it for me"), a one-word title in the display face, a description in the first person with the honest trade-off in brackets (more expensive, less work; cheaper, more work) and a P.S., a button strip, then proof.
+- Why the trade-off is stated: it lets the visitor choose the cheaper one without shame and the dearer one without doubt.
+- Skip the step when the business sells one thing.
+
+### Copy C: Commitment
+
+- `steps[commitment].pill`: pattern "We're almost done, just [n] more questions." A promise about the remaining effort, kept.
+- `steps[commitment].question`: pattern "On a scale of 1-10 (1 being [content as you are], 10 being [will do anything to reach the goal]), what number are you?" Both ends are described so the number means something. 130 characters.
+- `steps[promise].question`: pattern "Do you [promise] that if you qualify for a call, you will show up at the selected time?" Why: "if you qualify" keeps the scarcity; the promise is made before the calendar appears.
+- The two answers are a picture and a word each. Do not add a third.
+
+### Copy C: Contact
+
+- `contact.question`: pattern "You [qualified]. [This is where it gets good]." Excerpt: "You made the cut." Why: the phone number is asked for as a reward, not a toll.
+- `contact.sub`: pattern "Not everyone's a fit, but based on your answers, we can help. [Pop your details in], [choose a time]." 141 characters.
+- `contact.submitLabel`: "Book My [Name Of The Call]". First person, names the call.
+
+### Copy C: Loader
+
+- Four lines of three to six words that name real steps in the present tense (checking answers, reviewing goals, matching a person, loading the calendar), then a closing line. Each line should be true of what happens next.
+
+### Copy C: Exit prompt
+
+- Headline: two or three words that stop the visitor, in the brand voice.
+- Body: pattern "[Try again]. It takes less than [time] to fill out this form, and then you get [the deliverable] ($[value] value)." Restates the time cost and the prize.
+- Button: first person, names the prize.
+- Disclaimer: one line about spam in the brand voice. Only promise what the privacy policy says.
+
+### Copy C: Not a fit
+
+- Headline: pattern "[Soft interjection], it looks like we're just not the right fit yet". The word "yet" keeps the door open.
+- Body: pattern "Our [calls] are reserved for [who]. If you're just exploring, that's fine, we just can't book a call for you today."
+- Then one or two free resources, each with a title, a line and a button. A screened-out visitor still leaves with something.
+
+### Voice summary (C)
+
+- Reading level: grade 5 to 6. Contractions everywhere. Jokes in brackets.
+- Person: "we" and "you" in every line; the visitor's first name from the second screen.
+- Specificity: one number on the first screen (the length), one value in brackets, then nothing but the visitor's own numbers.
+- Claims: almost none. No guarantee, no result, no review on the first screen. Proof appears once, inside the offer cards.
+- Mechanism: the questions are the mechanism. "We're asking so..." appears three times.
+- Order of asks: name, email, identity, current activity, place, budget, website, description, current revenue, target revenue, obstacle, timing, offer, commitment, source, promise, then contact details.
+- CTA consistency: "Continue" on every typing screen, no button at all on tapping screens, one differently worded button at the start and one at the end.
+
 ---
 
 ## Is this client page at the standard?
@@ -425,3 +522,18 @@ Reference B sells a bigger, slower, higher-anxiety purchase (a $35,000 to $180,0
 32. If the reinforcement line is used under the CTAs instead of the review badge, does it state a deliverable and a value the client has put in writing?
 33. Does any cash penalty or timeframe guarantee match the client's terms word for word?
 34. Is the gallery's collapsed view made of the client's own finished rooms, at least eight, with no composite image?
+
+### Sections from reference C (only when used)
+
+35. Does the whole intro (dots, eyebrow, headline, paragraph, button) sit above 664 px at 390 wide, with nothing else on the first screen?
+36. Is the first question one anybody can answer in a second, and is the phone number the last thing asked?
+37. Does every money question say why it is asked, in one sentence, and use the client's own bands?
+38. Is every answer option, band and threshold the client's own, and has the client confirmed which answers screen a visitor out?
+39. Is there one question per screen, with no screen holding two controls except the contact step?
+40. Does any dollar value, rating or client count on the page come from the client in writing, or is it left out?
+41. Does the pill that counts down the remaining questions tell the truth about how many are left?
+42. Does each loader line describe something that really happens next, and does the thank-you page deliver the calendar or say exactly how the time is set?
+43. Does the privacy policy say that the first name and email are saved as soon as the email step is passed?
+44. Does the not-a-fit page say no kindly and give at least one free resource, with no link back into the quiz?
+45. Are client logos on an offer card used with written permission?
+

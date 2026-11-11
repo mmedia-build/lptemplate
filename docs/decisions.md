@@ -80,3 +80,74 @@ Every judgement call made while building the template, one line of reasoning eac
 - The FAQ animates with a grid-row transition on real buttons with `aria-expanded`, one open at a time, the first open on load. Reason: matches B's behaviour and needs no height measuring script.
 - The gallery expands once and the button leaves, as on B. Reason: collapsing a wall of photos the visitor asked to see has no purpose.
 - `npm run verify` builds the renovation preset and runs fourteen checks on it (order, tones, fonts, first screen fit, six sliders, gallery, FAQ, selects, submit). Reason: the preset is a second product surface and must not rot when the shared components change.
+
+## Reference C (agency quiz funnel) and the quiz section
+
+### Access and capture
+
+- Reference C was rendered through Firecrawl's interactive Chromium, as A and B were. Reason: the container's network policy still denies the reference host.
+- Every outbound write was stubbed in that browser (form posts, the partial-lead post, tracking beacons, the email check) and the final form was only submitted empty. Reason: the reference sends the first name and email to its CRM at the email step, so walking the quiz with a real-looking address would have created a lead.
+- The loader was captured through the page's own preview flag. Reason: it shows the loader without a submit.
+- Screenshots are JPEG, one per screen at 390 and 1440, with no stitched full page. Reason: the page is one screen; a full-page capture is mostly empty ground.
+- The capture ran from a United States address, so the reference showed a US flag and phone format. Reason: the session could not be started with an Australian location; the differences are the flag and the dial code only, and neither is reproduced.
+- The notice shown when the chosen offer does not match the answers was read from the script, not seen. Reason: the browser session ended before that branch was walked.
+
+### Shape
+
+- Reference C is one new section type, `quiz`, not a variant of `hero` plus `offerForm`. Reason: its job and slots are new (one question per screen, progress, screening), and it replaces every other section instead of joining them.
+- The whole quiz is rendered in the HTML with inactive steps hidden and inert, and options are real inputs with labels. Reason: no content is injected by script, assistive technology gets native radios and checkboxes, and the page is still readable with scripts off.
+- Page chrome became an option (`layout.chrome: 'funnel'`): a slim bar with the logo and Back, no phone. Reason: reference C hides the site header; the earlier presets keep the full header by default.
+- The funnel keeps a one-line legal footer under the quiz. Reason: the reference has no footer at all, but the brief requires the terms and privacy texts to be reachable, and Meta requires a privacy policy on a lead page.
+- Screened-out visitors go to a real route (`/not-a-fit/`) that is built only when the config has `notFit`. Reason: the reference redirects to a "not eligible" page; a route keeps the quiz honest and gives the visitor something to take away.
+- The thank-you route can embed a calendar (`thankYou.booking.embedUrl`). Reason: reference C ends in a booking; the existing route already fires the Lead event once, so the calendar sits there instead of on a new page.
+- The offer-mismatch notice is not reproduced. Reason: its rules (which product for which revenue) are one business's routing, not a pattern; `score` and `disqualify` cover the general case.
+
+### Behaviour kept from the reference
+
+- Ten dots for sixteen questions, one lit per question, so the row is full by question ten. Reason: measured on the reference; the early finish is part of how the quiz feels short.
+- A tap on a single-answer option advances; arrow keys change the choice without advancing; Enter advances. Reason: the reference's own rule, and it stops a keyboard user being moved on by accident.
+- Continue is disabled until there is an answer and its arrow stops moving while disabled. Reason: measured.
+- The first name is written into later questions through a `{name}` token with an optional fallback word. Reason: the reference does this on five screens; the fallback covers sentences that need a word in that position.
+- First name and website arrive filled in on the contact step. Reason: measured; it shortens the only real form.
+- A partial lead (first name and email, flagged `partial`) is sent after the email step when `capturePartial` is on. Reason: the reference does it; the preset's privacy placeholder says it must be disclosed.
+- The loader pauses twice and varies each segment by 20%. Reason: measured; a linear count looks fake.
+- The exit prompt opens once, on a fine pointer only, never while submitting. Reason: measured.
+- Lead score: options carry points, the scale has bands, the total is sent as `lead_score`, and a `QualifiedLead` pixel event fires at or above `tracking.qualifiedLeadScore`. Reason: the reference scores to 100 and fires a qualified-lead event at 60.
+
+### Deviations
+
+- The eyebrow is a hand-written line; no flag is looked up from the visitor's address. Reason: nothing on the page is generated from the visitor's location.
+- Option screens focus the question, not the first option, on arrival. Reason: the reference focuses the first card, which then looks chosen; focusing the question announces it and leaves the options untouched.
+- Enter in a text area adds a line; Control or Command with Enter advances. Reason: the reference advances on a bare Enter, which loses a paragraph break.
+- The multi-select pills and option cards carry neutral line icons. Reason: the reference uses third-party brand marks, which the template does not ship.
+- The loader fills a rounded block with the brand colour. Reason: the reference fills its own logo mark, which cannot be copied and cannot be assumed for a client.
+- Phone numbers are validated as Australian in the browser; there is no dial-code picker and no lookup service. Reason: MARKET is Australia and the template makes no third-party calls.
+- The email is checked by pattern only. Reason: the reference calls a verification service; the template has none.
+- The tab title and favicon do not change when the tab is hidden, and there are no "someone just booked" pop-ups. Reason: the reference's fake "new message" count is deceptive, and the pop-ups need a third-party service and real data.
+- The exit prompt's picture is an optional image slot and the bar in it shows real progress. Reason: the reference uses an animated picture of a person and a looping bar unrelated to progress.
+
+### Accessibility and tokens
+
+- Back is a 44 px target in a 50 px bar (reference 30 px). Reason: the tap target minimum.
+- Placeholder grey is #737373 and disabled button text is #5c5c5c on #c7c7c7. Reason: the reference's values fail contrast.
+- The offer card eyebrow uses `accent-text` (#566b00 in the preset). Reason: the reference's lime-green text on white is 2.5:1.
+- Error red in the preset is #c62828. Reason: the reference's #d6312b is 4.4:1 on the #f9f9f9 ground.
+- Each step has a heading, option groups are labelled by it, inputs have hidden labels, errors are linked with `aria-describedby`, and progress is announced as "Question n of m". Reason: the reference has none of these.
+- Scale button text switches between dark and the configured on-primary colour by computed contrast. Reason: a dark brand colour would otherwise put dark text on a dark button at the top of the scale.
+
+### Fonts and tooling
+
+- The display face is Anton (OFL) through a new `brand.fonts.displayFamily`; questions and body stay in Inter (OFL). Reason: the reference's Futura LT Condensed Extra Bold is commercial; Anton is the closest open condensed heavy face, and a display-only option keeps every other heading in the body face.
+- The Anton fallback is Impact with metric overrides. Reason: Arial is far wider than a condensed face and would reflow the headline during the swap.
+- The agency preset sets `headingFamily` to Inter explicitly. Reason: without it headings resolve to Manrope through the token default; that default is reported separately and not changed here, so reference B's captures stay as verified.
+- Scripts fall back to a system Chromium when the pinned Playwright build is not installed (`scripts/lib/browser.mjs`). Reason: the container image moved to a newer Chromium than the pinned Playwright expects, and the checks should run without a browser download.
+- The content checker measures quiz steps by name, skips a step a config does not have, and does not count the `{name}` token. Reason: one spec serves the preset and any shortened quiz.
+
+### Minus Media draft
+
+- `examples/site.config.minus-media.ts` is filled only from the agency's own Notion and GoHighLevel records, read on 11 November 2026. Reason: the request was to recreate the funnel for Minus Media; nothing on a page may be invented.
+- No dollar value, guarantee, review count, client result or client logo appears in it. Reason: the records hold three different guarantees and no rating; none could be confirmed as current.
+- The budget step and the offer cards are dropped, and revenue is asked by month. Reason: the agency sells one service and its own survey asks monthly revenue with four bands.
+- Nobody is screened out on revenue. Reason: no minimum is written down. Screening is on timing ("not any time soon") and a commitment of 1 or 2 only.
+- Buttons are the brand blue (#518CFF) with black text. Reason: white on that blue is 3.2:1; black is 6.5:1, and the reference also sets black on its brand colour.
+- The pixel ID and the calendar embed URL are left empty with the known values in comments. Reason: a preview build should not fire into the live pixel, and the embed URL was not confirmed.

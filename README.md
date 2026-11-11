@@ -4,7 +4,9 @@ A reusable landing page for Australian trade and renovation businesses (concrete
 
 The page reproduces the structure, mobile layout and persuasion sequence of two measured reference pages with every piece of content replaced by an instruction. Reference A is a concreter's page (fast trade job, strong review profile): `docs/teardown.md`, and the default `site.config.ts` follows it. Reference B is a kitchen and bathroom renovator's page (slow, high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee): `docs/teardown-b.md`, and `examples/site.config.renovation.ts` follows it. The standard a client page is measured against, for both, is `docs/exemplar.md`. Every section type, what it needs and what to swap in when an asset is missing is in `docs/sections.md`.
 
-Stack: Astro 7 (static output), scoped CSS driven by design tokens, no UI framework, no CMS. Client-side JavaScript is limited to the form, the carousel, the compare slider, the modals and the pixel events.
+Reference C is a different kind of page, an agency's strategy-session funnel: one screen that turns into a quiz, one question at a time, ending in a calendar. `docs/teardown-c.md` records it, `examples/site.config.agency.ts` reproduces it as a preset, and `examples/site.config.minus-media.ts` is that funnel drafted for Minus Media's own roadmap call. Use it when the ad has done the persuading and the page only has to qualify and book.
+
+Stack: Astro 7 (static output), scoped CSS driven by design tokens, no UI framework, no CMS. Client-side JavaScript is limited to the form, the carousel, the compare slider, the modals, the quiz and the pixel events.
 
 ## Launching a new client
 
@@ -26,14 +28,18 @@ The repeatable per-client process (intake call, Claude session build, Vercel pre
 
 - `site.config.ts`: all client content, typed by `src/config/types.ts`.
 - `src/sections/`: one component per section type, registered in `registry.ts`. The page renders `config.sections` in order; `enabled: false` removes a section; reordering the array reorders the page. Backgrounds are planned from the rendered order (`src/lib/sections.ts`), so removing or reordering sections keeps the page looking deliberate.
-- `src/components/`: shared pieces. `Cta` (button plus review badge), `ReviewBadge`, `ImageSlot` (optimised image or labelled placeholder), `LeadForm`, `Carousel`, `CompareSlider`, `Marquee`, `Modal`, `Header`, `Footer`, `MetaPixel`, `GuideNote`.
+- `src/components/`: shared pieces. `Cta` (button plus review badge), `ReviewBadge`, `ImageSlot` (optimised image or labelled placeholder), `LeadForm`, `Carousel`, `CompareSlider`, `Marquee`, `Modal`, `Header`, `FunnelBar` (the slim bar with Back for the quiz funnel), `Footer`, `MetaPixel`, `GuideNote`.
 - `src/tokens/`: design tokens measured from the reference (`tokens.css` for styling, `tokens.ts` for image export sizes).
 - `src/lib/submit-lead.ts`: the one place a lead leaves the page.
-- `src/pages/thank-you.astro`: the thank-you route. The Meta `Lead` event fires there once, only after a real submit.
-- `scripts/`: `check-content.mjs`, `build-content-spec.mjs`, `shoot.mjs`, `verify.mjs`, `lighthouse.mjs`.
+- `src/pages/thank-you.astro`: the thank-you route. The Meta `Lead` event fires there once, only after a real submit. With `thankYou.booking.embedUrl` set it also carries the calendar.
+- `src/pages/[notfit].astro`: the page a quiz sends screened-out visitors to. Built only when the config has `notFit`.
+- `src/sections/Quiz.astro` and `src/scripts/quiz.ts`: the quiz funnel (steps, progress, Back, scoring, screening, loader).
+- `scripts/`: `check-content.mjs`, `build-content-spec.mjs`, `shoot.mjs`, `verify.mjs`, `lighthouse.mjs`, and `lib/` (the quiz walker the last three share, and the browser launch fallback).
 - `examples/site.config.renovation.ts`: the reference B preset, every slot an instruction at the measured length.
+- `examples/site.config.agency.ts`: the reference C preset (the quiz funnel), every slot an instruction at the measured length.
+- `examples/site.config.minus-media.ts`: the quiz funnel drafted for Minus Media from its own records; what is still missing is listed in `docs/verification.md`.
 - `docs/prompts/reference-rebuild-brief.md`: the niche-agnostic brief that produced this template, with a fill-in block. The same brief as a Claude skill: `.claude/skills/reference-rebuild/` (invoke with `/reference-rebuild` in this repository) and the installable `docs/skills/reference-rebuild.skill`.
-- `docs/`: `teardown.md` and `teardown-b.md`, `exemplar.md`, `sections.md`, `content-spec.md`, `decisions.md`, `verification.md`, `launch-playbook.md`, `intake-brief.md`, the reference captures in `docs/reference/` and `docs/reference-b/`, and the build captures in `docs/build/` (the preset's in `docs/build/renovation/`).
+- `docs/`: `teardown.md`, `teardown-b.md` and `teardown-c.md`, the briefs in `briefs/`, `exemplar.md`, `sections.md`, `content-spec.md`, `decisions.md`, `verification.md`, `launch-playbook.md`, `intake-brief.md`, the reference captures in `docs/reference/`, `docs/reference-b/` and `docs/reference-c/`, and the build captures in `docs/build/` (the presets' in `docs/build/renovation/`, `docs/build/agency/` and `docs/build/minus-media/`).
 
 ## Sections
 
@@ -41,11 +47,13 @@ Reference A order (the default config): hero, trust strip, before and after marq
 
 Reference B order (the renovation preset): hero (photo band), trust panel, logo strip, gallery wall, dream outcome split, problem split (dark), before and after grid, method statement, owner story split, comparison cards, testimonials carousel, photo set, benefits list, liveable-home split, materials and supplier logos, three steps (rows), guarantee (dark, with terms link), offer and form (with two selects), FAQ.
 
-Any section can go in any order in either config; `docs/sections.md` lists all 21 types with their layouts, ranges and what to use when an asset is missing. The supported number of items for every list section is in `docs/content-spec.md`.
+Reference C order (the agency preset): one `quiz` section. Inside it: intro, first name, email, what you sell (cards), marketing in use (multi-select), location, budget, website, describe the business, current revenue, target revenue, biggest obstacle, timing, offer cards, commitment 1 to 10, where you heard of us, promise to show up, contact details, loader. Then the thank-you route with the calendar, or the not-a-fit route for screened-out answers.
+
+Any section can go in any order in either config; `docs/sections.md` lists all 22 types with their layouts, ranges and what to use when an asset is missing. The supported number of items for every list section is in `docs/content-spec.md`.
 
 ## Tracking
 
-With a pixel ID set: `PageView` on every page, `Contact` on every click of a phone link, `Lead` once on the thank-you page after a successful submit (guarded against refresh and direct visits). Without an ID, no pixel code is output.
+With a pixel ID set: `PageView` on every page, `Contact` on every click of a phone link, `Lead` once on the thank-you page after a successful submit (guarded against refresh and direct visits). The quiz adds custom events: `QuizStart` on the first button, `QuizStep` on every screen, `QuizEmail` when the email step passes, and `QualifiedLead` on submit when the lead score reaches `tracking.qualifiedLeadScore`. Without an ID, no pixel code is output.
 
 ## Adding a section type
 
@@ -53,4 +61,4 @@ Write the component in `src/sections/`, add its content type and the union membe
 
 ## Licence notes
 
-Manrope and Plus Jakarta Sans are bundled under the SIL Open Font License (`public/fonts/OFL.txt`). Neither reference page's images, logos or wording are included anywhere in this repository; the screenshots under `docs/reference/` and `docs/reference-b/` are an internal study record only.
+Manrope, Plus Jakarta Sans, Inter and Anton are bundled under the SIL Open Font License (`public/fonts/OFL.txt`). Reference C's display face is commercial and is not included; Anton stands in. No reference page's images, logos, icons or wording are included anywhere in this repository; the screenshots under `docs/reference/`, `docs/reference-b/` and `docs/reference-c/` are an internal study record only.

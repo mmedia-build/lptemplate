@@ -410,7 +410,7 @@ export interface QuizStepBase {
   name: string;
   /** Optional small pill above the question (a red dot and a short line), used late in the quiz. */
   pill?: string;
-  /** The question. One per screen. */
+  /** The question. One per screen. A line break (\n) is kept, for a question that reads better broken by hand. */
   question: string;
   /** Optional paragraph under the question, for example why you are asking. */
   sub?: string;
@@ -433,6 +433,8 @@ export type QuizStep =
 /** A tall card at the "which of these suits you" step (reference C offers two). */
 export interface QuizOffer {
   value: string;
+  /** Icon in the dark disc that overlaps the top of the card. */
+  icon?: IconName;
   eyebrow: string;
   title: string;
   description: string;

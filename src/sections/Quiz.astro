@@ -270,6 +270,7 @@ const total = steps.length + 1;
                   <div class="quiz-offer">
                     <input class="quiz__radio" type="radio" name={step.name} id={`o-${step.name}-${n}`} value={o.value} data-score={o.score} data-disqualify={o.disqualify ? '1' : undefined} data-advance />
                     <label for={`o-${step.name}-${n}`}>
+                      <span class="quiz-offer__mark" aria-hidden="true"><Icon name={o.icon ?? 'target'} size={44} strokeWidth={2} /></span>
                       <span class="quiz-offer__eyebrow">{o.eyebrow}</span>
                       <span class="quiz-offer__title">{o.title}</span>
                       <span class="quiz-offer__desc">{o.description}</span>
@@ -527,6 +528,8 @@ const total = steps.length + 1;
     letter-spacing: 0;
     color: var(--colour-heading);
     text-wrap: balance;
+    /* A line break typed in config (\n) is kept, as the reference breaks some questions by hand. */
+    white-space: pre-line;
   }
 
   .quiz__question:focus {
@@ -1134,10 +1137,10 @@ const total = steps.length + 1;
   .quiz__offers {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 72px;
     max-width: 1086px;
     margin-inline: auto;
-    padding-top: 4px;
+    padding-top: 52px;
   }
 
   .quiz-offer label {
@@ -1152,6 +1155,21 @@ const total = steps.length + 1;
     box-shadow: 1px 2px 6px rgb(0 0 0 / 0.08);
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  /* The dark disc that overlaps the top edge of each card (the reference puts its brand mark in it). */
+  .quiz-offer__mark {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    margin-top: -84px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: var(--colour-heading);
+    color: var(--colour-primary);
   }
 
   .quiz-offer__eyebrow {
@@ -1473,6 +1491,36 @@ const total = steps.length + 1;
 
     .quiz__question {
       max-width: 798px;
+    }
+
+    /* The reference narrows the question column by screen type: 480 over a select, 640 over pills and the
+       contact form, 720 over a text area, 760 over the scale. */
+    .quiz__step--select .quiz__question {
+      max-width: 480px;
+    }
+
+    .quiz__step--multi .quiz__question,
+    .quiz__step--yesno .quiz__question,
+    .quiz__step--contact .quiz__question {
+      max-width: 640px;
+    }
+
+    .quiz__step--longtext .quiz__question {
+      max-width: 720px;
+    }
+
+    .quiz__step--scale .quiz__question {
+      max-width: 760px;
+    }
+
+    .quiz__offers {
+      padding-top: 58px;
+    }
+
+    .quiz-offer__mark {
+      width: 116px;
+      height: 116px;
+      margin-top: -94px;
     }
 
     .quiz__sub {

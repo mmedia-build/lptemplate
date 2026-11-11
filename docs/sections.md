@@ -4,6 +4,8 @@ Every section type the template can render, what it is for, what it needs from t
 
 Two presets show the two reference sequences: `site.config.ts` (reference A, a concreter: fast trade job, strong review profile) and `examples/site.config.renovation.ts` (reference B, a renovator: slow high-anxiety job, no reviews, a named owner, suppliers, a penalty guarantee). Start from the one closer to the client and swap sections in from the other.
 
+A third preset is a different kind of page: `examples/site.config.agency.ts` (reference C, an agency's strategy-session funnel). It is one `quiz` section that asks one question per screen and ends in a calendar. Use it when the ad has already done the persuading and the job of the page is to qualify and book. `examples/site.config.minus-media.ts` is that funnel drafted for Minus Media's own roadmap call.
+
 ## Choosing sections from what the client has
 
 | The client has | Use |
@@ -24,6 +26,11 @@ Two presets show the two reference sequences: `site.config.ts` (reference A, a c
 | A guarantee with a term in years | `guarantee`. With a cash penalty and a statutory warranty, use the six-paragraph shape with `termsLink: true`. |
 | No guarantee | Drop the section. Never write a soft one. |
 | Recurring phone questions | `faq` after the form. |
+| A call to sell, an ad that already persuades, and a list of qualifying questions | `quiz` as the only section, with `layout.chrome: 'funnel'`. Nothing else on the page. |
+| A calendar or booking tool | `thankYou.booking.embedUrl`; the thank-you route becomes the booking step after the quiz or the form. |
+| Answers that mean "not a customer" | `disqualify` on those options, `quiz.notFitPath` and a `notFit` page with a free resource. Without a page to send them to, leave screening off. |
+| Two products (done for you, teach me) | The `offers` step in the quiz. One product: delete the step. |
+| No dollar value for the free call | Leave the bracketed value out of the intro and the exit prompt. Never estimate one. |
 
 ## The types
 
@@ -113,6 +120,31 @@ Job: convert. Needs: headline, bundle image, optional lead line, 2 to 6 bullets,
 
 Job: the partner's questions, answered honestly, for the visitor who scrolled past the form. Needs: headline, 3 to 10 question and answer pairs. Usually after the form. Missing: drop it.
 
+### quiz
+
+Job: be the whole page. Restate the ad's offer on one screen, ask one question per screen, and hand a qualified, committed lead to the calendar. Reference C; see `docs/teardown-c.md`. One per page, normally alone, with `layout: { chrome: 'funnel' }` (slim bar with Back, one-line legal footer).
+
+Needs: an intro (eyebrow, headline, paragraph, button label), 6 to 20 steps, the contact fields, four loader lines, and the client's own answer options, bands and screening rules. No photos. Optional: a row of client logos for an offer card, a picture for the exit prompt, a not-a-fit page with one or two free resources.
+
+Step kinds, in the order reference C uses them:
+
+| Kind | Screen | Advances on | Use for |
+| --- | --- | --- | --- |
+| `text` | one input | Continue or Enter | first name, website |
+| `email` | one input | Continue | the email; the partial lead is sent here when `capturePartial` is on |
+| `cards` | 2 to 4 cards with icon, title, description | tap | the easy identity question |
+| `multi` | 3 to 12 tick pills with icons | Continue | what they use or have tried |
+| `select` | a dropdown, optional "other" text | Continue | place, where they heard of you |
+| `choice` | 3 to 9 radio pills | tap | budget, revenue, timing; `score` and `disqualify` per option |
+| `longtext` | a text area with an optional dictate chip | Continue | describe the business, the obstacle |
+| `offers` | two tall cards with proof | tap | done-for-you or teach-me |
+| `scale` | 1 to 10 graded buttons | tap | commitment; `disqualifyAtOrBelow`, `scoreBands` |
+| `yesno` | two picture cards | tap | the promise to show up |
+
+Rules that keep it working: one question per screen; easy first, money in the middle with a reason, writing late, phone number last; `{name}` at most once per question (`{name|Fallback}` when the sentence needs a word there); `progressDots` lower than the number of steps so the row fills early; keep step names (`first_name`, `email`, `sells`, `marketing`, `location`, `budget`, `website`, `about`, `revenue`, `revenue_goal`, `obstacle`, `timing`, `offer`, `commitment`, `heard`, `promise`) so the content checker measures them; delete a step you do not need and the checker skips it.
+
+Missing: no qualifying questions worth asking means this is the wrong page; use `offerForm`. No calendar: leave `thankYou.booking.embedUrl` empty and write the thank-you steps to say who calls and when. No written screening rules: remove every `disqualify`, `disqualifyAtOrBelow` and `notFitPath`.
+
 ## Lengths and shots
 
-Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3 and 4). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts`.
+Every slot's target length, accepted range and shot is in `docs/content-spec.md`. The copy patterns are in `docs/exemplar.md` (Parts 3, 4 and 5). `npm run check:content` measures `site.config.ts`; pass another config path to measure a preset: `node --experimental-strip-types scripts/check-content.mjs examples/site.config.renovation.ts`. The same works for `examples/site.config.agency.ts` and `examples/site.config.minus-media.ts`.

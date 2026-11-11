@@ -16,6 +16,7 @@ const sectionOf = (p) => {
   const m = p.match(/sections\[(\w+)(?::[\w-]+)?\]/);
   if (m) return m[1];
   if (p.startsWith('thankYou')) return 'thankYou';
+  if (p.startsWith('notFit')) return 'notFit';
   if (p.startsWith('form') || p.startsWith('urgency')) return 'offerForm';
   if (p.startsWith('business') || p.startsWith('proof') || p.startsWith('cta')) return 'global';
   return 'global';
@@ -48,6 +49,8 @@ const names = {
   beforeAfterGrid: 'B. Before and after grid (reference B)',
   logoGrid: 'B. Materials and supplier logos (reference B)',
   faq: 'B. FAQ (reference B)',
+  quiz: 'C. Quiz funnel (reference C)',
+  notFit: 'C. Not-a-fit page (reference C)',
 };
 const order = Object.keys(names);
 
@@ -72,6 +75,8 @@ const ranges = {
   beforeAfterGrid: '2 to 9 items (6 on reference B), three per row on desktop.',
   logoGrid: '4 to 24 logos (18 on reference B), six per row on desktop. The foot photo is optional.',
   faq: '3 to 10 questions (6 on reference B). The first starts open.',
+  quiz: '6 to 20 steps (16 on reference C, plus the intro and the contact step). Progress dots: 5 to 12 (10 on the reference); fewer dots than steps fills the row early. Options per step: 2 to 4 cards, 3 to 9 radio pills, 3 to 12 multi-select pills, 2 offer cards, 2 yes/no cards, a scale of up to 10. Contact fields: 3 to 6. Loader lines: 3 to 5. Steps are measured by name; a step a config does not have is skipped.',
+  notFit: '0 to 3 resource cards (2 on reference C). The page is built only when the config has `notFit` and the quiz has a `notFitPath`.',
 };
 
 const grouped = {};

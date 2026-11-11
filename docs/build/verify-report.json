@@ -372,7 +372,7 @@
   {
     "name": "quiz: the loader counts up and ticks its lines",
     "pass": true,
-    "detail": "21%, 1 line(s) reached"
+    "detail": "23%, 1 line(s) reached"
   },
   {
     "name": "quiz: the lead is sent with every answer, the score, the page URL and UTM",

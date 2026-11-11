@@ -52,6 +52,16 @@ Send the client the asset list at the bottom and ask for review figures, logo fi
 21f. What are the six questions customers ask on the phone before they book, and your honest answers, including the one where the answer is "no" or "it costs more"? (`faq`)
 21g. What is the one fear that outranks the finished result, in the customer's words, and what do you do about it on site? (`split:liveable`)
 
+## Part 5c: For the quiz preset (ask when the client sells a call)
+
+21h. What is the call named, how long is it, is it by phone or video, and what does the person leave with? Is there a dollar value you already state for it in writing? (`quiz.intro`, `thankYou`)
+21i. Who is the call strictly for, in one line, and who should never book one? Which answers rule a business out today? (`quiz.intro.body`, `disqualify`, `notFit`)
+21j. What do you need to know before the call? For each question, give the answer options in your customers' words, and the bands you think in for budget and revenue. (`quiz.steps`)
+21k. Which answers make a lead better? Rank them so the lead score can weight them, or say you do not want one. (`score`, `tracking.qualifiedLeadScore`)
+21l. What happens to someone who books and does not show up? (`quiz.steps[promise]`, terms)
+21m. Which calendar takes the booking? Send the embed link. (`thankYou.booking.embedUrl`)
+21n. What free thing can a not-yet-ready visitor take away: a guide, a video, a checklist? (`notFit.resources`)
+
 ## Part 6: Brand and tracking
 
 23. Logo files (colour and white), brand colours if any, phone number as you want it displayed, business name as customers know it, ABN if you want it shown. (`business`, `brand`)
