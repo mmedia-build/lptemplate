@@ -7,6 +7,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FunnelBar from '../components/FunnelBar.astro';
 import { site } from '../lib/site.ts';
 import { planSections } from '../lib/sections.ts';
 import { registry } from '../sections/registry.ts';
@@ -15,15 +16,19 @@ const plan = planSections(site.sections);
 const first = plan[0]?.section;
 const heroFirst = first?.type === 'hero';
 const heroImage = first?.type === 'hero' ? first.content.image.src : undefined;
+// Reference C chrome: a slim bar with Back, and a one-line legal footer under the quiz.
+const funnel = site.layout?.chrome === 'funnel';
+const quiz = plan.find((p) => p.section.type === 'quiz')?.section;
+const backLabel = quiz?.type === 'quiz' ? quiz.content.backLabel : undefined;
 ---
 
 <Base title={site.seo.title} description={site.seo.description} preloadImage={heroImage}>
-  <Header overlay={heroFirst} />
+  {funnel ? <FunnelBar backLabel={backLabel} /> : <Header overlay={heroFirst} />}
   <main>
     {plan.map(({ section, tone }) => {
       const Component = registry[section.type];
       return <Component content={section.content} tone={tone} id={section.id} ctaLabel={section.ctaLabel} />;
     })}
   </main>
-  <Footer />
+  <Footer compact={funnel} />
 </Base>

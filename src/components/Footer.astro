@@ -9,14 +9,19 @@ import ImageSlot from './ImageSlot.astro';
 import Modal from './Modal.astro';
 import GuideNote from './GuideNote.astro';
 
+interface Props {
+  /** One-line legal footer for the funnel chrome (reference C has no footer; the legal texts still need a home). */
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
 const { business, legal, footer } = site;
 ---
 
-<footer class="footer">
+<footer class:list={['footer', compact && 'footer--compact']}>
   <GuideNote type="footer" />
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__logo">
+      {!compact && <div class="footer__logo">
         <ImageSlot
           image={business.logo}
           slotId="business.logo"
@@ -26,7 +31,7 @@ const { business, legal, footer } = site;
           sizes="120px"
           class="footer__logo-img"
         />
-      </div>
+      </div>}
       <p class="footer__line">
         Copyright &copy; <span>{currentYear}</span> {business.name}. {footer.copyrightSuffix}
         {business.abn && <span class="footer__abn">ABN {business.abn}</span>}
@@ -62,6 +67,20 @@ const { business, legal, footer } = site;
     padding: 50px 0;
     border-top: 1px solid var(--colour-border-strong);
     text-align: center;
+  }
+
+  .footer--compact {
+    background: var(--colour-surface-muted);
+  }
+
+  .footer--compact .footer__inner {
+    gap: 8px;
+    padding: 20px 0 24px;
+    border-top: 0;
+  }
+
+  .footer--compact .footer__line {
+    font-size: 13px;
   }
 
   .footer__logo {

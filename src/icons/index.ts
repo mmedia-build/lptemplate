@@ -26,6 +26,17 @@ export const icons: Record<Exclude<IconName, 'none'>, string> = {
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
   phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
   dollar: '<circle cx="12" cy="12" r="9"/><path d="M12 6v12"/><path d="M15 9.5a3 3 0 0 0-3-1.5c-2 0-3 1-3 2s1 2 3 2 3 1 3 2-1 2-3 2a3 3 0 0 1-3-1.5"/>',
+  megaphone: '<path d="M4 10v4h3l7 4V6l-7 4H4Z"/><path d="M17 9a4 4 0 0 1 0 6"/><path d="M7 14v5h3v-3.5"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/>',
+  video: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8"/><path d="M8 12h5"/>',
+  people: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5a5 5 0 0 1 4.5 5"/>',
+  broadcast: '<rect x="3" y="7" width="18" height="12" rx="2"/><path d="m8 3 4 4 4-4"/><path d="M17 11v4"/>',
+  briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 13h18"/>',
+  box: '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5"/><path d="M12 12v9"/>',
+  leaf: '<path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/>',
+  tools: '<path d="m14 7 3-3 3 3-3 3"/><path d="M17 7 6 18l-2 2"/><path d="M5 5l4 1 1 4-2 2-4-1-1-4 2-2Z"/><path d="m13 13 6 6"/>',
+  ban: '<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>',
 };
 
 export const uiIcons = {
@@ -37,6 +48,9 @@ export const uiIcons = {
   chevronRight: '<path d="m9 5 7 7-7 7"/>',
   'chevron-down': '<path d="m6 9 6 6 6-6"/>',
   'arrow-up': '<path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>',
+  'arrow-right': '<path d="M3 12h17"/><path d="m14 6 6 6-6 6"/>',
+  'arrow-left': '<path d="M21 12H4"/><path d="m10 6-6 6 6 6"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21"/>',
   close: '<path d="M6 6l12 12"/><path d="M18 6 6 18"/>',
   quote: '<path d="M7 7a4 4 0 0 0-4 4v6h6v-6H6a1 1 0 0 1 1-1V7Z"/><path d="M18 7a4 4 0 0 0-4 4v6h6v-6h-3a1 1 0 0 1 1-1V7Z"/>',
   phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',

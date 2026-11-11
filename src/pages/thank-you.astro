@@ -5,21 +5,29 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FunnelBar from '../components/FunnelBar.astro';
 import Container from '../components/Container.astro';
 import Icon from '../components/Icon.astro';
 import { site, telHref } from '../lib/site.ts';
 
 const { thankYou, business } = site;
+const funnel = site.layout?.chrome === 'funnel';
+const booking = thankYou.booking?.embedUrl ? thankYou.booking : null;
 ---
 
 <Base title={thankYou.seoTitle} description={site.seo.description}>
-  <Header overlay={false} />
+  {funnel ? <FunnelBar /> : <Header overlay={false} />}
   <main>
     <section class="thanks section tone-light">
       <Container narrow>
         <div class="thanks__inner">
           <h1 class="thanks__headline">{thankYou.headline}</h1>
           <h2 class="h2 thanks__sub">{thankYou.subheadline}</h2>
+          {booking && (
+            <div class="thanks__booking">
+              <iframe src={booking.embedUrl} title={booking.title} style={`height:${booking.height ?? 760}px`} loading="eager"></iframe>
+            </div>
+          )}
           <ol class="thanks__steps">
             {thankYou.steps.map((step, i) => (
               <li class="thanks__step">
@@ -40,7 +48,7 @@ const { thankYou, business } = site;
       </Container>
     </section>
   </main>
-  <Footer />
+  <Footer compact={funnel} />
   <script>
     import { fireLeadOnce } from '../lib/tracking.ts';
     fireLeadOnce();
@@ -64,6 +72,20 @@ const { thankYou, business } = site;
     line-height: 1.1;
     font-weight: var(--weight-bold);
     letter-spacing: -0.02em;
+  }
+
+  .thanks__booking {
+    margin-inline: calc(var(--container-pad) * -1 + 4px);
+    background: var(--colour-surface);
+    border: 1px solid var(--colour-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .thanks__booking iframe {
+    display: block;
+    width: 100%;
+    border: 0;
   }
 
   .thanks__steps {

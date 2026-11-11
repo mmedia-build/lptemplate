@@ -1,7 +1,7 @@
 /**
  * Decides, from the rendered order alone, which background each section gets.
  * Rules (see docs/decisions.md):
- *  - The hero owns its photo background.
+ *  - The hero owns its photo background; the quiz funnel owns its flat surface.
  *  - Strips (trust strip, logo strip, photo grids, gallery, before/after)
  *    inherit the tone of the section above them and do not count towards
  *    alternation.
@@ -43,6 +43,8 @@ export const sectionMeta: Record<SectionType, SectionMeta> = {
   beforeAfterGrid: { surface: 'alternate' },
   logoGrid: { surface: 'alternate' },
   faq: { surface: 'alternate' },
+  // The quiz paints its own flat surface and, like the hero, resets the run.
+  quiz: { surface: 'own' },
 };
 
 export interface RenderedSection {
@@ -122,4 +124,5 @@ export const sectionHasCta: Record<SectionType, boolean> = {
   beforeAfterGrid: true,
   logoGrid: false,
   faq: true,
+  quiz: false,
 };

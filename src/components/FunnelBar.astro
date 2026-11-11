@@ -1,0 +1,119 @@
+---
+/**
+ * The slim bar of reference C: the logo, and a Back button that appears once
+ * the quiz has started. No phone number and no navigation. On phones the logo
+ * slides left to sit beside Back; on desktop it stays centred.
+ */
+import { site } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+import ImageSlot from './ImageSlot.astro';
+import Icon from './Icon.astro';
+import GuideNote from './GuideNote.astro';
+
+interface Props {
+  /** Label on the Back button. Omit on pages without a quiz (thank-you, not-a-fit). */
+  backLabel?: string;
+}
+const { backLabel } = Astro.props;
+const { business } = site;
+---
+
+<header class="funnel-bar" id="top">
+  <GuideNote type="header" />
+  {backLabel && (
+    <button type="button" class="funnel-bar__back" data-quiz-back hidden>
+      <Icon ui="arrow-left" size={18} strokeWidth={2} />
+      <span>{backLabel}</span>
+    </button>
+  )}
+  <div class="funnel-bar__logo">
+    <ImageSlot
+      image={business.logo}
+      slotId="business.logo"
+      spec={imageSpecs.logo}
+      description="full colour logo"
+      loading="eager"
+      priority
+      widths={[150, 300, 440]}
+      sizes="100px"
+      class="funnel-bar__logo-img"
+    />
+  </div>
+</header>
+
+<style>
+  .funnel-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--funnel-bar-h, 50px);
+    padding: 0 16px;
+    background: var(--colour-surface);
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 0.1);
+    z-index: 5;
+  }
+
+  .funnel-bar__logo {
+    width: 100px;
+    height: 30px;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .funnel-bar__logo :global(.funnel-bar__logo-img) {
+    height: 30px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .funnel-bar__back {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    margin-top: -22px;
+    padding: 6px 12px;
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    font: 500 15px/1 var(--font-body);
+    color: #333;
+    cursor: pointer;
+  }
+
+  .funnel-bar__back[hidden] {
+    display: none;
+  }
+
+  .funnel-bar__back:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: 2px;
+  }
+
+  @media (hover: hover) {
+    .funnel-bar__back:hover :global(svg) {
+      transform: translateX(-2px);
+    }
+  }
+
+  /* Phones: once the quiz starts the logo sits beside Back, as on the reference. */
+  @media (max-width: 1023px) {
+    :global(html[data-quiz-started]) .funnel-bar {
+      justify-content: flex-start;
+    }
+
+    :global(html[data-quiz-started]) .funnel-bar__logo {
+      margin-left: 92px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .funnel-bar__logo {
+      transition: none;
+    }
+  }
+</style>

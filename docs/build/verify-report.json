@@ -218,5 +218,225 @@
     "name": "preset: no page errors",
     "pass": true,
     "detail": ""
+  },
+  {
+    "name": "quiz: the quiz is the only section",
+    "pass": true,
+    "detail": "quiz"
+  },
+  {
+    "name": "quiz: funnel bar replaces the header, with no phone link",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: body and display fonts are preloaded",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: the not-a-fit route is built for this preset only",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: dots, eyebrow, headline, paragraph and button all fit the 390x664 first screen",
+    "pass": true,
+    "detail": ".quiz__progress 78-102, .quiz__eyebrow 130-151, .quiz__headline 170-239, .quiz__lede 269-404, .quiz__btn--start 430-495"
+  },
+  {
+    "name": "quiz: one screen visible, the rest hidden and inert",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: Back is hidden on the intro",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: no horizontal overflow",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: the first button starts the questions and fires QuizStart",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: Back appears once the quiz has started",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: one dot lit on question one",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: Continue is disabled until there is an answer",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: inputs are 16px or larger",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: Back returns to the previous screen",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: the first name is written into the next question",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: a bad email shows an inline error and stays put",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: first name and email are sent as a partial lead after the email step",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: QuizEmail and QuizStep events fire",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: option cards have no Continue button",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: a tap on an option card moves on by itself",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: multi-select Continue is disabled until one is ticked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: ticking one enables Continue",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: a preselected select has Continue enabled on arrival",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: arrow keys change a choice without advancing; Enter advances",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: every tap target is at least 44px",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: one dot lights per question and the row is full before the end",
+    "pass": true,
+    "detail": "7:7 8:8 9:9 10:10 11:10 12:10 13:10 14:10 15:10 16:10 17:10"
+  },
+  {
+    "name": "quiz: the scale has ten buttons graded from grey to the brand colour",
+    "pass": true,
+    "detail": "rgb(230, 230, 230) to rgb(207, 241, 40)"
+  },
+  {
+    "name": "quiz: first name and website arrive filled in on the contact step",
+    "pass": true,
+    "detail": "{\"first_name_confirm\":\"Jordan\",\"last_name\":\"\",\"phone\":\"\",\"company\":\"\",\"website_confirm\":\"example.com.au\"}"
+  },
+  {
+    "name": "quiz: empty submit shows an error under each empty required field",
+    "pass": true,
+    "detail": "last_name,phone,company"
+  },
+  {
+    "name": "quiz: a bad phone number is rejected",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: the loader counts up and ticks its lines",
+    "pass": true,
+    "detail": "21%, 1 line(s) reached"
+  },
+  {
+    "name": "quiz: the lead is sent with every answer, the score, the page URL and UTM",
+    "pass": true,
+    "detail": "score 88, 27 keys"
+  },
+  {
+    "name": "quiz: QualifiedLead fires on submit when the score reaches the threshold",
+    "pass": true,
+    "detail": "score 88"
+  },
+  {
+    "name": "quiz: Lead fires once on the thank-you page",
+    "pass": true,
+    "detail": "init:000000000000000,track:PageView,track:Lead"
+  },
+  {
+    "name": "quiz: Lead does not fire again on refresh",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: no page errors through the whole funnel",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: a screening answer lands on the not-a-fit page",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: a filled honeypot skips the send",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: the exit prompt opens once on desktop and closes with Escape",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "quiz: radio lists run two columns on desktop",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "minus media: the first screen fits 390x664 with real copy",
+    "pass": true,
+    "detail": "button ends at 522"
+  },
+  {
+    "name": "minus media: button text on the brand blue reaches 4.5:1",
+    "pass": true,
+    "detail": "6.5"
+  },
+  {
+    "name": "minus media: a config with fewer steps walks through to the contact step",
+    "pass": true,
+    "detail": "intro > first_name > email > sells > marketing > location > website > about > revenue > revenue_goal > obstacle > timing > commitment > heard > promise > contact"
+  },
+  {
+    "name": "minus media: submit reaches the thank-you page with no page errors",
+    "pass": true,
+    "detail": ""
   }
 ]

@@ -26,11 +26,15 @@ const colourVars = Object.entries(brand.colours)
 const tokenVars = Object.entries(brand.tokens || {})
   .filter(([key, value]) => value && /^[a-z0-9-]+$/i.test(key))
   .map(([key, value]) => `--${key}:${value}`);
-const fontFiles: Record<string, string> = { Manrope: 'manrope-latin.woff2', 'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2' };
+const fontFiles: Record<string, string> = { Manrope: 'manrope-latin.woff2', 'Plus Jakarta Sans': 'plus-jakarta-sans-latin.woff2', Inter: 'inter-latin.woff2', Anton: 'anton-latin.woff2' };
 const fallbackFor = (family: string) => (fontFiles[family] ? `'${family} Fallback'` : "'Manrope Fallback'");
 const fontVars = [`--font-body:'${brand.fonts.family}',${fallbackFor(brand.fonts.family)},system-ui,sans-serif`];
 if (brand.fonts.headingFamily) fontVars.push(`--font-heading:'${brand.fonts.headingFamily}',${fallbackFor(brand.fonts.headingFamily)},system-ui,sans-serif`);
+if (brand.fonts.displayFamily) fontVars.push(`--font-display:'${brand.fonts.displayFamily}',${fallbackFor(brand.fonts.displayFamily)},system-ui,sans-serif`);
 const fontPreload = fontFiles[brand.fonts.family] ?? 'manrope-latin.woff2';
+// A separate heading family is on the first screen too, so it is preloaded as well.
+const firstScreenFamily = brand.fonts.displayFamily || brand.fonts.headingFamily;
+const headingPreload = firstScreenFamily && firstScreenFamily !== brand.fonts.family ? fontFiles[firstScreenFamily] : undefined;
 
 const texture = resolveImage(brand.texture.src);
 let textureVars: string[] = [];
@@ -71,6 +75,7 @@ if (og.status === 'ok') {
     {ogUrl && <meta property="og:image" content={ogUrl} />}
     <meta name="format-detection" content="telephone=yes" />
     <link rel="preload" href={`/fonts/${fontPreload}`} as="font" type="font/woff2" crossorigin />
+    {headingPreload && <link rel="preload" href={`/fonts/${headingPreload}`} as="font" type="font/woff2" crossorigin />}
     {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes="100vw" fetchpriority="high" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <MetaPixel />

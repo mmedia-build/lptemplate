@@ -39,6 +39,7 @@ function sectionPresent(pathExpr) {
 }
 
 /** Resolves a spec path to one or more [label, text] pairs. */
+const absentNamed = new Set();
 function resolve(pathExpr) {
   const results = [];
   const walk = (obj, parts, label) => {
@@ -62,6 +63,8 @@ function resolve(pathExpr) {
         walk(arr[Number(sel)], rest, `${label}${key}[${sel}].`);
       } else {
         const item = arr.find((x) => x?.name === sel);
+        // A named item (a quiz step) that this config does not have is skipped, like a section it does not have.
+        if (!item) absentNamed.add(pathExpr);
         walk(item, rest, `${label}${key}[${sel}].`);
       }
       return;
@@ -84,15 +87,19 @@ for (const slot of textSlots) {
   }
   const found = resolve(slot.path);
   if (!found.length) {
-    const optional = ['cta.reinforcement', 'sections[offerForm].content.lead'].includes(slot.path);
-    rows.push([optional ? 'skip' : 'MISSING', slot.path, '', `${slot.chars}`, optional ? 'optional, not set' : '']);
+    const optional = ['cta.reinforcement', 'sections[offerForm].content.lead'].includes(slot.path)
+      || absentNamed.has(slot.path)
+      || /\.(pill|sub|note|dictateLabel|description)$|^notFit\.|\.exitPrompt\./.test(slot.path);
+    rows.push([optional ? 'skip' : 'MISSING', slot.path, '', `${slot.chars}`, optional ? (absentNamed.has(slot.path) ? 'step not in this config' : 'optional, not set') : '']);
     if (!optional) failures++;
     continue;
   }
-  for (const [label, text] of found) {
+  for (const [label, raw] of found) {
+    // The first-name token is replaced at run time, so it is not part of the length.
+    const text = raw.replace(/\{name(?:\|[^}]*)?\}/g, '');
     const len = text.length;
     const problems = [];
-    if (len === 0 && ['urgency.line', 'cta.reinforcement'].includes(slot.path)) {
+    if (len === 0 && (['urgency.line', 'cta.reinforcement'].includes(slot.path) || /\.exitPrompt\.(disclaimer|headline|body|cta)$/.test(slot.path))) {
       rows.push(['ok', label, '0', `${slot.chars} (optional)`, 'empty by design']);
       continue;
     }

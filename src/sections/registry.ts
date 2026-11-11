@@ -27,6 +27,7 @@ import Statement from './Statement.astro';
 import BeforeAfterGrid from './BeforeAfterGrid.astro';
 import LogoGrid from './LogoGrid.astro';
 import Faq from './Faq.astro';
+import Quiz from './Quiz.astro';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const registry: Record<SectionType, (props: any) => any> = {
@@ -51,4 +52,5 @@ export const registry: Record<SectionType, (props: any) => any> = {
   beforeAfterGrid: BeforeAfterGrid,
   logoGrid: LogoGrid,
   faq: Faq,
+  quiz: Quiz,
 };

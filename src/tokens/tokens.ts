@@ -57,6 +57,10 @@ export const imageSpecs = {
   testimonialPortrait: spec(680, 960, 'Portrait 17:24. Rendered 358x386 (mobile, cropped) and 255x332 (desktop) in the carousel layout.'),
   stepRowImage: spec(1140, 656, 'Landscape 7:4. Rendered 358x206 (mobile) and 569x328 (desktop), cover, in the rows layout.'),
   decorative: spec(948, 700, 'Line drawing or diagram on transparent, for example a floor plan. Rendered 308x225 (mobile) and 474x347 (desktop).'),
+  /* Slots introduced by reference C */
+  offerProof: spec(500, 80, 'Row of client logos or customer faces on transparent. Rendered 250x40 under the button on an offer card.'),
+  exitPromptImage: spec(1160, 652, 'Landscape 16:9. Rendered up to 580x326 in the exit prompt. Optional; the prompt works without it.'),
+  notFitResource: spec(600, 400, 'Landscape 3:2. Rendered 293x195 (mobile) on a resource card on the not-a-fit page. Optional.'),
 } as const;
 
 export type ImageSlotKey = keyof typeof imageSpecs;

@@ -1,0 +1,152 @@
+---
+/**
+ * The page a screened-out visitor lands on (reference C sends low-fit answers
+ * to a "not eligible" page with something free to take away). Built only when
+ * the config has `notFit` and a quiz section with a `notFitPath`; every other
+ * config produces no such route.
+ */
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FunnelBar from '../components/FunnelBar.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { site } from '../lib/site.ts';
+import { imageSpecs } from '../tokens/tokens.ts';
+
+export function getStaticPaths() {
+  const quiz = site.sections.find((s) => s.enabled && s.type === 'quiz');
+  const path = quiz?.type === 'quiz' ? quiz.content.notFitPath.replace(/^\/|\/$/g, '') : '';
+  return site.notFit && path ? [{ params: { notfit: path } }] : [];
+}
+
+const notFit = site.notFit!;
+const funnel = site.layout?.chrome === 'funnel';
+---
+
+<Base title={notFit.seoTitle} description={site.seo.description}>
+  {funnel ? <FunnelBar /> : <Header overlay={false} />}
+  <main class="notfit">
+    <div class="notfit__inner">
+      <h1 class="notfit__headline">{notFit.headline}</h1>
+      <p class="notfit__body">{notFit.body}</p>
+      <ul class="notfit__cards">
+        {notFit.resources.map((r, i) => (
+          <li class="notfit__card">
+            <ImageSlot image={r.image} slotId={`notFit.resources[${i}].image`} spec={imageSpecs.notFitResource} description="optional picture of the free resource" placeholder={false} widths={[300, 600]} sizes="(min-width: 1024px) 300px, 90vw" class="notfit__image" />
+            <h2 class="notfit__title">{r.title}</h2>
+            <p class="notfit__text">{r.body}</p>
+            {r.href && <a class="notfit__link" href={r.href} rel="noopener">{r.linkLabel}</a>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </main>
+  <Footer compact={funnel} />
+</Base>
+
+<style>
+  .notfit {
+    background: var(--colour-surface-muted);
+    padding: 40px 0 60px;
+    min-height: calc(100svh - var(--funnel-bar-h, 50px));
+  }
+
+  .notfit__inner {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    padding-inline: 15px;
+  }
+
+  .notfit__headline {
+    margin: 0 0 10px;
+    font-family: var(--font-body);
+    font-size: 28px;
+    line-height: 1.22;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--colour-heading);
+  }
+
+  .notfit__body {
+    margin: 0 0 28px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .notfit__cards {
+    display: grid;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .notfit__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 24px 17px;
+    background: var(--colour-surface);
+    border-radius: 16px;
+    box-shadow: 1px 2px 6px rgb(0 0 0 / 0.08);
+  }
+
+  .notfit__card :global(.notfit__image) {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .notfit__title {
+    font-family: var(--font-body);
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--colour-heading);
+  }
+
+  .notfit__text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .notfit__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    margin-top: 8px;
+    padding: 0 28px;
+    background: var(--colour-heading);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .notfit__link:focus-visible {
+    outline: 3px solid var(--colour-focus);
+    outline-offset: 3px;
+  }
+
+  @media (min-width: 1024px) {
+    .notfit {
+      padding-top: 70px;
+    }
+
+    .notfit__headline {
+      font-size: 40px;
+    }
+
+    .notfit__body {
+      font-size: 18px;
+    }
+
+    .notfit__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

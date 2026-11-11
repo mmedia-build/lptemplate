@@ -104,4 +104,8 @@ export const guideNotes: Record<SectionType | 'header' | 'footer', GuideNoteText
     job: 'Close the page without offering an exit: logo, copyright and legal text in modals.',
     principle: 'Completeness and compliance without leaking attention.',
   },
+  quiz: {
+    job: 'Be the whole page: restate the ad\'s offer on one screen, then ask one question per screen (easy first, money in the middle, effort late, phone number last) and hand a qualified, committed lead to the calendar.',
+    principle: 'Commitment and consistency: a small first tap, visible progress that fills early, answers in the visitor\'s own words, a promise to show up, and a "you qualified" moment before the contact details.',
+  },
 };

@@ -17,6 +17,13 @@ export function track(event: 'PageView' | 'Lead' | 'Contact', params?: Record<st
   else window.fbq('track', event);
 }
 
+/** Custom pixel events used by the quiz funnel (QuizStart, QuizStep, QuizEmail, QualifiedLead). No-op without a pixel. */
+export function trackCustom(event: string, params?: Record<string, unknown>): void {
+  if (typeof window.fbq !== 'function') return;
+  if (params) window.fbq('trackCustom', event, params);
+  else window.fbq('trackCustom', event);
+}
+
 /** Fires Contact on every click of a phone link. Delegated, so it also covers links added later. */
 export function trackPhoneClicks(): void {
   document.addEventListener('click', (event) => {

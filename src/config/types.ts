@@ -13,7 +13,10 @@ export interface ImageRef {
 export type IconName =
   | 'pin' | 'cog' | 'trowel' | 'target' | 'hardhat' | 'house' | 'handshake'
   | 'document' | 'wheelbarrow' | 'sparkle' | 'clipboard' | 'layers' | 'shield'
-  | 'calendar' | 'ruler' | 'truck' | 'person' | 'mail' | 'phone' | 'dollar' | 'none';
+  | 'calendar' | 'ruler' | 'truck' | 'person' | 'mail' | 'phone' | 'dollar'
+  /* added with reference C (quiz option icons) */
+  | 'megaphone' | 'search' | 'video' | 'chat' | 'people' | 'broadcast' | 'briefcase' | 'box' | 'leaf' | 'tools' | 'ban'
+  | 'none';
 
 export interface Business {
   name: string;
@@ -45,6 +48,12 @@ export interface Brand {
     family: string;
     /** Optional heading family. Defaults to the body family. */
     headingFamily?: string;
+    /**
+     * Optional display family for the quiz funnel's big headline, offer titles and exit prompt only
+     * (reference C sets these in a condensed heavy face while every question stays in the body font).
+     * Defaults to the heading family. 'Anton' is bundled.
+     */
+    displayFamily?: string;
   };
   /** Optional texture image for the "dark" sections, under src/images. Empty uses the generated plaster texture. */
   texture: ImageRef;
@@ -75,6 +84,11 @@ export interface Proof {
 export interface Tracking {
   /** Meta pixel ID. Empty means no pixel code is output at all. */
   metaPixelId: string;
+  /**
+   * Optional. Lead score (0 to 100) at or above which the quiz fires the custom pixel event
+   * "QualifiedLead" on submit. Leave unset to never fire it. Reference C uses 60.
+   */
+  qualifiedLeadScore?: number;
 }
 
 export type FieldType = 'text' | 'email' | 'tel' | 'postcode' | 'textarea' | 'select';
@@ -364,6 +378,151 @@ export interface FaqContent {
   showCta?: boolean;
 }
 
+
+/* ------------------------------------------------------------------------------------------
+ * Reference C: the quiz funnel. One section that is the whole page: an intro screen, then one
+ * question per screen, then the contact step, a loader and the hand-off to the calendar.
+ * See docs/teardown-c.md. Text in `question`, `sub`, `note` and `pill` may contain the token
+ * {name}, replaced with the first name typed at the step whose `name` is "first_name"
+ * (with a leading space when it follows a word, nothing when it is empty).
+ * ---------------------------------------------------------------------------------------- */
+
+export interface QuizOption {
+  /** Shown on the pill or card. */
+  label: string;
+  /** Sent to the CRM. Defaults to the label. */
+  value?: string;
+  /** Second line on an option card. */
+  description?: string;
+  icon?: IconName;
+  /** Optional second icon, overlapped, on a multi-select pill. */
+  icon2?: IconName;
+  /** Emoji shown large on a yes/no card. Decorative. */
+  emoji?: string;
+  /** Points added to the lead score when chosen. */
+  score?: number;
+  /** Choosing this sends the visitor to quiz.notFitPath instead of the next step. */
+  disqualify?: boolean;
+}
+
+export interface QuizStepBase {
+  /** Key the answer is sent under. Unique in the quiz. Also the id the content checker measures by. */
+  name: string;
+  /** Optional small pill above the question (a red dot and a short line), used late in the quiz. */
+  pill?: string;
+  /** The question. One per screen. */
+  question: string;
+  /** Optional paragraph under the question, for example why you are asking. */
+  sub?: string;
+  /** Optional small bracketed note under the question. */
+  note?: string;
+}
+
+export type QuizStep =
+  | (QuizStepBase & { kind: 'text'; placeholder: string; label: string; autocomplete?: string; inputmode?: 'text' | 'url' | 'tel' | 'numeric'; minLength?: number })
+  | (QuizStepBase & { kind: 'email'; placeholder: string; label: string })
+  | (QuizStepBase & { kind: 'longtext'; placeholder: string; label: string; rows?: number; minLength?: number; /** Label on the dictate chip. Empty hides the chip. Shown only where the browser supports speech recognition. */ dictateLabel?: string })
+  | (QuizStepBase & { kind: 'cards'; options: QuizOption[] })
+  | (QuizStepBase & { kind: 'choice'; options: QuizOption[] })
+  | (QuizStepBase & { kind: 'multi'; options: QuizOption[]; /** Points added once when any of these values is ticked. */ scoreAny?: { values: string[]; score: number } })
+  | (QuizStepBase & { kind: 'select'; label: string; /** First, unselectable option. */ prompt: string; options: QuizOption[]; /** Value preselected on load, so Continue is live at once. */ preselect?: string; /** Label of the option that reveals a free-text input. */ otherOption?: string; otherPlaceholder?: string })
+  | (QuizStepBase & { kind: 'scale'; min: number; max: number; /** Answers at or below this are sent to quiz.notFitPath. */ disqualifyAtOrBelow?: number; /** Points by threshold, highest first, for example [[9, 10], [7, 6], [5, 3]]. */ scoreBands?: Array<[number, number]> })
+  | (QuizStepBase & { kind: 'yesno'; options: QuizOption[] })
+  | (QuizStepBase & { kind: 'offers'; offers: QuizOffer[] });
+
+/** A tall card at the "which of these suits you" step (reference C offers two). */
+export interface QuizOffer {
+  value: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  cta: string;
+  /** Optional proof under the button: a logo row or a row of faces, and one line. */
+  proofImage?: ImageRef;
+  proofLine?: string;
+  score?: number;
+  disqualify?: boolean;
+}
+
+export interface QuizContactField {
+  name: string;
+  type: 'text' | 'tel' | 'email';
+  label: string;
+  placeholder: string;
+  required: boolean;
+  autocomplete?: string;
+  /** Name of an earlier step whose answer prefills this field. */
+  prefillFrom?: string;
+}
+
+export interface QuizContent {
+  intro: {
+    /** Short uppercase line above the headline. Hand written; never looked up. */
+    eyebrow: string;
+    headline: string;
+    body: string;
+    /** Label on the first button. It starts the questions; nothing is submitted. */
+    cta: string;
+  };
+  /** How many dots the progress row shows. One lights per question, so fewer dots than questions fills the row early (reference C: 10 dots, 17 questions). */
+  progressDots: number;
+  backLabel: string;
+  continueLabel: string;
+  steps: QuizStep[];
+  /** The last screen: the only real form. */
+  contact: {
+    question: string;
+    sub: string;
+    fields: QuizContactField[];
+    submitLabel: string;
+  };
+  /** Full-screen "working on it" overlay between submit and the thank-you route. */
+  loader: {
+    enabled: boolean;
+    /** Three to five short lines ticked off in turn. */
+    lines: string[];
+    doneLine: string;
+    /** Total run time in milliseconds before the redirect (reference C: about 7,250). */
+    durationMs: number;
+  };
+  /** Post first name and email to form.destination.url as soon as the email step passes (flagged partial). Say so in the privacy policy. */
+  capturePartial: boolean;
+  /** Route for visitors an answer screens out. Empty means nobody is screened out. */
+  notFitPath: string;
+  /** Optional one-time prompt when a desktop pointer leaves through the top of the window. Omit or leave the headline empty for none. */
+  exitPrompt?: {
+    headline: string;
+    body: string;
+    cta: string;
+    disclaimer: string;
+    image: ImageRef;
+  };
+  messages: {
+    required: string;
+    email: string;
+    phone: string;
+    minLength: string;
+    choose: string;
+    generic: string;
+  };
+}
+
+/** The page a screened-out visitor lands on: a kind no, and something free to take away. */
+export interface NotFit {
+  seoTitle: string;
+  headline: string;
+  body: string;
+  resources: Array<{ title: string; body: string; linkLabel: string; href: string; image: ImageRef }>;
+}
+
+export interface Layout {
+  /**
+   * 'full' (default): logo and phone header, full footer, as references A and B.
+   * 'funnel': the slim bar of reference C (logo, Back while in the quiz, no phone) and a one-line legal footer.
+   */
+  chrome: 'full' | 'funnel';
+}
+
 export interface SectionBase {
   /** Turn a section off without deleting its content. */
   enabled: boolean;
@@ -399,7 +558,8 @@ export type SectionConfig =
   | (SectionBase & { type: 'statement'; content: StatementContent })
   | (SectionBase & { type: 'beforeAfterGrid'; content: BeforeAfterGridContent })
   | (SectionBase & { type: 'logoGrid'; content: LogoGridContent })
-  | (SectionBase & { type: 'faq'; content: FaqContent });
+  | (SectionBase & { type: 'faq'; content: FaqContent })
+  | (SectionBase & { type: 'quiz'; content: QuizContent });
 
 export type SectionType = SectionConfig['type'];
 
@@ -409,6 +569,12 @@ export interface ThankYou {
   steps: Array<{ title: string; body: string }>;
   phoneLabel: string;
   seoTitle: string;
+  /**
+   * Optional calendar on the thank-you route (reference C ends in a booking). `embedUrl` is the
+   * calendar widget URL from the booking tool (for GoHighLevel: Calendars, Share, Embed code, the
+   * iframe src). Empty shows the steps and the phone number only.
+   */
+  booking?: { embedUrl: string; title: string; height?: number };
 }
 
 export interface SiteConfig {
@@ -425,5 +591,9 @@ export interface SiteConfig {
   seo: Seo;
   footer: { copyrightSuffix: string };
   thankYou: ThankYou;
+  /** Optional page chrome. Omit for the full header and footer. */
+  layout?: Layout;
+  /** Optional page for visitors the quiz screens out. Built at quiz.notFitPath only when present. */
+  notFit?: NotFit;
   sections: SectionConfig[];
 }
